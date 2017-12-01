@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -9,17 +9,23 @@
     <link href="assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <link href="assets/css/main-style.css" rel="stylesheet" />
-    <!-- PARA INPUT FILE -->
-    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/component.css" />
-	
-		<!-- remove this if you use Modernizr -->
-		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
-    <!-- /PARA INPUT FILE -->            
+  <link href="assets/css/style.css" rel="stylesheet" />
+      <link href="assets/css/main-style.css" rel="stylesheet" />
+
+    <!-- Page-Level CSS -->
+    <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+
 </head>
+
 <body>
+<%
+    String nombre  = request.getParameter("name");
+    String cbor    = request.getParameter("cboBR");
+    String cbos    = request.getParameter("cboBS");
+    String edad    = request.getParameter("edad");
+    String descripcion    = request.getParameter("descripcion");
+    String img = request.getParameter("file-5[]");
+%>
     <!--  wrapper -->
     <div id="wrapper">
         <!-- navbar top -->
@@ -293,7 +299,7 @@
                         <a href="inicio.html"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Charts<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="flot.html">Flot Charts</a>
@@ -307,10 +313,10 @@
                      <li>
                         <a href="timeline.html"><i class="fa fa-flask fa-fw"></i>Timeline</a>
                     </li>
-                    <li>
+                    <li class="selected">
                         <a href="tables.html"><i class="fa fa-table fa-fw"></i>Tables</a>
                     </li>
-                    <li>
+                   <li>
                         <a href="forms.html"><i class="fa fa-edit fa-fw"></i>Forms</a>
                     </li>
                     <li>
@@ -328,16 +334,16 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
-                      <li  class="active">
+                     <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>Formularios<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li   class="active">
+                            <li>
                         <a href="#"><i class="fa fa-fw"></i>Adopción<span class="fa arrow"></span></a> 
-                        <ul class="nav nav-third-level">
+                         <ul class="nav nav-third-level">
                         <li>
                                 <a href="registrarDarAdopcion.jsp">RegistrarDarEnAdopción</a>
                             </li>
-                            <li class="selected">
+                            <li>
                                 <a href="listaAdopcion.jsp">ListaPerrosenAdopcion</a>
                             </li>    
                         </ul>
@@ -346,7 +352,7 @@
                              <li>
                         <a href="#"><i class="fa fa-fw"></i>Casa Refugio<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
-                            <li>
+                        <li>
                             <a href="RegistrarCasaRefugio.jsp">RegistrarCasaRefugio</a>
                             </li>
                             <li>
@@ -369,10 +375,11 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
+                  
                     <li>
                         <a href="#"><i class="fa fa-files-o fa-fw"></i>Sample Pages<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li class="selected">
+                            <li>
                                 <a href="blank.html">Blank Page</a>
                             </li>
                             <li>
@@ -381,6 +388,7 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
+                    <!--                              </MENU>                        -->
                 </ul>
                 <!-- end side-menu -->
             </div>
@@ -390,238 +398,86 @@
         <!--  page-wrapper -->
         <div id="page-wrapper">
 
+            
             <div class="row">
-                <!-- Page Header -->
+                 <!--  page header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Casas Refugio</h1>
+                    <h1 class="page-header">Lista de Adopción</h1>
                 </div>
-                <!--End Page Header -->
+                 <!-- end  page header -->
             </div>
-
-              <div class="row">
+            <div class="row">
                 <div class="col-lg-12">
-                    <!-- Form Elements -->
+                    <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Datos de Casa Refugio
+                             Lista de Perros en Adopción
                         </div>
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form">
-                                       
-                                        <%
-    String nombre  = request.getParameter("name");
-    String cbor    = request.getParameter("cboBR");
-    String cbos    = request.getParameter("cboBS");
-    String edad    = request.getParameter("edad");
-    String descripcion    = request.getParameter("descripcion");
-    String img = request.getParameter("files");
-%>
-                <table>
-                    <a href="registrarDarAdopcion.jsp">Registrar nueva adopción</a><br>
-                </table> 
-         
-        
-        
-            <form name="frmDarAdopcion" method="POST" action="listaAdopcion.jsp">
-                <table border="1"><br>
-                    <th><center>Nombre</center></th><th>Descripción</th><th>Acción</th><tr></tr>
-                    <td><%=nombre%></td>
-                    <td width="200"><center><%=descripcion%></center></td>
-                    <td><center><a href="detalleAdopcion.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descripcion%>">Ver mas</a></center></td> 
-                </table>
-                </form>
-     
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="odd gradeX">
+                                            <td><%=nombre%></td>
+                                            <td width="500"><%=descripcion%></td>
+                                            <td><a href="detalleAdopcion.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descripcion%>">Ver mas</a></td>
+                                        </tr>
                                         
-                                        <!--
-                                        <div class="form-group">
-                                            <label>Text area</label>
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Checkboxes</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 1
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 2
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Checkboxes</label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">1
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">2
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Radio Buttons</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>Radio 1
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Radio 2
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Radio 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Radio Buttons</label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked>1
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Selects</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Multiple Selects</label>
-                                            <select multiple class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit Button</button>
-                                        <button type="reset" class="btn btn-success">Reset Button</button>
-                                    </form>
-                                </div>
-                                <div class="col-lg-6">
-                                    <h1>Disabled Form States</h1>
-                                    <form role="form">
-                                        <fieldset disabled="disabled">
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled input</label>
-                                                <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled select menu</label>
-                                                <select id="disabledSelect" class="form-control">
-                                                    <option>Disabled select</option>
-                                                </select>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">Disabled Checkbox
-                                                </label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Disabled Button</button>
-                                        </fieldset>
-                                    </form>
-                                    <h1>Form Validation States</h1>
-                                    <form role="form">
-                                        <div class="form-group has-success">
-                                            <label class="control-label" for="inputSuccess">Input with success</label>
-                                            <input type="text" class="form-control" id="inputSuccess">
-                                        </div>
-                                        <div class="form-group has-warning">
-                                            <label class="control-label" for="inputWarning">Input with warning</label>
-                                            <input type="text" class="form-control" id="inputWarning">
-                                        </div>
-                                        <div class="form-group has-error">
-                                            <label class="control-label" for="inputError">Input with error</label>
-                                            <input type="text" class="form-control" id="inputError">
-                                        </div>
-                                    </form>
-                                    <h1>Input Groups</h1>
-                                    <form role="form">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">@</span>
-                                            <input type="text" class="form-control" placeholder="Username">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-eur"></i>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="Font Awesome Icon">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                        -->
-                                    </form>
-                                </div>
-                                <div class="row text-center">
-                                    <img src="assets/images/casa.png" width="450" height="450">
-                                        </div>
+                                        <tr class="odd gradeX">
+                                            <td>Doky</td>
+                                            <td width="500">El pelo es apretado, suave y brillante.El excremento de la raza no tiene olor. El pug puede ser de color leonado con sus dos variantes: color plata o albaricoque suave con un antifaz o máscara negro, en los dos casos presenta una raya negra que va de la cabeza a la cola, igual que también puede ser negro puro.</td>
+                                            <td><a href="detalleAdopcion.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descripcion%>">Ver mas</a></td>
+                                        </tr>
+                                        
+                                         <tr class="odd gradeX">
+                                            <td>Boby</td>
+                                            <td width="500">El pelo es apretado, suave y brillante.El excremento de la raza no tiene olor. El pug puede ser de color leonado con sus dos variantes: color plata o albaricoque suave con un antifaz o máscara negro, en los dos casos presenta una raya negra que va de la cabeza a la cola, igual que también puede ser negro puro.</td>
+                                            <td><a href="detalleAdopcion.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descripcion%>">Ver mas</a></td>
+                                        </tr>
+                                        
+                                         <tr class="odd gradeX">
+                                            <td>Kiara</td>
+                                            <td width="500">El pelo es apretado, suave y brillante.El excremento de la raza no tiene olor. El pug puede ser de color leonado con sus dos variantes: color plata o albaricoque suave con un antifaz o máscara negro, en los dos casos presenta una raya negra que va de la cabeza a la cola, igual que también puede ser negro puro.</td>
+                                            <td><a href="detalleAdopcion.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descripcion%>">Ver mas</a></td>
+                                        </tr>
+                                        
+                                         <tr class="odd gradeX">
+                                            <td>Chester</td>
+                                            <td width="500">El pelo es apretado, suave y brillante.El excremento de la raza no tiene olor. El pug puede ser de color leonado con sus dos variantes: color plata o albaricoque suave con un antifaz o máscara negro, en los dos casos presenta una raya negra que va de la cabeza a la cola, igual que también puede ser negro puro.</td>
+                                            <td><a href="detalleAdopcion.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descripcion%>">Ver mas</a></td>
+                                        </tr>
+                                    </tbody>
+                                    
+                                </table>
                             </div>
                             
                         </div>
-                        
                     </div>
-                     <!-- End Form Elements -->
+                    <!--End Advanced Tables -->
                 </div>
             </div>
-            
-            
-            
-
-        </div>
-        <!-- end page-wrapper -->
-
-    </div>
-    <!-- end wrapper -->
-
     <!-- Core Scripts - Include with every page -->
-    <!-- PARA INPUT FILE -->
-    <script src="assets/js/custom-file-input.js"></script>
-    <!-- /PARA INPUT FILE -->
     <script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
+    <!-- Page-Level Plugin Scripts-->
+    <script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTables-example').dataTable();
+        });
+    </script>
 
 </body>
 
 </html>
-

@@ -20,6 +20,12 @@
     <!-- /PARA INPUT FILE -->            
 </head>
 <body>
+<%
+    String nombre  = request.getParameter("nom");
+    String cbor    = request.getParameter("raza");
+    String descripcion    = request.getParameter("descrip");
+    String img    = request.getParameter("img");
+%>
     <!--  wrapper -->
     <div id="wrapper">
         <!-- navbar top -->
@@ -393,7 +399,7 @@
             <div class="row">
                 <!-- Page Header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Casas Refugio</h1>
+                    <h1 class="page-header">Detalle de Adopción</h1>
                 </div>
                 <!--End Page Header -->
             </div>
@@ -403,32 +409,34 @@
                     <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Datos de Casa Refugio
+                            Detalle de Adopción
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
-                                       
-                                        <%
-    String nombre  = request.getParameter("nom");
-    String cbor    = request.getParameter("raza");
-    String descripcion    = request.getParameter("descrip");
-    String img    = request.getParameter("img");
-%>
-                <table>
-                    <td><a href="registrarDarAdopcion.jsp">Denunciar nuevo malatrato</a></td>
-                    <td><a href="listaAdopcion.jsp">Listar Adopción</a></td><br>
-                </table> 
-            <form name="frmDarAdopcion" method="POST" action="listaAdopcion.jsp">
-                <table border="1"><br>
-                    <td><center><%=nombre%></center><td rowspan="5"><center><%=descripcion%></center></td></td><tr></tr><tr></tr><br>
-                    <td><center><img src="assets/images/clock-2560x1440.jpg" width="200px" alt=""/></center></td><tr></tr>
-
-                    <td>RAZA</td><td width="200"><center><%=cbor%></center></td>
-                        </table>
-                </form>
-                                        
+                                    <form role="form" name="frmDarAdopcion" method="POST" action="listaAdopcion.jsp">                    
+                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <tbody>
+                                        <tr class="odd gradeX">
+                                            <td><center><%=nombre%></center></td>
+                                            <td width="500"><center>Descripción</center></td>
+                                        </tr>
+                                        <tr class="odd gradeX">
+                                            <td><img src="assets/images/pug.jpg" width="200px" alt=""/></td>
+                                            <td width="500"><%=descripcion%></td>
+                                        </tr>
+                                        <tr class="odd gradeX">
+                                            <td><center>Raza</center></td>
+                                            <td><center><%=cbor%></center></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                          
+                            <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Adoptar</button>
+                                            <button type="reset" class="btn btn-primary">Cancelar</button>
+                            </div>
+                    </form>       
                                         <!--
                                         <div class="form-group">
                                             <label>Text area</label>
@@ -583,7 +591,6 @@
                                             </span>
                                         </div>
                                         -->
-                                    </form>
                                 </div>
                                 <div class="row text-center">
                                     <img src="assets/images/casa.png" width="450" height="450">
@@ -596,13 +603,8 @@
                      <!-- End Form Elements -->
                 </div>
             </div>
-            
-            
-            
-
         </div>
         <!-- end page-wrapper -->
-
     </div>
     <!-- end wrapper -->
 
@@ -615,8 +617,6 @@
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
-
 </body>
-
 </html>
 

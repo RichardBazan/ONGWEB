@@ -14,6 +14,11 @@
     <!-- PARA INPUT FILE -->
     <link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/component.css" />
+    <link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
 	
 		<!-- remove this if you use Modernizr -->
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
@@ -393,7 +398,7 @@
             <div class="row">
                 <!-- Page Header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Casas Refugio</h1>
+                    <h1 class="page-header">Registro de Adopción</h1>
                 </div>
                 <!--End Page Header -->
             </div>
@@ -403,39 +408,71 @@
                     <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Datos de Casa Refugio
+                            Datos de Adopción
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form">
+                                <div class="col-lg-6" >
+                                   <form role="form" name="frmDarAdopcion" method="POST" action="listaAdopcion.jsp">
+                            
+                            <div class="form-group">
+                                            <label>Nombre</label>
+                                            <input type="text" name="name" class="form-control" placeholder="Ingrese nombre">
+                            </div>
+                            
+                            <div class="form-group">
+                                        <label>Raza</label>
+                                          
+                                            <select class="form-control" name="cboBR">
+                                                <option value="#">:: Seleccionar ::</option>
+                                                <option value="Cocker">Cocker </option>
+                                                <option value="Pug">Pug    </option>
+                                                <option value="Otro">Otro   </option>
+                                            </select>
+                            </div>                             
                                        
-                                       <form name="frmDarAdopcion" method="POST" action="listaAdopcion.jsp">
-                <table border="1" >
-                        <td colspan="2"><center><a href="listaAdopcion.jsp">Ver lista de Adopción</a></center></td><tr><tr><br>
-                            <td colspan="2"><h1><center>Datos de Adopción</center></h1></td></tr>
-                            <td>Nombre</td><td><input type="text" name="name"></td><tr>
-                            <td>Raza  </td><td>
-                                <select name="cboBR">
-                            <option value="#">:: Seleccionar ::</option>
-                            <option value="Cocker">Cocker </option>
-                            <option value="Pug">Pug    </option>
-                            <option value="Otro">Otro   </option>
-                                </select></td></tr>
-                                <td>SEXO </td><td>
-                                 <select name="cboBS">
-                            <option value="#">:: Seleccionar ::</option>
-                            <option value="Hembra">Hembra</option>
-                            <option value="Macho">Macho </option>
-                                </select></td><tr>
-                            <td>Edad</td><td><input type="text" name="edad"></td></tr>
-                            <td>Descripción</td><td><textarea name="descripcion" placeholder="Escriba descripción aqui!" rows="3" cols="25"></textarea></td><tr>
-                                    <td><input type="file" id="files" name="files"></td></tr>  
-                                    <td><input type="submit" value="Guardar" ></td>
-                                    <td><input type="reset"  value="Cancelar"></td><tr>
-                                        <td colspan="2"><center><output id="list" name="list"></output></center></td></tr>  
-                        </table>
-                 </form>
+                            <div class="form-group">
+                                <label>Sexo</label>
+                                            <select  class="form-control"  class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" name="cboBS">
+                                                    <option value="#">:: Seleccionar ::</option>
+                                                    <option value="Hembra">Hembra</option>
+                                                    <option value="Macho">Macho </option>
+                                            </select>
+                            </div>
+                                 
+                            <div class="form-group">
+                                            <label>Edad</label>
+                                            <input type="text" name="edad" class="form-control" placeholder="Ingrese edad">
+                            </div>
+                         
+                            <div class="form-group">
+                                            <label>Descripción</label>
+                                            <textarea name="descripcion" class="form-control" placeholder="Escriba la descripción aqui!" rows="5" cols="25" maxlength="250"></textarea>
+                                            <p>Máximo 250 caractéres</p>
+                            </div>
+                            
+                            <div class="form-group">
+                                            <label>Foto</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                            <!-- PARA INPUT FILE -->
+                                            <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
+					<label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span>
+                                            <!-- PARA INPUT FILE -->
+                            </div>
+                            
+                            <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Registrar</button>
+                                            <button type="reset" class="btn btn-primary">Cancelar</button>
+                            </div>
+                                   
+                            <div class="form-group">
+                                   <output id="list" name="list"></output>        
+                            </div>
+                                   
+                                    
+                    </form>
                                         <!--
                                         <div class="form-group">
                                             <label>Text area</label>
@@ -603,10 +640,6 @@
                      <!-- End Form Elements -->
                 </div>
             </div>
-            
-            
-            
-
         </div>
         <!-- end page-wrapper -->
 
@@ -622,10 +655,16 @@
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
-
+   
 </body>
 </html>
-
+<style>
+  .thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+</style>
 <script>
    function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
@@ -655,6 +694,6 @@
       reader.readAsDataURL(f);
     }
   }
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+  document.getElementById('file-5').addEventListener('change', handleFileSelect, false);
 </script>
 

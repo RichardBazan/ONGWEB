@@ -393,7 +393,7 @@
             <div class="row">
                 <!-- Page Header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Casas Refugio</h1>
+                    <h1 class="page-header">Registro de Denuncias</h1>
                 </div>
                 <!--End Page Header -->
             </div>
@@ -403,26 +403,62 @@
                     <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Datos de Casa Refugio
+                            Datos de Denuncia   
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
-                                       
-                                       <form name="frm" method="POST" action="servProd" onsubmit="return validar()">
-            <table>
-            <td colspan="2"><h2><center>REGISTRAR PRODUCTO</center></h2></td><tr>
-            <td>ID</td><td><input type="text" name="ID"></td></tr>
-            <td>PRODUCTO</td><td><input type="text" name="PROD"></td><tr>
-            <td>CANTIDAD</td><td><input type="text" name="CANT"></td></tr>
-            <td>PRECIO</td><td><input type="text" name="PRECIO"></td><tr>
-            <td>IMAGEN</td><td><input type="file" id="files" name="files[]" multiple></td></tr>
-            <td colspan="2"><input type="submit" value="REGISTRAR"></td>
-            <td><input type="text" name="URL" value =""></td>
-            <output id="list"></output>
-            </table>
-            </form>
+                                    <form name="frm" method="POST" action="listaMaltrato.jsp"  onchange="return fileValidation()">
+                                        
+                            <div class="form-group">
+                                            <label>Titulo</label>
+                                            <input type="text" name="titulo" class="form-control" placeholder="Ingrese titulo">
+                            </div>
+                                        
+                            <div class="form-group">
+                                        <label>Raza</label>
+                                          
+                                            <select class="form-control" name="cboR">
+                                                <option value="#">:: Seleccionar ::</option>
+                                                <option value="Cocker">Cocker </option>
+                                                <option value="Pug">Pug    </option>
+                                                <option value="Otro">Otro   </option>
+                                            </select>
+                            </div>  
+                                            
+                            <div class="form-group">
+                                            <label>Dirección de acontecimiento</label>
+                                            <input type="text" name="direccion" class="form-control" placeholder="Ingrese dirección">
+                            </div>     
+                            
+                            <div class="form-group">
+                                            <label>Teléfono contacto</label>
+                                            <input type="text" name="telefono" class="form-control" placeholder="Ingrese teléfono">
+                            </div>
+                                        
+                            <div class="form-group">
+                                            <label>Descripción</label>
+                                            <textarea placeholder="Escriba descripción aqui!" rows="5" cols="25" class="form-control" name="descripcion"></textarea>
+                                            <p>Máximo 250 caractéres</p>
+                            </div>
+                     
+                            <div class="form-group">
+                                            <!-- PARA INPUT FILE -->
+                                            <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
+					<label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span>
+                                            <!-- PARA INPUT FILE -->
+                            </div>
+                                        
+                            <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Denunciar</button>
+                                            <button type="reset" class="btn btn-primary">Cancelar</button>
+                            </div>
+                                   
+                            <div class="form-group">
+                                   <output id="list" name="list"></output>        
+                            </div>
+            
+                                    </form>
                                         
                                         <!--
                                         <div class="form-group">
@@ -591,10 +627,6 @@
                      <!-- End Form Elements -->
                 </div>
             </div>
-            
-            
-            
-
         </div>
         <!-- end page-wrapper -->
 
@@ -639,9 +671,8 @@
         return function(e) {
           // Render thumbnail.
           var span = document.createElement('span');
-          span.innerHTML = ['<div id="content"><img class="thumb"  src="', e.target.result,'" title="', escape(theFile.name), '"/></div>'].join('');
+          span.innerHTML = ['<div id="content"><img class="thumb" style="width: 200px ;height: 150px" src="', e.target.result,'" title="', escape(theFile.name), '"/></div>'].join('');
           document.getElementById('list').insertBefore(span, null);
-          document.frm.URL.value.insertBefore(span, null);
         };
       })(f);
       // Read in the image file as a data URL.
@@ -649,11 +680,27 @@
     }
  
   }
-
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+  document.getElementById('file-5').addEventListener('change', handleFileSelect, false);
   
-  
-   
+ /*function fileValidation(){
+    var fileInput = document.getElementById('file-5');
+    var filePath = fileInput.value;
+    var allowedExtensions = /(.jpg|.jpeg|.png|.gif)$/i;
+    if(!allowedExtensions.exec(filePath)){
+        alert('Por favor verifique que la imagen sea .jpg|.jpeg|.png|.gif');
+        fileInput.value = '';
+        return false;
+    }else{
+        //Image preview
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('list').innerHTML = '<img src="'+e.target.result+'"/>';
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+} */
 </script>
 </html>
 
