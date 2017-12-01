@@ -331,7 +331,7 @@
                       <li  class="active">
                         <a href="#"><i class="fa fa-edit fa-fw"></i>Formularios<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li   class="active">
+                            <li>
                         <a href="#"><i class="fa fa-fw"></i>Adopción<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
                         <li>
@@ -343,7 +343,7 @@
                         </ul>
                             </li>
                             
-                             <li>
+                             <li  class="active">
                         <a href="#"><i class="fa fa-fw"></i>Casa Refugio<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
                             <li>
@@ -393,7 +393,7 @@
             <div class="row">
                 <!-- Page Header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Casas Refugio</h1>
+                    <h1 class="page-header">Detalles de Casa Refugio</h1>
                 </div>
                 <!--End Page Header -->
             </div>
@@ -403,203 +403,51 @@
                     <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Datos de Casa Refugio
+                            <a href="#"><img src="assets/images/retornar.png" width="30" height="30"></a>
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <form role="form">
-                                       
-                                        <%
-    String nombre  = request.getParameter("nom");
-    String cbor    = request.getParameter("raza");
-    String descripcion    = request.getParameter("descrip");
-    String img    = request.getParameter("img");
-%>
-                <table>
-                    <td><a href="registrarDarAdopcion.jsp">Denunciar nuevo malatrato</a></td>
-                    <td><a href="listaAdopcion.jsp">Listar Adopción</a></td><br>
-                </table> 
-            <form name="frmDarAdopcion" method="POST" action="listaAdopcion.jsp">
-                <table border="1"><br>
-                    <td><center><%=nombre%></center><td rowspan="5"><center><%=descripcion%></center></td></td><tr></tr><tr></tr><br>
-                    <td><center><img src="assets/images/clock-2560x1440.jpg" width="200px" alt=""/></center></td><tr></tr>
-
-                    <td>RAZA</td><td width="200"><center><%=cbor%></center></td>
-                        </table>
-                </form>
+                                        <div class="form-group col-lg-12 text-center">
+                                            <h2>CHINGANDO CABRON</h2>
+                                        </div>    
+                                        <div class="form-group col-lg-5">
+                                            <img src="assets/images/backdivperro4.png" width="410" height="340">
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <textarea class="form-control" rows="8" readonly="">Una casa refugio que necesita de mucha ayuda, alimentos, dinero, ropita para perros.</textarea>
+                                        </div>
+                                         <div class="form-group col-lg-6">
+                                             <p>Direccion: Av. Sucre #525 Int. 204 .</p>
+                                             <p>Teléfono contacto: 246-1254</p>
+                                             <p>Cta. Ahorro soles: 661777388994000</p>
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <button type="submit" class="btn btn-primary">DONACIONES</button>
+                                        </div>
+                                       </div>
+                                         
+                                        
+                                            
+                                        
                                         
                                         <!--
                                         <div class="form-group">
                                             <label>Text area</label>
                                             <textarea class="form-control" rows="3"></textarea>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Checkboxes</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 1
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 2
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Checkboxes</label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">1
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">2
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Radio Buttons</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>Radio 1
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Radio 2
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Radio 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Radio Buttons</label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked>1
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Selects</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Multiple Selects</label>
-                                            <select multiple class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit Button</button>
-                                        <button type="reset" class="btn btn-success">Reset Button</button>
-                                    </form>
-                                </div>
-                                <div class="col-lg-6">
-                                    <h1>Disabled Form States</h1>
-                                    <form role="form">
-                                        <fieldset disabled="disabled">
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled input</label>
-                                                <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled select menu</label>
-                                                <select id="disabledSelect" class="form-control">
-                                                    <option>Disabled select</option>
-                                                </select>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">Disabled Checkbox
-                                                </label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Disabled Button</button>
-                                        </fieldset>
-                                    </form>
-                                    <h1>Form Validation States</h1>
-                                    <form role="form">
-                                        <div class="form-group has-success">
-                                            <label class="control-label" for="inputSuccess">Input with success</label>
-                                            <input type="text" class="form-control" id="inputSuccess">
-                                        </div>
-                                        <div class="form-group has-warning">
-                                            <label class="control-label" for="inputWarning">Input with warning</label>
-                                            <input type="text" class="form-control" id="inputWarning">
-                                        </div>
-                                        <div class="form-group has-error">
-                                            <label class="control-label" for="inputError">Input with error</label>
-                                            <input type="text" class="form-control" id="inputError">
-                                        </div>
-                                    </form>
-                                    <h1>Input Groups</h1>
-                                    <form role="form">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">@</span>
-                                            <input type="text" class="form-control" placeholder="Username">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-eur"></i>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="Font Awesome Icon">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
                                         -->
-                                    </form>
-                                </div>
-                                <div class="row text-center">
-                                    <img src="assets/images/casa.png" width="450" height="450">
+                                        </form>        
                                         </div>
+                                
                             </div>
-                            
                         </div>
                         
                     </div>
                      <!-- End Form Elements -->
                 </div>
             </div>
-            
-            
-            
-
         </div>
         <!-- end page-wrapper -->
 
