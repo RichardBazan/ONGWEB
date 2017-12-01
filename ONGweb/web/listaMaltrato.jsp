@@ -358,7 +358,7 @@
                             <a href="RegistrarCasaRefugio.jsp">RegistrarCasaRefugio</a>
                             </li>
                             <li>
-                                <a href="#">ListadoCasaRefugio</a>
+                                <a href="ListadoCasaRefugio.jsp">ListadoCasaRefugio</a>
                             </li>
                         </ul>
                             </li>
