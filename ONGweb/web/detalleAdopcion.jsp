@@ -1,3 +1,7 @@
+<%@page import="DTO.DTODARADOPCION"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DAO.DAOADOPCION"%>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 
@@ -20,12 +24,6 @@
     <!-- /PARA INPUT FILE -->            
 </head>
 <body>
-<%
-    String nombre  = request.getParameter("nom");
-    String cbor    = request.getParameter("raza");
-    String descripcion    = request.getParameter("descrip");
-    String img    = request.getParameter("img");
-%>
     <!--  wrapper -->
     <div id="wrapper">
         <!-- navbar top -->
@@ -409,32 +407,44 @@
                     <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Detalle de Adopción
+                            <a href="listaAdopcion.jsp">
+                                <img src="assets/images/retornar.png" width="25px" alt=""/>Atras</a>
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" name="frmDarAdopcion" method="POST" action="listaAdopcion.jsp">                    
+                                    <form role="form" name="frmDarAdopcion" method="POST" action="adopcion_mas">                    
                          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <tbody>
-                                        <tr class="odd gradeX">
-                                            <td><center><%=nombre%></center></td>
-                                            <td width="500"><center>Descripción</center></td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td><img src="assets/images/pug.jpg" width="200px" alt=""/></td>
-                                            <td width="500"><%=descripcion%></td>
-                                        </tr>
-                                        <tr class="odd gradeX">
+                                        <%   int cod  = Integer.parseInt(request.getParameter("cod_mas"));
+                                             DAOADOPCION obj= new DAOADOPCION();
+                                            for(DTODARADOPCION x:obj.buscarDetalleAdopcion(cod)){%> 
+                                       
+                                            <tr class="odd gradeX"><br>
+                                            <td><h1><center><%=x.getNom_mas()%></center></h1></td>
+                                            </tr>
+                                           
+                                            <tr class="odd gradeX">
+                                                <td width="500"><center>Descripción</center></td><tr></tr>
+                                            <td colspan="3" style="height: 225px"><%=x.getDescrip_mas()%></td>
+                                            </tr>
+                                            
+                                            <tr class="odd gradeX">
                                             <td><center>Raza</center></td>
-                                            <td><center><%=cbor%></center></td>
-                                        </tr>
+                                            <td colspan="2"><center><%=x.getNom_raza()%></center></td>
+                                            </tr>
+                                            
+                                            <input type="hidden" name="id_mas" value="<%=cod%>">
+                                        
+                                        <%}int con=0;
+                                        for(DTODARADOPCION y:obj.buscarImgDetalleAdopcion(cod)){%>    
+                                        <td><img src="<%=y.getFoto()%>" width="250px" height="250px" alt=""/></td>
+                                        <%con++;if(con%2==0) out.print("<tr>");}%>
                                     </tbody>
-                                </table>
-                                          
+                                </table>      
                             <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Adoptar</button>
-                                            <button type="reset" class="btn btn-primary">Cancelar</button>
+                                            <button type="submit"class="btn btn-primary">Adoptar </button>
+                                            <a href="listaAdopcion.jsp"><button type="button" class="btn btn-primary">Cancelar</button></a>
                             </div>
                     </form>       
                                         <!--
@@ -619,4 +629,5 @@
     <script src="assets/scripts/siminta.js"></script>
 </body>
 </html>
+
 

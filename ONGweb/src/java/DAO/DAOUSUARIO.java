@@ -23,7 +23,11 @@ public class DAOUSUARIO {
         }
     return res;
     }
-    }
+    
+
+
+}
+    
 /*
 @nombre varchar(50), @apellido_pat varchar(50), @apellido_mat varchar(50),
 @fechaNacimiento date, @direccion varchar(50), @telefono varchar(50), @usuario varchar(50),

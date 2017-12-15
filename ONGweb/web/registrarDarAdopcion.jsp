@@ -413,27 +413,30 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6" >
-                                   <form role="form" name="frmDarAdopcion" method="POST" action="listaAdopcion.jsp">
+                                  
+                                    <form role="form" name="frmDarAdopcion" method="POST" action="darAdopcion">
                             
                             <div class="form-group">
                                             <label>Nombre</label>
-                                            <input type="text" name="name" class="form-control" placeholder="Ingrese nombre">
+                                            <input type="text" name="name" class="form-control" placeholder="Ingrese nombre" required>
                             </div>
                             
+                                  
+                                       
                             <div class="form-group">
-                                        <label>Raza</label>
-                                          
-                                            <select class="form-control" name="cboBR">
+                                        <label>Raza</label>        
+                                            <select class="form-control" name="cboBR" required>
                                                 <option value="#">:: Seleccionar ::</option>
-                                                <option value="Cocker">Cocker </option>
-                                                <option value="Pug">Pug    </option>
-                                                <option value="Otro">Otro   </option>
+                                                
+                                                  <%DAO.DAORAZA obj=new DAO.DAORAZA();
+                                                  for(DTO.DTORAZA x:obj.ListRaza()){%>  
+                                                <option value="<%=x.getCod_raza()%>"><%=x.getNom_raza()%></option><%}%>   
                                             </select>
                             </div>                             
                                        
                             <div class="form-group">
                                 <label>Sexo</label>
-                                            <select  class="form-control"  class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" name="cboBS">
+                                            <select  class="form-control" name="cboBS" required>
                                                     <option value="#">:: Seleccionar ::</option>
                                                     <option value="Hembra">Hembra</option>
                                                     <option value="Macho">Macho </option>
@@ -442,13 +445,13 @@
                                  
                             <div class="form-group">
                                             <label>Edad</label>
-                                            <input type="text" name="edad" class="form-control" placeholder="Ingrese edad">
+                                            <input type="text" name="edad" class="form-control" placeholder="Ingrese edad" required>
                             </div>
                          
                             <div class="form-group">
                                             <label>Descripción</label>
-                                            <textarea name="descripcion" class="form-control" placeholder="Escriba la descripción aqui!" rows="5" cols="25" maxlength="250"></textarea>
-                                            <p>Máximo 250 caractéres</p>
+                                            <textarea name="descripcion" class="form-control" placeholder="Escriba la descripción aqui!" rows="5" cols="25" maxlength="330" required></textarea>
+                                            <p>Máximo 330 caractéres</p>
                             </div>
                             
                             <div class="form-group">
@@ -464,7 +467,7 @@
                             
                             <div class="form-group">
                                             <button type="submit" class="btn btn-primary">Registrar</button>
-                                            <button type="reset" class="btn btn-primary">Cancelar</button>
+                                            <button type="reset"  class="btn btn-primary">Cancelar</button>
                             </div>
                                    
                             <div class="form-group">

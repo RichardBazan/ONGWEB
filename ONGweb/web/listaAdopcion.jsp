@@ -1,3 +1,4 @@
+<%@page import="DTO.DTOADOPCION"%>
 <!DOCTYPE html>
 <html>
 
@@ -15,17 +16,13 @@
     <!-- Page-Level CSS -->
     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
 
+        <script langiage="javascript" type="text/javascript">
+            function CrearEnlace(url) {
+            location.href=url;} 
+        </script>
 </head>
 
 <body>
-<%
-    String nombre  = request.getParameter("name");
-    String cbor    = request.getParameter("cboBR");
-    String cbos    = request.getParameter("cboBS");
-    String edad    = request.getParameter("edad");
-    String descripcion    = request.getParameter("descripcion");
-    String img = request.getParameter("file-5[]");
-%>
     <!--  wrapper -->
     <div id="wrapper">
         <!-- navbar top -->
@@ -415,54 +412,51 @@
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
+                                <form name="listaDarAdopcion" method="POST">
+                                        <div class="form-group">
+                                              <label>Buscar por:</label>      
+                                              <select class="form-control" style="width:150px" name="cboTenencia" onchange= "valida()">
+                                                <option value="#">:: Seleccionar ::</option>
+                                                <option value="Ong">ONG</option>
+                                                <option value="Usuario">Usuario</option>
+                                                <option value="Ambos">Ambos</option>
+                                              </select>
+                                        </div> 
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
+                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Descripción</th>
-                                            <th>Acción</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="odd gradeX">
-                                            <td><%=nombre%></td>
-                                            <td width="500"><%=descripcion%></td>
-                                            <td><a href="detalleAdopcion.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descripcion%>">Ver mas</a></td>
-                                        </tr>
-                                        
-                                        <tr class="odd gradeX">
-                                            <td>Doky</td>
-                                            <td width="500">El pelo es apretado, suave y brillante.El excremento de la raza no tiene olor. El pug puede ser de color leonado con sus dos variantes: color plata o albaricoque suave con un antifaz o máscara negro, en los dos casos presenta una raya negra que va de la cabeza a la cola, igual que también puede ser negro puro.</td>
-                                            <td><a href="detalleAdopcion.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descripcion%>">Ver mas</a></td>
-                                        </tr>
-                                        
-                                         <tr class="odd gradeX">
-                                            <td>Boby</td>
-                                            <td width="500">El pelo es apretado, suave y brillante.El excremento de la raza no tiene olor. El pug puede ser de color leonado con sus dos variantes: color plata o albaricoque suave con un antifaz o máscara negro, en los dos casos presenta una raya negra que va de la cabeza a la cola, igual que también puede ser negro puro.</td>
-                                            <td><a href="detalleAdopcion.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descripcion%>">Ver mas</a></td>
-                                        </tr>
-                                        
-                                         <tr class="odd gradeX">
-                                            <td>Kiara</td>
-                                            <td width="500">El pelo es apretado, suave y brillante.El excremento de la raza no tiene olor. El pug puede ser de color leonado con sus dos variantes: color plata o albaricoque suave con un antifaz o máscara negro, en los dos casos presenta una raya negra que va de la cabeza a la cola, igual que también puede ser negro puro.</td>
-                                            <td><a href="detalleAdopcion.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descripcion%>">Ver mas</a></td>
-                                        </tr>
-                                        
-                                         <tr class="odd gradeX">
-                                            <td>Chester</td>
-                                            <td width="500">El pelo es apretado, suave y brillante.El excremento de la raza no tiene olor. El pug puede ser de color leonado con sus dos variantes: color plata o albaricoque suave con un antifaz o máscara negro, en los dos casos presenta una raya negra que va de la cabeza a la cola, igual que también puede ser negro puro.</td>
-                                            <td><a href="detalleAdopcion.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descripcion%>">Ver mas</a></td>
-                                        </tr>
-                                    </tbody>
-                                    
+                                     </thead>
+                                     
+                                     <tbody>
+                                         <% String descrip_adop;
+                                            DAO.DAOADOPCION  obj=new DAO.DAOADOPCION();
+                                            for(DTO.DTODARADOPCION x:obj.readAll()){
+                                            for(DTO.DTODARADOPCION y:obj.readImgAll(x.getCod_dar_adop())){
+                                            if(x.getDescrip_mas().length() <= 147){ 
+                                                descrip_adop = x.getDescrip_mas().substring(0,x.getDescrip_mas().length());}
+                                            else{
+                                                descrip_adop = x.getDescrip_mas().substring(0,x.getDescrip_mas().length()/2)+"...";}%>
+                                       
+                                             <tr class="odd gradeX" onClick="CrearEnlace('detalleAdopcion.jsp?cod_mas=<%=x.getCod_dar_adop()%>')"> 
+                                           
+                                             <td><h2><b><center><%=x.getNom_mas()%></center></b></h2><center><img src="<%=y.getFoto()%>" width="180" height="154"></center></td>
+                                
+                                             <td width="500"><br><br><%=descrip_adop%></td>
+                                              
+                                             </tr><%}}%>  
+                                     </tbody>
                                 </table>
+                             </form>
                             </div>
-                            
                         </div>
                     </div>
                     <!--End Advanced Tables -->
                 </div>
             </div>
+        </div>
     <!-- Core Scripts - Include with every page -->
     <script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
@@ -476,8 +470,15 @@
         $(document).ready(function () {
             $('#dataTables-example').dataTable();
         });
+      
+          function valida(){ 
+            valor=document.listaDarAdopcion.cboTenencia.value; 
+            if(valor==='Ong'){
+             location.href = 'listaxONG.jsp?valor=Ong';}
+            if (valor ==='Usuario'){
+             location.href = 'listaxUsuario.jsp?valor=Usuario';}
+            if (valor ==='Ambos'){
+             location.href  = 'listaAdopcion.jsp';}}
     </script>
-
 </body>
-
 </html>

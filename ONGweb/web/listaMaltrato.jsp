@@ -9,25 +9,19 @@
     <link href="assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
-  <link href="assets/css/style.css" rel="stylesheet" />
-      <link href="assets/css/main-style.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/main-style.css" rel="stylesheet" />
 
     <!-- Page-Level CSS -->
     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
 
+     <script langiage="javascript" type="text/javascript">
+            function CrearEnlace(url) {
+            location.href=url;}
+     </script>
 </head>
 
 <body>
-<%
-    String nombre  = request.getParameter("titulo");
-    String cbor    = request.getParameter("cboR");
-    String direcc  = request.getParameter("direccion");
-    String telefono = request.getParameter("telefono");
-    String descrip    = request.getParameter("descripcion");
-    String img    = request.getParameter("file-5");
-%>
-
-
     <!--  wrapper -->
     <div id="wrapper">
         <!-- navbar top -->
@@ -417,49 +411,40 @@
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
+                               <form name="frmlistaDenuncia" method="POST">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
+                                     <thead>
+                                         <tr class="odd gradeX">
                                             <th>Nombre</th>
                                             <th>Descripción</th>
                                             <th>Acción</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="odd gradeX">
-                                            <td><%=nombre%></td>
-                                            <td width="500"><%=descrip%></td>
-                                            <td><a href="detalleMaltrato.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descrip%>">Ver mas</a></td>
-                                        </tr>
-                                        
-                                        <tr class="odd gradeX">
-                                            <td>Doky</td>
-                                            <td width="500">El pelo es apretado, suave y brillante.El excremento de la raza no tiene olor. El pug puede ser de color leonado con sus dos variantes: color plata o albaricoque suave con un antifaz o máscara negro, en los dos casos presenta una raya negra que va de la cabeza a la cola, igual que también puede ser negro puro.</td>
-                                            <td><a href="detalleMaltrato.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descrip%>">Ver mas</a></td>
-                                        </tr>
-                                        
-                                         <tr class="odd gradeX">
-                                            <td>Boby</td>
-                                            <td width="500">El pelo es apretado, suave y brillante.El excremento de la raza no tiene olor. El pug puede ser de color leonado con sus dos variantes: color plata o albaricoque suave con un antifaz o máscara negro, en los dos casos presenta una raya negra que va de la cabeza a la cola, igual que también puede ser negro puro.</td>
-                                            <td><a href="detalleMaltrato.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descrip%>">Ver mas</a></td>
-                                        </tr>
-                                        
-                                         <tr class="odd gradeX">
-                                            <td>Kiara</td>
-                                            <td width="500">El pelo es apretado, suave y brillante.El excremento de la raza no tiene olor. El pug puede ser de color leonado con sus dos variantes: color plata o albaricoque suave con un antifaz o máscara negro, en los dos casos presenta una raya negra que va de la cabeza a la cola, igual que también puede ser negro puro.</td>
-                                            <td><a href="detalleMaltrato.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descrip%>">Ver mas</a></td>
-                                        </tr>
-                                        
-                                         <tr class="odd gradeX">
-                                            <td>Chester</td>
-                                            <td width="500">El pelo es apretado, suave y brillante.El excremento de la raza no tiene olor. El pug puede ser de color leonado con sus dos variantes: color plata o albaricoque suave con un antifaz o máscara negro, en los dos casos presenta una raya negra que va de la cabeza a la cola, igual que también puede ser negro puro.</td>
-                                            <td><a href="detalleMaltrato.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descrip%>">Ver mas</a></td>
-                                        </tr>
-                                    </tbody>
-                                    
+                                     </thead>
+                                     
+                                     <tbody>
+                                         <%String descrip_den;
+                                            DAO.DAODENUNCIA  obj=new DAO.DAODENUNCIA();
+                                            for(DTO.DTODENUNCIA x:obj.readAll()){
+                                            for(DTO.DTODENUNCIA y:obj.readImgAll(x.getCod_den())){
+                                            if(x.getDescrip_den().length() <= 147){ 
+                                                descrip_den = x.getDescrip_den().substring(0,x.getDescrip_den().length());}
+                                            else{
+                                                descrip_den = x.getDescrip_den().substring(0,x.getDescrip_den().length()/2)+"...";}%>   
+                                                
+                                        <tr class="odd gradeX" onClick="CrearEnlace('detalleMaltrato.jsp?cod_den=<%=x.getCod_den()%>')">
+                                            
+                                            <td><h2><b><center><%=x.getTitulo_den()%></center></b></h2><center><img src="<%=y.getFoto_den()%>" width="180" height="154"></center></td>
+                               
+                                             <td width="500"><br><br><br><%=descrip_den%></td>
+                                            
+                                             <td><center><br><br><a href="comentariosDenuncia.jsp?cod_den=<%=x.getCod_den()%>"> 
+                                             <img src="assets/images/commenting_icon-icons.com_70233.png" width="150"  alt=""/></a></center></td>
+                                            
+                                        </tr><%}}%> 
+                                     </tbody>
                                 </table>
-                            </div>
-                            
+                             </form>
+                            </div> 
                         </div>
                     </div>
                     <!--End Advanced Tables -->
@@ -481,5 +466,4 @@
     </script>
 
 </body>
-
 </html>

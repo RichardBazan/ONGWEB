@@ -1,3 +1,6 @@
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="DTO.DTODENUNCIA"%>
+<%@page import="DAO.DAODENUNCIA"%>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 
@@ -409,28 +412,38 @@
                     <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Detalle de Adopción
+                            <a href="listaMaltrato.jsp">
+                                <img src="assets/images/retornar.png" width="25px" alt=""/>Atras</a>
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" name="frmdetalleMaltrato" method="POST" action="detalleMaltrato.jsp">                    
+                                     <form role="form" name="frmdetalleMaltrato" method="POST">                    
                          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <tbody>
+                                        <%   int cod_d  = Integer.parseInt(request.getParameter("cod_den"));
+                                             DAODENUNCIA obj= new DAODENUNCIA();
+                                        for(DTODENUNCIA x:obj.buscarDetalleDenuncia(cod_d)){
+                                        %> 
+                                       
                                         <tr class="odd gradeX">
-                                            <td><center><%=nombre%></center></td>
-                                            <td width="500"><center>Descripción</center></td>
+                                            <td><h1><center><%=x.getTitulo_den()%></center></h1></td>
                                         </tr>
                                         <tr class="odd gradeX">
-                                            <td><img src="assets/images/pug.jpg" width="200px" alt=""/></td>
-                                            <td width="500"><%=descripcion%></td>
+                                                <td width="500"><center>Descripción</center></td><tr></tr>
+                                            <td colspan="3" style="height: 225px"><%=x.getDescrip_den()%></td>
                                         </tr>
+                                        
                                         <tr class="odd gradeX">
                                             <td><center>Raza</center></td>
-                                            <td><center><%=cbor%></center></td>
+                                            <td colspan="2"><center><%=x.getNom_raza()%></center></td>
                                         </tr>
+                                        <%}int con=0;
+                                           for(DTODENUNCIA x:obj.buscarImgDetalleAdopcion(cod_d)){%>
+                                           <td><img src="<%=x.getFoto_den()%>" width="250px" height="250px" alt=""/></td>                                     
+                                        <%con++;if(con%2==0) out.print("<tr>");}%>
                                     </tbody>
-                                </table>
+                        </table>      
                     </form>       
                                         <!--
                                         <div class="form-group">
