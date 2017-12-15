@@ -2,13 +2,13 @@ package DTO;
 
 public class DTOUSUARIO {
 
-private int codigo;
-private String nombre,apellido_pat,apellido_mat,fechaNacimiento,direccion,telefono,usuario,contraseña,foto;
+    private Integer codigo;
+    private String nombre,apellido_pat,apellido_mat,fechaNacimiento,direccion,telefono,usuario,contraseña,foto;
 
     public DTOUSUARIO() {
     }
 
-    public DTOUSUARIO(int codigo, String nombre, String apellido_pat, String apellido_mat, String fechaNacimiento, String direccion, String telefono, String usuario, String contraseña, String foto) {
+    public DTOUSUARIO(Integer codigo, String nombre, String apellido_pat, String apellido_mat, String fechaNacimiento, String direccion, String telefono, String usuario, String contraseña, String foto) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellido_pat = apellido_pat;
@@ -21,11 +21,11 @@ private String nombre,apellido_pat,apellido_mat,fechaNacimiento,direccion,telefo
         this.foto = foto;
     }
 
-    public int getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 
@@ -100,5 +100,6 @@ private String nombre,apellido_pat,apellido_mat,fechaNacimiento,direccion,telefo
     public void setFoto(String foto) {
         this.foto = foto;
     }
-   
+
+    
 }

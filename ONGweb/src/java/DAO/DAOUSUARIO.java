@@ -2,6 +2,7 @@ package DAO;
 import DTO.DTOUSUARIO;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import org.apache.commons.codec.digest.DigestUtils;
 public class DAOUSUARIO {
     
     public static int agregarNuevoUsuario(DTOUSUARIO dtousuario){
@@ -18,10 +19,37 @@ public class DAOUSUARIO {
         cst.setString(8,dtousuario.getContraseña());
         cst.setString(9,dtousuario.getFoto());
         res = cst.executeUpdate();
-        } catch (Exception e) {
-        JOptionPane.showMessageDialog(null,e.toString());
+        } catch (SQLException e) {
+        System.err.println(e.toString());;
         }
     return res;
+    }
+    
+    public static DTOUSUARIO buscarUsuario(String usuario,String contraseña){
+        ResultSet rs = null;
+        DTOUSUARIO user = null;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call buscarUsuario(?,?)}");
+            cst.setString(1, usuario);
+            cst.setString(2, contraseña);
+            rs = cst.executeQuery();
+            if (rs.next()){
+                user = new DTOUSUARIO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10));
+            }              
+        } catch (SQLException e) {
+        System.err.println(e.toString());;
+        }
+        return user;
+    }
+    
+    public static String encriptarContraseña(String contraseña){
+        String encriptado=null;
+        try {
+            encriptado = DigestUtils.md5Hex(contraseña);       
+        } catch (NullPointerException e) {
+            System.out.println(e.toString());
+        }
+        return encriptado;
     }
     }
 /*

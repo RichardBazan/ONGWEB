@@ -19,6 +19,39 @@
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
     <!-- /PARA INPUT FILE -->            
 </head>
+
+<%!
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="";
+   %>
+
+<%
+    HttpSession ses = request.getSession();
+    if (ses.getAttribute("datosUsuario")!=null){
+         String[] datosUsuario = (String[])ses.getAttribute("datosUsuario");
+         nombreUsuario = datosUsuario[0];
+         primeraLetraApellidoPat = datosUsuario[1];
+         usernameUsuario = datosUsuario[2];
+     }
+    if(ses.getAttribute("resultadoRegistroCR")!=null){
+        String msje = ses.getAttribute("resultadoRegistroCR").toString();
+        if (msje.substring(0,1).equalsIgnoreCase("C")){
+            %>
+            <body onload="alertaok('<%=msje%>')">
+                <%
+        }else{
+            %>
+            <body onload="alertanot('<%=msje%>')">
+                <%
+        }
+    }else{
+        %>
+        <body>
+            <%
+        }
+    
+    ses.setAttribute("resultadoRegistroCR",null);
+%>
+
 <body>
     <!--  wrapper -->
     <div id="wrapper">
@@ -32,7 +65,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="inicio.jsp">
                     <img src="assets/img/logo.png" alt="" />
                 </a>
             </div>
@@ -244,7 +277,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i>Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                        <li><a href="login.jsp"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
                         </li>
                     </ul>
                     <!-- end dropdown-user -->
@@ -269,7 +302,8 @@
                                 <img src="assets/img/user.jpg" alt="">
                             </div>
                             <div class="user-info">
-                                <div>Jonny <strong>Deen</strong></div>
+                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
+                                <div style="font-size: 14px; text-align: center;">( <i><%=usernameUsuario%></i> )</div>
                                 <div class="user-text-online">
                                     <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
                                 </div>
@@ -290,7 +324,7 @@
                         <!--end search section-->
                     </li>
                     <li class="">
-                        <a href="inicio.html"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
+                        <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
@@ -408,28 +442,28 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
-                                       
+                                    <form role="form" method="post" action="SERCASAREFUGIO">
                                         <div class="form-group">
                                             <label>Nombre</label>
-                                            <input type="text" name="txtnomcasarefugio" class="form-control" placeholder="">
+                                            <input type="text" name="txtnombre" id="txtnombre" class="form-control" required>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label>Dirección</label>
-                                            <input type="text" name="txtdireccasarefugio" class="form-control" placeholder="">
+                                            <input type="text" name="txtdireccion" id="txtdireccion" class="form-control" required>
+                                            <i style="font-size: 12px">Ejm: Av. Sucre 525 Int. 204</i>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label>Teléfono Contacto</label>
-                                            <input type="tel" name="txttlf1" pattern="[0-9]{9}" class="form-control" placeholder="">
-                                            <p>Ejm: 012461254 / 945929934</p>
+                                            <input type="tel" name="teltelefono" id="teltelefono" pattern="[0-9]{9}" class="form-control" maxlength="9" onkeypress="return valida(event)" required>
+                                            <i style="font-size: 12px">Ejm: 012461254 / 945929934</i>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label>Descripción</label>
-                                            <textarea class="form-control" rows="3" maxlength="250"></textarea>
-                                            <p>Máximo 250 caractéres</p>
+                                            <textarea class="form-control" name="txtdescripcion" id="txtdescripcion" rows="3" maxlength="330" required></textarea>
+                                            <p>Máximo 330 caractéres</p>
                                         </div>
                                         <!--
                                         <div class="form-group">
@@ -443,167 +477,12 @@
                                         <div class="form-group">
                                             <!-- PARA INPUT FILE -->
                                             <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
-					<label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span>
+                                            <label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span></label>
                                             <!-- PARA INPUT FILE -->
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary">REGISTRAR</button>
                                         </div>
-                                        
-                                        <!--
-                                        <div class="form-group">
-                                            <label>Text area</label>
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Checkboxes</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 1
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 2
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Checkboxes</label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">1
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">2
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Radio Buttons</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>Radio 1
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Radio 2
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Radio 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Radio Buttons</label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked>1
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Selects</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Multiple Selects</label>
-                                            <select multiple class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit Button</button>
-                                        <button type="reset" class="btn btn-success">Reset Button</button>
-                                    </form>
-                                </div>
-                                <div class="col-lg-6">
-                                    <h1>Disabled Form States</h1>
-                                    <form role="form">
-                                        <fieldset disabled="disabled">
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled input</label>
-                                                <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled select menu</label>
-                                                <select id="disabledSelect" class="form-control">
-                                                    <option>Disabled select</option>
-                                                </select>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">Disabled Checkbox
-                                                </label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Disabled Button</button>
-                                        </fieldset>
-                                    </form>
-                                    <h1>Form Validation States</h1>
-                                    <form role="form">
-                                        <div class="form-group has-success">
-                                            <label class="control-label" for="inputSuccess">Input with success</label>
-                                            <input type="text" class="form-control" id="inputSuccess">
-                                        </div>
-                                        <div class="form-group has-warning">
-                                            <label class="control-label" for="inputWarning">Input with warning</label>
-                                            <input type="text" class="form-control" id="inputWarning">
-                                        </div>
-                                        <div class="form-group has-error">
-                                            <label class="control-label" for="inputError">Input with error</label>
-                                            <input type="text" class="form-control" id="inputError">
-                                        </div>
-                                    </form>
-                                    <h1>Input Groups</h1>
-                                    <form role="form">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">@</span>
-                                            <input type="text" class="form-control" placeholder="Username">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-eur"></i>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="Font Awesome Icon">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                        -->
                                     </form>
                                 </div>
                                 <div class="row text-center">
@@ -636,6 +515,32 @@
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        function valida(e){
+    tecla = (document.all) ? e.keyCode : e.which;
+   //Tecla de retroceso para borrar, siempre la permite
+    if (tecla===8){
+        return true;
+    }        
+    // Patron de entrada, en este caso solo acepta numeros
+    patron =/[0-9]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+    }
+    
+    function alerta(msje){
+        swal(msje);
+    }
+    
+    function alertaok(msje){
+        swal("¡BIEN HECHO!",msje,"success");
+    }
+    
+    function alertanot(msje){
+        swal("¡ERROR!",msje,"error");
+    }
+    </script>
 
 </body>
 

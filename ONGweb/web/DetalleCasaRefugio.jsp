@@ -1,4 +1,8 @@
+
+<%@page import="java.util.ArrayList"%>
+<%@page import="javax.swing.JOptionPane"%>
 <!DOCTYPE html>
+<%@page import="java.sql.*, DAO.DAOCASAREFUGIO" %>
 <html lang="en" class="no-js">
 
 <head>
@@ -19,6 +23,39 @@
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
     <!-- /PARA INPUT FILE -->            
 </head>
+
+<%!
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",nombreCasa="",direccionCasa="";
+     String telefonoCasa="",descripcionCasa="",fechaRegistroCasa="";
+     int codigoCRseleccionada;
+     ArrayList<String> fotos = new ArrayList();
+%>
+
+<%
+    HttpSession ses = request.getSession();
+    if (ses.getAttribute("datosUsuario")!=null){
+         String[] datosUsuario = (String[])ses.getAttribute("datosUsuario");
+         nombreUsuario = datosUsuario[0];
+         primeraLetraApellidoPat = datosUsuario[1];
+         usernameUsuario = datosUsuario[2];
+     }
+
+    codigoCRseleccionada = Integer.parseInt(request.getParameter("codigoCR"));
+    ResultSet rsDatosCasa = DAOCASAREFUGIO.casaRefugioPorCodigo(codigoCRseleccionada);
+    ResultSet rsFotosCasa = DAOCASAREFUGIO.fotosPorCodigoCR(codigoCRseleccionada);
+    
+    if(rsDatosCasa.next()){
+        nombreCasa=rsDatosCasa.getString(2);
+        direccionCasa=rsDatosCasa.getString(3);
+        telefonoCasa=rsDatosCasa.getString(4);
+        descripcionCasa=rsDatosCasa.getString(5);
+        fechaRegistroCasa=rsDatosCasa.getString(6);
+    }
+    
+    while (rsFotosCasa.next()){
+        fotos.add(rsFotosCasa.getString(2));
+    }
+%>
 <body>
     <!--  wrapper -->
     <div id="wrapper">
@@ -32,7 +69,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">
+                
+            <!------------------------------------REEMPLAZAR-------------------------------------------->
+                
+                <a class="navbar-brand" href="inicio.jsp">
                     <img src="assets/img/logo.png" alt="" />
                 </a>
             </div>
@@ -244,7 +284,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i>Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                        <li><a href="login.jsp"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
                         </li>
                     </ul>
                     <!-- end dropdown-user -->
@@ -269,7 +309,8 @@
                                 <img src="assets/img/user.jpg" alt="">
                             </div>
                             <div class="user-info">
-                                <div>Jonny <strong>Deen</strong></div>
+                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
+                                <div style="font-size: 14px; text-align: center;">( <i><%=usernameUsuario%></i> )</div>
                                 <div class="user-text-online">
                                     <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
                                 </div>
@@ -290,7 +331,10 @@
                         <!--end search section-->
                     </li>
                     <li class="">
-                        <a href="inicio.html"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
+                        <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
+                        
+                        <!---------------------------REEMPLAZAR---------------------------->
+                        
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
@@ -403,25 +447,100 @@
                     <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a href="#"><img src="assets/images/retornar.png" width="30" height="30"></a>
+                            <a href="ListadoCasaRefugio.jsp"><img src="assets/images/retornar.png" width="30" height="30"></a>
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <form role="form">
                                         <div class="form-group col-lg-12 text-center">
-                                            <h2>CHINGANDO CABRON</h2>
+                                            <h2><%=nombreCasa%></h2>
                                         </div>    
                                         <div class="form-group col-lg-5">
-                                            <img src="assets/images/backdivperro4.png" width="410" height="340">
+                                            
+                                            <!-- CARRUSEL -->
+                                            
+                                            <div id="homeCarousel" class="carousel slide carousel-home" data-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    
+                                                    <%
+                                                    int contimgs=0;
+                                                    for (String x: fotos){
+                                                        if (contimgs==0){
+                                                            %>
+                                                            <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+                                                            <%
+                                                        }else{
+                                                            %>
+                                                            <li data-target="#homeCarousel" data-slide-to="<%=contimgs%>"></li>
+                                                            <%
+                                                        }
+                                                        contimgs++;
+                                                    }
+                                                    contimgs=0;
+                                                    %>
+                                                </ol>
+                                                
+                                                <div class="carousel-inner" role="listbox">
+                                                    <%
+                                                    for (String x: fotos){
+                                                      if (contimgs==0){
+                                                          %>
+                                                <div class="item active">
+                                                    <img src="assets/images/<%=x%>" alt="">
+                                                </div>           
+                                                          <%
+                                                      }else{
+                                                          %>
+                                                <div class="item ">
+                                                    <img src="assets/images/<%=x%>" alt="">
+                                                </div>           
+                                                          <%
+                                                      }  
+                                                      contimgs++;
+                                                    }
+                                                    contimgs=0;
+                                                    fotos=null;
+                                                    %>
+                                                </div>
+                                                <!--
+                                                <div class="carousel-inner" role="listbox">
+                                                    <div class="item active">
+                                                        <img src="assets/images/cr1.jpg" alt="">
+                                                    </div> 
+                                                    
+                                                    <div class="item ">
+                                                        <img src="assets/images/cr2.jpg" alt="">
+                                                    </div> 
+                                                    
+                                                    <div class="item ">
+                                                        <img src="assets/images/cr3.jpg" alt="">
+                                                    </div> 
+                                                </div>
+                                                -->
+                                                <a class="left carousel-control" href="#homeCarousel" role="button" data-slide="prev">
+                                                    <span class="fa fa-angle-left" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                
+                                                <a class="right carousel-control" href="#homeCarousel" role="button" data-slide="next">
+                                                    <span class="fa fa-angle-right" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </div>
+                                            
+                                            <!-- CARRUSEL -->
+                                        
                                         </div>
+                                        
                                         <div class="form-group col-lg-6">
-                                            <textarea class="form-control" rows="8" readonly="">Una casa refugio que necesita de mucha ayuda, alimentos, dinero, ropita para perros.</textarea>
+                                            <textarea class="form-control" rows="8" readonly=""><%=descripcionCasa%> .</textarea>
                                         </div>
-                                         <div class="form-group col-lg-6">
-                                             <p>Direccion: Av. Sucre #525 Int. 204 .</p>
-                                             <p>Teléfono contacto: 246-1254</p>
-                                             <p>Cta. Ahorro soles: 661777388994000</p>
+                                        
+                                        <div class="form-group col-lg-6">
+                                             <p>Direccion: <%=direccionCasa%> .</p>
+                                             <p>Teléfono contacto: <%=telefonoCasa%> .</p>
+                                             <p>Registrado : <%=fechaRegistroCasa%></p>
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <button type="submit" class="btn btn-primary">DONACIONES</button>

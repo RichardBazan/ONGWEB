@@ -20,7 +20,7 @@ public static Connection getConexion(){
     */
     //conexion con sql server 
       String Driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-      String URL = "jdbc:sqlserver://192.168.1.8:1433;dataBaseName=BDONG";
+      String URL = "jdbc:sqlserver://192.168.1.7:1433;dataBaseName=BDONG";
       String user = "jason";
       String password = "12";
           
@@ -28,7 +28,7 @@ public static Connection getConexion(){
      try{
         Class.forName(Driver);
        cn = DriverManager.getConnection(URL,user,password);
-       System.out.print("Conexion OK");
+       System.out.println("Conexion OK");
      }catch(Exception ex){
          System.out.print(ex.getMessage());
      }

@@ -1,17 +1,55 @@
 package DAO;
+import DTO.DTOUSUARIO;
 import java.sql.*;
+import java.util.Calendar;
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class Prueba {
     public static void main(String[] args) {
   
-        Conexion.getConexion();
+        //Conexion.getConexion();
         
-        /*ResultSet rs = null;
         try {
-            rs = DAOPRODUCTO.listarProductos();
+            ResultSet rs = DAOCASAREFUGIO.fotosPorCodigoCR(8);
             while (rs.next()){
-                System.out.println("----> " + rs.getString(2));
+                System.out.println(rs.getString(2));
             }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        
+        
+        /*
+        String aux = "HOl@";
+        String encrip = DigestUtils.md5Hex(aux);
+        String aux2 = "Holit@s";
+        String encrip2 = DigestUtils.md5Hex(aux2);
+        String aux3 = DAOUSUARIO.encriptarContraseña("HOl@");
+        System.out.println(encrip+"-->"+encrip2+"-->"+aux3);
+        
+        
+        
+        /*
+        int longt = aux.length();
+        
+        
+        for (int i=0;i<=longt-1;i++){
+            System.out.println(aux.substring(i,i+1));
+        }
+        
+        /*
+        Calendar calendario = Calendar.getInstance();
+           int min = calendario.get(Calendar.MINUTE);
+        System.out.println(min);
+        /*
+        try {
+            DTOUSUARIO usuario = DAOUSUARIO.buscarUsuario("a","aa");
+            if(usuario!=null){
+                System.out.println(usuario.getNombre());
+            }else{
+                System.out.print(usuario);
+            }
+            
         } catch (Exception e) {
         }
   /*

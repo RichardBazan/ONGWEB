@@ -19,6 +19,21 @@
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
     <!-- /PARA INPUT FILE -->            
 </head>
+
+<%!
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="";
+   %>
+
+<%
+HttpSession ses = request.getSession();
+if (ses.getAttribute("datosUsuario")!=null){
+         String[] datosUsuario = (String[])ses.getAttribute("datosUsuario");
+         nombreUsuario = datosUsuario[0];
+         primeraLetraApellidoPat = datosUsuario[1];
+         usernameUsuario = datosUsuario[2];
+     }
+%>
+
 <body>
     <!--  wrapper -->
     <div id="wrapper">
@@ -32,7 +47,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="inicio.jsp">
                     <img src="assets/img/logo.png" alt="" />
                 </a>
             </div>
@@ -244,7 +259,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i>Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                        <li><a href="login.jsp"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
                         </li>
                     </ul>
                     <!-- end dropdown-user -->
@@ -269,7 +284,8 @@
                                 <img src="assets/img/user.jpg" alt="">
                             </div>
                             <div class="user-info">
-                                <div>Jonny <strong>Deen</strong></div>
+                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
+                                <div style="font-size: 14px; text-align: center;">( <i><%=usernameUsuario%></i> )</div>
                                 <div class="user-text-online">
                                     <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
                                 </div>
@@ -290,7 +306,7 @@
                         <!--end search section-->
                     </li>
                     <li class="">
-                        <a href="inicio.html"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
+                        <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>

@@ -1,4 +1,6 @@
+<%@page import="javax.swing.JOptionPane"%>
 <!DOCTYPE html>
+<%@page import="CONTROLADOR.*" %>
 <html class="no-js">
     <head>
         <meta charset="utf-8">
@@ -31,7 +33,38 @@
     <!-- /PARA INPUT FILE -->     
 
     </head>
-    <body>
+    
+    <!-- JAVA -->
+    <%
+     HttpSession ses = request.getSession();
+     //JOptionPane.showMessageDialog(null,ses.getAttribute("resultadoRegistro"));
+     if (ses.getAttribute("resultadoRegistro")!=null){
+         String msje = ses.getAttribute("resultadoRegistro").toString();
+         if (msje.substring(0,1).equalsIgnoreCase("R")){
+             %>
+             <body onload="alerta('<%=msje%>')">
+                 <%
+         }else{
+             %>
+             <body onload="alertanot('<%=msje%>')">
+                 <%
+         }
+        }
+     else if(ses.getAttribute("resultadoLogin")!=null){
+         String msje = ses.getAttribute("resultadoLogin").toString();   
+         %>
+        <body onload="alertanot('<%=msje%>')">
+    <%
+        }
+     else{
+    %>
+         <body>
+    <%
+        }
+     ses.setAttribute("resultadoRegistro",null);
+     ses.setAttribute("resultadoLogin",null);
+    %>
+    
     <!-- NAVBAR
     ================================================== -->
    <header class="main-header"> 
@@ -147,27 +180,27 @@
 
 					<h2 class="title-style-2">INICIO DE SESIÓN <span class="title-under"></span></h2>
 
-                                        <form action="inicio.html" class="contact-form ajax-form">
+                                        <form action="SerLoginRegistrarse?opc=1" method="post" name="formLogin" id="formLogin">
 
-						
-                                            <div class="row">
-							<div class="form-group col-md-6">
-                                                            <i class="fa fa-user"></i> 
-                                                            <input type="email" name="correo" class="form-control" placeholder="Correo*" required>
-	                        </div>
-							     </div>
+			                    <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <i class="fa fa-user"></i>
+                                                    <input type="text" name="txtuser" id="txtuser" class="form-control" placeholder="Usuario*" required>
+                                                </div> 
+                                            </div>
                             
                                             <div class="row">
-                                                 <div class="form-group col-md-6">
-                                                     <i class="fa fa-key"></i>
-                                                     <input type="password" name="password" class="form-control" placeholder="Contraseña*" required>
-	                        </div>
-                            </div>
-                                                            <div class="row">
-                                                 <div class="form-group col-md-6">
-                                                     <a href="#">¿Olvidaste tu contraseña?</a> 
-	                        </div>
-                            </div>
+                                                <div class="form-group col-md-6">
+                                                    <i class="fa fa-key"></i>
+                                                    <input type="password" name="passwordpassword" id="passwordpassword" class="form-control" placeholder="Contraseña*" required>
+                                                </div>
+                                            </div>
+                                                            
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <a href="#">¿Olvidaste tu contraseña?</a>
+                                                </div>
+                                            </div>
 <!--                                            
                         <div class="form-group alerts">
                         
@@ -182,18 +215,16 @@
                         </div>	
 -->
                          <div class="row">
-                            <div class="form-group col-md-4">
-                            <a href="inicio.html">
-                            <button type="submit" class="btn btn-primary pull-right">INGRESAR</button>
-                            </a>
-                            </div>
-                        </div>
+                             <div class="form-group col-md-4">
+                                 <button type="submit" class="btn btn-primary pull-right">INGRESAR</button>
+                             </div>
+                         </div>
 
                         <div class="clearfix"></div>
-
-					</form>
-
-				</div>
+                                        
+                                        </form>
+                                            
+                                </div>
                             
                             
                             
@@ -205,7 +236,7 @@
 						<b>Sadaka</b> necesita personas que amen y quieran ayudar a perros que lo necesiten, sé parte de nuestro equipo registrándote .
 					</p>
 
-					<form class="contact-form ajax-form">
+                                        <form action="SerLoginRegistrarse?opc=2" method="post" id="formRegistrarse" name="formRegistrarse">
                                         
                                             <div class="row">
 							<div class="form-group col-md-11">
@@ -215,21 +246,20 @@
                                             
                                         <div class="row">
 							<div class="form-group col-md-11">
-                                                        <input type="text" name="txtapellidos" id="txtapellidos" class="form-control" placeholder="Apellido Paterno*" required>
+                                                        <input type="text" name="txtapellidopat" id="txtapellidopat" class="form-control" placeholder="Apellido Paterno*" required>
 	                        </div>
 							     </div>
                                         <div class="row">
 							<div class="form-group col-md-11">
-                                                        <input type="text" name="txtapellidos" id="txtapellidos" class="form-control" placeholder="Apellido Materno*" required>
+                                                        <input type="text" name="txtapellidomat" id="txtapellidomat" class="form-control" placeholder="Apellido Materno*" required>
 	                        </div>
 							     </div>    
                                             <div class="row">
 							<div class="form-group col-md-11">
                                                             <i class="fa fa-calendar"></i>
-                                                            <input type="date" name="datefechanacimiento" id="datefechanacimiento" class="form-control" required>
-	                        </div>
+                                                            <input type="date" name="datefechanacimiento" id="datefechanacimiento" class="form-control" min="1937-01-01" max="2000-12-31" value="2000-01-01" required>
 							     </div>
-                                            
+                                            </div>
                                             <div class="row">
 							<div class="form-group col-md-11">
                                                             <input type="text" name="txtdireccion" id="txtdireccion" class="form-control" placeholder="Dirección*" required>
@@ -238,7 +268,7 @@
 							     </div>
                                             <div class="row">
 							<div class="form-group col-md-11">
-                                                            <input type="tel" name="teltelefono" id="teltelefono" class="form-control" placeholder="Teléfono*" pattern="[0-9]{9}" title="El número debe tener 9 dígitos (a los números telefónicos antecederle '01' como en el ejemplo). " required>
+                                                            <input type="tel" name="teltelefono" id="teltelefono" class="form-control" placeholder="Teléfono*" title="El número debe tener 9 dígitos (a los números telefónicos antecederle '01' como en el ejemplo)." maxlength="9" onkeypress="return valida(event)">
                                                             <i style="font-size: 12px">*Ejm: 012461254 / 945929934</i> 
 	                        </div>
 							     </div>
@@ -255,20 +285,20 @@
                                                  <div class="form-group col-md-11">
                                                      <i class="fa fa-key"></i>
                                                      <input type="password" name="passwordcontraseña1" id="passwordcontraseña1" class="form-control" placeholder="Contraseña*" required>
-	                        </div>
-                            </div>
+	                                     </div>
+                                             </div>
                                             <div class="row">
-                                                 <div class="form-group col-md-11">
-                                                     <i class="fa fa-key"></i>
-                                                     <input type="password" name="passwordcontraseña2" id="passwordcontraseña2" class="form-control" placeholder="Repita contraseña*" required>
-	                        </div>
-                            </div>
-                                               <div class="row">
-                                                   
-                                                 <div class="form-group col-md-11">
+                                            <div class="form-group col-md-11">
+                                            <i class="fa fa-key"></i>
+                                            <input type="password" name="passwordcontraseña2" id="passwordcontraseña2" class="form-control" placeholder="Repita contraseña*" required>
+	                                    </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                            <div class="form-group col-md-11">
                                                          <!-- PARA INPUT FILE -->             
                                             <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
-					<label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge una foto&hellip;</span>
+                                            <label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge una foto&hellip;</span></label>
                                             <!-- PARA INPUT FILE -->
 	                        </div>
                             </div>   
@@ -289,7 +319,7 @@
 -->
                          <div class="row">
                              <div class="form-group col-md-6">
-                            <button type="submit" class="btn btn-primary pull-left">INGRESAR</button>
+                                 <input onclick="comprobarCampos()" type="button" id="btnRegistrar" name="btnRegistrar" value="REGISTRARSE"/>
                             </div>
                         </div>
 
@@ -297,17 +327,9 @@
 
 					</form>
 
-					
-					
 				</div>
-
 			</div> <!-- /.row -->
-
-
 		</div>
-		
-
-
 	</div>
 
     <!--
@@ -315,13 +337,6 @@
 		
 	</div>
 -->
-
-    <footer class="main-footer">
-
-        <div class="footer-top">
-            
-        </div>
-
 
         <footer class="main-footer">
 
@@ -427,7 +442,7 @@
                                         </div>
 
                                          <div class="form-group">
-                                            <button type="submit" class="btn btn-submit pull-right">ENVIAR MENSAJE</button>
+                                             <button  type="submit" class="btn btn-submit pull-right">ENVIAR MENSAJE</button>
                                         </div>
                                         
                                     </form>
@@ -474,6 +489,8 @@
 
         <!-- Google map  -->
         <script src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places" type="text/javascript"></script>
+        
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
         <!-- Template main javascript -->
@@ -492,5 +509,72 @@
         <!-- PARA INPUT FILE -->
     <script src="assets/js/custom-file-input.js"></script>
     <!-- /PARA INPUT FILE -->
+    
+    <script type="text/javascript">
+    function comprobarCampos(){
+        nombre = document.getElementById("txtnombres");
+        apellidopat=document.getElementById("txtapellidopat");
+        apellidomat=document.getElementById("txtapellidomat");
+        fechanac=document.getElementById("datefechanacimiento");
+        direccion=document.getElementById("txtdireccion");
+        telefono=document.getElementById("teltelefono");
+        usuario=document.getElementById("txtusuario");
+        
+        if(apellidopat.value.length===0 || apellidomat.value.length===0 || fechanac.value.length===0 || direccion.value.length===0 || telefono.value.length===0 || usuario.value.length===0){
+           alert("COMPLETE TODOS LOS CAMPOS. TODOS SON NECESARIOS.");
+           nombre.focus();
+           return (false);
+        }
+        if(telefono.value.length<9 || telefono.value.length>9){
+           alert("EL NÚMERO DE CONTACTO DEBE TENER 9 DIGITOS COMO EN EL EJM.");
+           telefono.focus();
+           return (false);
+        }
+        comprobarClave();
+    }
+     
+    function comprobarClave(){ 
+   	clave1 = document.getElementById("passwordcontraseña1");
+   	clave2 = document.getElementById("passwordcontraseña2");
+        botonregistrar = document.getElementById("btnRegistrar");
+        formularioregistrarse = document.getElementById("formRegistrarse");
+        if (clave1.value.length<6){
+        alert("LA CONTRASEÑA DEBE CONTENER AL MENOS 6 DÍGITOS.");
+        return (false);
+        }
+   	if (clave1.value !== clave2.value){ 
+      	alert("LAS CONTRASEÑAS NO COINCIDEN.");
+        clave1.focus();
+        return (false);
+        }
+        if (clave1.value === clave2.value){
+            formularioregistrarse.submit();
+        }
+    }
+    
+    function alerta(msje){
+        swal(msje);
+    }
+    
+    function alertaok(msje){
+        swal("¡BIEN HECHO!",msje,"success");
+    }
+    
+    function alertanot(msje){
+        swal("¡ERROR!",msje,"error");
+    }
+    
+    function valida(e){
+    tecla = (document.all) ? e.keyCode : e.which;
+   //Tecla de retroceso para borrar, siempre la permite
+    if (tecla===8){
+        return true;
+    }        
+    // Patron de entrada, en este caso solo acepta numeros
+    patron =/[0-9]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+    }
+    </script> 
     </body>
 </html>
