@@ -55,14 +55,65 @@ public class DAOCASAREFUGIO {
         }
         return rs;
     }
+    
+    public static ResultSet listarDonaciones(int codigoCR){
+        ResultSet rs = null;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call listarDonaciones(?)}");
+            cst.setInt(1,codigoCR);
+            rs = cst.executeQuery();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        return rs;
+    }
+    
+    public static ResultSet detalleDonacion(int codDonacion){
+        ResultSet rs = null;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call detalleDonacion(?)}");
+            cst.setInt(1,codDonacion);
+            rs = cst.executeQuery();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        return rs;
+    }
+    
+    public static ResultSet listarProductos(){
+        ResultSet rs = null;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call listarProductos()}");
+            rs = cst.executeQuery();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        return rs;
+    }
+    
+    public static int agregarDonacion(int codcasa,int codusu){
+        int resultado=0;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call agregarDonacion(?,?)}");
+            cst.setInt(1, codcasa);
+            cst.setInt(2, codusu);
+            resultado = cst.executeUpdate();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        return resultado;
+    }
+    
+    public static int agregarDetalleDonacion(int codprod,int cantidad){
+        int resultado=0;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call agregarDetalleDonacion(?,?)}");
+            cst.setInt(1, codprod);
+            cst.setInt(2, cantidad);
+            resultado = cst.executeUpdate();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        return resultado;
+    }
 }
-
-/*
-create proc agregarCasaRefugio
-@nombre varchar(50),@direccion varchar(50),@telefono varchar(50),@descripcion varchar(max),@codigoUsuario int
-as
-begin
-insert into CasaRefugio values (@nombre,@direccion,@telefono,@descripcion,GETDATE(),@codigoUsuario)
-end
-go
-*/

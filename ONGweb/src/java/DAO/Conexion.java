@@ -20,7 +20,7 @@ public static Connection getConexion(){
     */
     //conexion con sql server 
       String Driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-      String URL = "jdbc:sqlserver://192.168.1.7:1433;dataBaseName=BDONG";
+      String URL = "jdbc:sqlserver://192.168.43.239:1433;dataBaseName=BDONG";
       String user = "jason";
       String password = "12";
           

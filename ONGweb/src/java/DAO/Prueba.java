@@ -10,7 +10,7 @@ public class Prueba {
         //Conexion.getConexion();
         
         try {
-            ResultSet rs = DAOCASAREFUGIO.fotosPorCodigoCR(8);
+            ResultSet rs = DAOCASAREFUGIO.detalleDonacion(18);
             while (rs.next()){
                 System.out.println(rs.getString(2));
             }
@@ -18,6 +18,8 @@ public class Prueba {
             System.out.println(e.toString());
         }
         
+        
+        //DAOCASAREFUGIO.agregarDetalleDonacion(4,1,100);
         
         /*
         String aux = "HOl@";
