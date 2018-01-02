@@ -15,13 +15,14 @@
     <link href="assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/main-style.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" type="text/css"/>
     <!-- PARA INPUT FILE -->
     <link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/component.css" />
 	
 		<!-- remove this if you use Modernizr -->
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
-    <!-- /PARA INPUT FILE -->            
+    <!-- /PARA INPUT FILE -->      
 </head>
 <body>
     <!--  wrapper -->
@@ -332,25 +333,28 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
-                      <li  class="active">
+                    <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>Formularios<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li   class="active">
+                            <li>
                         <a href="#"><i class="fa fa-fw"></i>Adopción<span class="fa arrow"></span></a> 
-                        <ul class="nav nav-third-level">
+                         <ul class="nav nav-third-level">
                         <li>
                                 <a href="registrarDarAdopcion.jsp">RegistrarDarEnAdopción</a>
                             </li>
                             <li>
                                 <a href="listaAdopcion.jsp">ListaPerrosenAdopcion</a>
-                            </li>    
+                            </li>  
+                            <li>
+                                <a href="listaAdoptados.jsp">ListaPerrosAdoptados</a>
+                            </li> 
                         </ul>
                             </li>
                             
                              <li>
                         <a href="#"><i class="fa fa-fw"></i>Casa Refugio<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
-                            <li>
+                        <li>
                             <a href="RegistrarCasaRefugio.jsp">RegistrarCasaRefugio</a>
                             </li>
                             <li>
@@ -360,19 +364,46 @@
                             </li>
                             
                             <li>
-                        <a href="#"><i class="fa fa-fw"></i>Maltrato<span class="fa arrow"></span></a> 
+                        <a href="#"><i class="fa fa-fw"></i>DenunciaMaltrato<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
                          <li>
-                                <a href="registrarMaltrato.jsp">RegistrarMaltrato</a>
+                                <a href="registrarMaltrato.jsp">RegistrarDenunciaMaltrato</a>
                             </li>
                             <li>
-                                <a href="listaMaltrato.jsp">ListadoMaltrato</a>
+                                <a href="listaMaltrato.jsp">ListadoDenunciaMaltrato</a>
+                            </li>
+                             <li>
+                                 <a href="listaDenunciaSolucionada.jsp">ListadoDenunciaSolucionado</a>
                             </li>
                         </ul>
                             </li>                         
                         </ul>
                         <!-- second-level-items -->
                     </li>
+                    
+                    
+                    <li>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i>Listas Admin<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                           <li>
+                               <a href="listaAdminMascota.jsp">Mascota Admin</a>
+                            </li>
+                            
+                           <li>
+                               <a href="listaAdminAdoptados.jsp">Adopcion Admin</a>
+                            </li>
+                            
+                            <li>
+                                <a href="listaAdminCasaRefugio.jsp">CasaRefugio Admin</a>
+                            </li>       
+                            
+                              <li>
+                                  <a href="listaAdminDenuncia.jsp">DenunciaMalrato Admin</a>
+                            </li>   
+                        </ul>
+                        <!-- second-level-items -->
+                    </li>
+                    
                     <li>
                         <a href="#"><i class="fa fa-files-o fa-fw"></i>Sample Pages<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -413,19 +444,19 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" name="frmDarAdopcion" method="POST" action="adopcion_mas">                    
+                                    <form role="form" name="frmDarAdopcion_" method="POST">          
                          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <tbody>
-                                        <%   int cod  = Integer.parseInt(request.getParameter("cod_mas"));
-                                             DAOADOPCION obj= new DAOADOPCION();
+                                        <%  int cod  = Integer.parseInt(request.getParameter("cod_mas")); 
+                                            DAOADOPCION obj= new DAOADOPCION();
                                             for(DTODARADOPCION x:obj.buscarDetalleAdopcion(cod)){%> 
                                        
                                             <tr class="odd gradeX"><br>
-                                            <td><h1><center><%=x.getNom_mas()%></center></h1></td>
+                                            <td><h1><center><b><%=x.getNom_mas()%></b></center></h1></td>
                                             </tr>
                                            
                                             <tr class="odd gradeX">
-                                                <td width="500"><center>Descripción</center></td><tr></tr>
+                                                <td width="500" colspan="2" ><center>Descripción</center></td><tr></tr>
                                             <td colspan="3" style="height: 225px"><%=x.getDescrip_mas()%></td>
                                             </tr>
                                             
@@ -434,16 +465,75 @@
                                             <td colspan="2"><center><%=x.getNom_raza()%></center></td>
                                             </tr>
                                             
-                                            <input type="hidden" name="id_mas" value="<%=cod%>">
-                                        
-                                        <%}int con=0;
-                                        for(DTODARADOPCION y:obj.buscarImgDetalleAdopcion(cod)){%>    
-                                        <td><img src="<%=y.getFoto()%>" width="250px" height="250px" alt=""/></td>
-                                        <%con++;if(con%2==0) out.print("<tr>");}%>
+                                            <input type="hidden" name="tenen" value="<%=x.getTendencia_mas()%>">                                      
                                     </tbody>
-                                </table>      
+                                </table>  
+                                    
+                                <table>
+                                         <!-- CARRUSEL -->
+                                         <tbody>
+                                             <div id="homeCarousel" class="carousel slide carousel-home" data-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    
+                                                    <%}int con=0;
+                                                      for (DTODARADOPCION y:obj.buscarImgDetalleAdopcion(cod)){
+                                                        if (con==0){
+                                                            %>
+                                                             <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+                                                            <%
+                                                        }else{
+                                                            %>
+                                                            <li data-target="#homeCarousel" data-slide-to="<%=con%>"></li>
+                                                            <%
+                                                        }
+                                                        con++;
+                                                    }
+                                                    con=0;
+                                                    %>
+                                                </ol>
+                                              
+                                                <div class="carousel-inner" role="listbox" >
+                                                
+                                                    <% String foto;
+                                                    for (DTODARADOPCION y:obj.buscarImgDetalleAdopcion(cod)){
+                                                        foto = y.getFoto();
+                                                      if (con==0){
+                                                          %>
+                                                          <div class="item active">
+                                                              <img src="<%=foto%>" style="height: 350px" alt="">
+                                                </div>           
+                                                          <%
+                                                      }else{
+                                                          %>
+                                                            <div class="item">
+                                                               <img src="<%=foto%>" style="height: 350px" alt="">
+                                                </div>           
+                                                 <%
+                                                      }  
+                                                      con++;
+                                                    }
+                                                    con=0;
+                                                    foto=null;
+                                                    %>
+                                                </div>
+                                                <a class="left carousel-control" href="#homeCarousel" role="button" data-slide="prev">
+                                                    <span class="fa fa-angle-left" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                
+                                                <a class="right carousel-control" href="#homeCarousel" role="button" data-slide="next">
+                                                    <span class="fa fa-angle-right" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </div>
+                                            
+                                            <!-- CARRUSEL -->
+                                        </tbody>
+                                    </table>
+                                                
                             <div class="form-group">
-                                            <button type="submit"class="btn btn-primary">Adoptar </button>
+                                            <br>
+                                            <input type="button" class="btn btn-primary" onclick="valida('<%=cod%>')" value="Adoptar">
                                             <a href="listaAdopcion.jsp"><button type="button" class="btn btn-primary">Cancelar</button></a>
                             </div>
                     </form>       
@@ -627,6 +717,15 @@
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
+            <script langiage="javascript" type="text/javascript">
+            function valida(codigo) {
+                valor=document.frmDarAdopcion_.tenen.value;
+                if(valor === 'Usuario'){
+                    location.href='confirmaAdopcionUsuario.jsp?id_mascot='+codigo;
+                }else{
+                    location.href='confirmaAdopcionONG.jsp?id_mascot='+codigo;
+                }} 
+        </script>
 </body>
 </html>
 

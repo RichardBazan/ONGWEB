@@ -331,7 +331,7 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
-                     <li>
+                       <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>Formularios<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
@@ -342,7 +342,10 @@
                             </li>
                             <li>
                                 <a href="listaAdopcion.jsp">ListaPerrosenAdopcion</a>
-                            </li>    
+                            </li>  
+                            <li>
+                                <a href="listaAdoptados.jsp">ListaPerrosAdoptados</a>
+                            </li> 
                         </ul>
                             </li>
                             
@@ -359,16 +362,42 @@
                             </li>
                             
                             <li>
-                        <a href="#"><i class="fa fa-fw"></i>Maltrato<span class="fa arrow"></span></a> 
+                        <a href="#"><i class="fa fa-fw"></i>DenunciaMaltrato<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
                          <li>
-                                <a href="registrarMaltrato.jsp">RegistrarMaltrato</a>
+                                <a href="registrarMaltrato.jsp">RegistrarDenunciaMaltrato</a>
                             </li>
                             <li>
-                                <a href="listaMaltrato.jsp">ListadoMaltrato</a>
+                                <a href="listaMaltrato.jsp">ListadoDenunciaMaltrato</a>
+                            </li>
+                             <li>
+                                 <a href="listaDenunciaSolucionada.jsp">ListadoDenunciaSolucionado</a>
                             </li>
                         </ul>
                             </li>                         
+                        </ul>
+                        <!-- second-level-items -->
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i>Listas Admin<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                           <li>
+                               <a href="listaAdminMascota.jsp">Mascota Admin</a>
+                            </li>
+                            
+                           <li>
+                               <a href="listaAdminAdoptados.jsp">Adopcion Admin</a>
+                            </li>
+                            
+                            <li>
+                                <a href="listaAdminCasaRefugio.jsp">CasaRefugio Admin</a>
+                            </li>       
+                            
+                              <li>
+                                  <a href="listaAdminDenuncia.jsp">DenunciaMalrato Admin</a>
+                            </li>   
                         </ul>
                         <!-- second-level-items -->
                     </li>

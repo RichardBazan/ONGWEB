@@ -22,7 +22,8 @@
 	
 		<!-- remove this if you use Modernizr -->
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
-    <!-- /PARA INPUT FILE -->            
+    <!-- /PARA INPUT FILE -->     
+                <style>.thumb {width: 450px; border: 1px solid #000;margin: 10px 5px 0 0;}</style>
 </head>
 <body>
     <!--  wrapper -->
@@ -333,47 +334,77 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
-                      <li  class="active">
+                       <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>Formularios<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li class="active">
+                            <li>
                         <a href="#"><i class="fa fa-fw"></i>Adopción<span class="fa arrow"></span></a> 
-                        <ul class="nav nav-third-level">
-                        <li  class="selected">
+                         <ul class="nav nav-third-level">
+                        <li>
                                 <a href="registrarDarAdopcion.jsp">RegistrarDarEnAdopción</a>
                             </li>
                             <li>
                                 <a href="listaAdopcion.jsp">ListaPerrosenAdopcion</a>
-                            </li>    
+                            </li>  
+                            <li>
+                                <a href="listaAdoptados.jsp">ListaPerrosAdoptados</a>
+                            </li> 
                         </ul>
                             </li>
                             
                              <li>
                         <a href="#"><i class="fa fa-fw"></i>Casa Refugio<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
-                            <li>
+                        <li>
                             <a href="RegistrarCasaRefugio.jsp">RegistrarCasaRefugio</a>
                             </li>
                             <li>
-                            <a href="ListadoCasaRefugio.jsp">ListadoCasaRefugio</a>
+                                <a href="ListadoCasaRefugio.jsp">ListadoCasaRefugio</a>
                             </li>
                         </ul>
                             </li>
                             
                             <li>
-                        <a href="#"><i class="fa fa-fw"></i>Maltrato<span class="fa arrow"></span></a> 
+                        <a href="#"><i class="fa fa-fw"></i>DenunciaMaltrato<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
                          <li>
-                                <a href="registrarMaltrato.jsp">RegistrarMaltrato</a>
+                                <a href="registrarMaltrato.jsp">RegistrarDenunciaMaltrato</a>
                             </li>
                             <li>
-                                <a href="listaMaltrato.jsp">ListadoMaltrato</a>
+                                <a href="listaMaltrato.jsp">ListadoDenunciaMaltrato</a>
+                            </li>
+                             <li>
+                                 <a href="listaDenunciaSolucionada.jsp">ListadoDenunciaSolucionado</a>
                             </li>
                         </ul>
                             </li>                         
                         </ul>
                         <!-- second-level-items -->
                     </li>
+                    
+                    
+                    <li>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i>Listas Admin<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                           <li>
+                               <a href="listaAdminMascota.jsp">Mascota Admin</a>
+                            </li>
+                            
+                           <li>
+                               <a href="listaAdminAdoptados.jsp">Adopcion Admin</a>
+                            </li>
+                            
+                            <li>
+                                <a href="listaAdminCasaRefugio.jsp">CasaRefugio Admin</a>
+                            </li>       
+                            
+                              <li>
+                                  <a href="listaAdminDenuncia.jsp">DenunciaMalrato Admin</a>
+                            </li>   
+                        </ul>
+                        <!-- second-level-items -->
+                    </li>
+                    
                     <li>
                         <a href="#"><i class="fa fa-files-o fa-fw"></i>Sample Pages<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -426,7 +457,7 @@
                             <div class="form-group">
                                         <label>Raza</label>        
                                             <select class="form-control" name="cboBR" required>
-                                                <option value="#">:: Seleccionar ::</option>
+                                                <option value="#" disabled selected>:: Seleccionar ::</option>
                                                 
                                                   <%DAO.DAORAZA obj=new DAO.DAORAZA();
                                                   for(DTO.DTORAZA x:obj.ListRaza()){%>  
@@ -437,7 +468,7 @@
                             <div class="form-group">
                                 <label>Sexo</label>
                                             <select  class="form-control" name="cboBS" required>
-                                                    <option value="#">:: Seleccionar ::</option>
+                                                <option value="#" disabled selected>:: Seleccionar ::</option>
                                                     <option value="Hembra">Hembra</option>
                                                     <option value="Macho">Macho </option>
                                             </select>
@@ -460,22 +491,25 @@
                             
                             <div class="form-group">
                                             <!-- PARA INPUT FILE -->
-                                            <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
-					<label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span>
+                                            <input type="file" id="files" name="files[]" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
+                                            <label for="files"><figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span></label>
                                             <!-- PARA INPUT FILE -->
                             </div>
                             
                             <div class="form-group">
                                             <button type="submit" class="btn btn-primary">Registrar</button>
                                             <button type="reset"  class="btn btn-primary">Cancelar</button>
-                            </div>
-                                   
-                            <div class="form-group">
-                                   <output id="list" name="list"></output>        
-                            </div>
-                                   
-                                    
-                    </form>
+                            </div>  
+                                      <div class="form-group">      
+                                            <input type="text" id="URL1" name="URL1" size="100"  value ="">
+                                            <input type="text" id="URL2" name="URL2" size="100"  value ="">
+                                            <input type="text" id="URL3" name="URL3" size="100"  value ="">
+                                            <input type="text" id="URL4" name="URL4" size="100"  value ="">
+                                      </div>
+                     </form>
+                            
+                                      
+                            
                                         <!--
                                         <div class="form-group">
                                             <label>Text area</label>
@@ -636,13 +670,14 @@
                                     <img src="assets/images/casa.png" width="450" height="450">
                                         </div>
                             </div>
-                            
+                            <output id="list"></output>  
                         </div>
                         
                     </div>
                      <!-- End Form Elements -->
                 </div>
             </div>
+                                               
         </div>
         <!-- end page-wrapper -->
 
@@ -658,25 +693,30 @@
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
-   
-</body>
-</html>
-<style>
-  .thumb {
-    height: 75px;
-    border: 1px solid #000;
-    margin: 10px 5px 0 0;
-  }
-</style>
-<script>
-   function handleFileSelect(evt) {
+    <script>
+    function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
-
+     var resultado = [];
     // Loop through the FileList and render image files as thumbnails.
+ 
     for (var i = 0, f; f = files[i]; i++) {
+        
+        if(files.length == 0){
+            alert('Por lo menos debe haber 1 foto');
+            return;
+        }
+        if(files.length > 3){
+            alert('Solo se permite ingresar hasta 3 fotos');
+            return;
+        }
 
+      if (!window.FileReader) {
+        alert('El navegador no soporta la lectura de archivos');
+        return;
+        }
       // Only process image files.
       if (!f.type.match('image.*')) {
+        alert('El archivo a adjuntar no es una imagen');
         continue;
       }
 
@@ -687,16 +727,47 @@
         return function(e) {
           // Render thumbnail.
           var span = document.createElement('span');
-          span.innerHTML = ['<div id="content"><img  style="width: 200px ;height: 150px" class="thumb"  src="', e.target.result,'" title="', escape(theFile.name), '"/></div>'].join('');
-          document.getElementById('list').insertBefore(span, null);
           
-           document.frmDarAdopcion.src.value =  e.target.result;
+          resultado.push(e.target.result);
+          for(var y = 0 ; y < resultado.length; y++){
+          
+          span.innerHTML = ['<img class="thumb" style="height: 250px" src="', resultado[y],'" title="', escape(theFile.name), '"/>'].join('');
+          document.getElementById('list').insertBefore(span, null);
+       
+         }
+                     if(resultado[0] != 'undefined'){
+                          document.frmDarAdopcion.URL1.value = resultado[0];
+                          
+                    }if(resultado[1] != 'undefined'){
+                          document.frmDarAdopcion.URL2.value = resultado[1];
+                        
+                    }if(resultado[2] != 'undefined'){
+                          document.frmDarAdopcion.URL3.value = resultado[2];
+                       
+                    }if(resultado[3] != 'undefined'){
+                          document.frmDarAdopcion.URL4.value = resultado[3];   
+                    
+                    }  
+              /*  alert(resultado[0]);
+                  alert(resultado[1]);
+                  alert(resultado[2]);
+                  alert(resultado[3]);*/               
         };
+          
       })(f);
-      // Read in the image file as a data URL.
-      reader.readAsDataURL(f);
-    }
-  }
-  document.getElementById('file-5').addEventListener('change', handleFileSelect, false);
-</script>
 
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);    
+         
+    }
+              
+  }
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+</script>
+</body>
+</html>
+
+
+
+
+        

@@ -23,12 +23,6 @@
     <!-- /PARA INPUT FILE -->            
 </head>
 <body>
-<%
-    String nombre  = request.getParameter("nom");
-    String cbor    = request.getParameter("raza");
-    String descripcion    = request.getParameter("descrip");
-    String img    = request.getParameter("img");
-%>
     <!--  wrapper -->
     <div id="wrapper">
         <!-- navbar top -->
@@ -337,25 +331,28 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
-                      <li  class="active">
+                      <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>Formularios<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li   class="active">
+                            <li>
                         <a href="#"><i class="fa fa-fw"></i>Adopción<span class="fa arrow"></span></a> 
-                        <ul class="nav nav-third-level">
+                         <ul class="nav nav-third-level">
                         <li>
                                 <a href="registrarDarAdopcion.jsp">RegistrarDarEnAdopción</a>
                             </li>
                             <li>
                                 <a href="listaAdopcion.jsp">ListaPerrosenAdopcion</a>
-                            </li>    
+                            </li>  
+                            <li>
+                                <a href="listaAdoptados.jsp">ListaPerrosAdoptados</a>
+                            </li> 
                         </ul>
                             </li>
                             
                              <li>
                         <a href="#"><i class="fa fa-fw"></i>Casa Refugio<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
-                            <li>
+                        <li>
                             <a href="RegistrarCasaRefugio.jsp">RegistrarCasaRefugio</a>
                             </li>
                             <li>
@@ -365,19 +362,46 @@
                             </li>
                             
                             <li>
-                        <a href="#"><i class="fa fa-fw"></i>Maltrato<span class="fa arrow"></span></a> 
+                        <a href="#"><i class="fa fa-fw"></i>DenunciaMaltrato<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
                          <li>
-                                <a href="registrarMaltrato.jsp">RegistrarMaltrato</a>
+                                <a href="registrarMaltrato.jsp">RegistrarDenunciaMaltrato</a>
                             </li>
                             <li>
-                                <a href="listaMaltrato.jsp">ListadoMaltrato</a>
+                                <a href="listaMaltrato.jsp">ListadoDenunciaMaltrato</a>
+                            </li>
+                             <li>
+                                 <a href="listaDenunciaSolucionada.jsp">ListadoDenunciaSolucionado</a>
                             </li>
                         </ul>
                             </li>                         
                         </ul>
                         <!-- second-level-items -->
                     </li>
+                    
+                    
+                    <li>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i>Listas Admin<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                           <li>
+                               <a href="listaAdminMascota.jsp">Mascota Admin</a>
+                            </li>
+                            
+                           <li>
+                               <a href="listaAdminAdoptados.jsp">Adopcion Admin</a>
+                            </li>
+                            
+                            <li>
+                                <a href="listaAdminCasaRefugio.jsp">CasaRefugio Admin</a>
+                            </li>       
+                            
+                              <li>
+                                  <a href="listaAdminDenuncia.jsp">DenunciaMalrato Admin</a>
+                            </li>   
+                        </ul>
+                        <!-- second-level-items -->
+                    </li>
+                    
                     <li>
                         <a href="#"><i class="fa fa-files-o fa-fw"></i>Sample Pages<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -402,7 +426,7 @@
             <div class="row">
                 <!-- Page Header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Detalle de Adopción</h1>
+                    <h1 class="page-header">Detalle de Denuncia Maltrato</h1>
                 </div>
                 <!--End Page Header -->
             </div>
@@ -427,10 +451,10 @@
                                         %> 
                                        
                                         <tr class="odd gradeX">
-                                            <td><h1><center><%=x.getTitulo_den()%></center></h1></td>
+                                            <td><h1><center><b><%=x.getTitulo_den()%></b></center></h1></td>
                                         </tr>
                                         <tr class="odd gradeX">
-                                                <td width="500"><center>Descripción</center></td><tr></tr>
+                                            <td width="500" colspan="2"><center>Descripción</center></td><tr></tr>
                                             <td colspan="3" style="height: 225px"><%=x.getDescrip_den()%></td>
                                         </tr>
                                         
@@ -438,12 +462,71 @@
                                             <td><center>Raza</center></td>
                                             <td colspan="2"><center><%=x.getNom_raza()%></center></td>
                                         </tr>
-                                        <%}int con=0;
-                                           for(DTODENUNCIA x:obj.buscarImgDetalleAdopcion(cod_d)){%>
-                                           <td><img src="<%=x.getFoto_den()%>" width="250px" height="250px" alt=""/></td>                                     
-                                        <%con++;if(con%2==0) out.print("<tr>");}%>
                                     </tbody>
                         </table>      
+                                    
+                        <table>
+                                         <!-- CARRUSEL -->
+                                        <tbody>
+                                             <div id="homeCarousel" class="carousel slide carousel-home" data-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    
+                                                    <%}int con=0;
+                                                      for (DTODENUNCIA x:obj.buscarImgDetalleAdopcion(cod_d)){
+                                                        if (con==0){
+                                                            %>
+                                                             <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+                                                            <%
+                                                        }else{
+                                                            %>
+                                                            <li data-target="#homeCarousel" data-slide-to="<%=con%>"></li>
+                                                            <%
+                                                        }
+                                                        con++;
+                                                    }
+                                                    con=0;
+                                                    %>
+                                                </ol>
+                                              
+                                                <div class="carousel-inner" role="listbox" >
+                                                
+                                                    <% String foto;
+                                                    for (DTODENUNCIA x:obj.buscarImgDetalleAdopcion(cod_d)){
+                                                        foto = x.getFoto_den();
+                                                      if (con==0){
+                                                          %>
+                                                          <div class="item active">
+                                                              <img src="<%=foto%>" style="height: 350px" alt="">
+                                                </div>           
+                                                          <%
+                                                      }else{
+                                                          %>
+                                                            <div class="item">
+                                                               <img src="<%=foto%>" style="height: 350px" alt="">
+                                                </div>           
+                                                 <%
+                                                      }  
+                                                      con++;
+                                                    }
+                                                    con=0;
+                                                    foto=null;
+                                                    %>
+                                                </div>
+                                                <a class="left carousel-control" href="#homeCarousel" role="button" data-slide="prev">
+                                                    <span class="fa fa-angle-left" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                
+                                                <a class="right carousel-control" href="#homeCarousel" role="button" data-slide="next">
+                                                    <span class="fa fa-angle-right" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </div>
+                                            
+                                            <!-- CARRUSEL -->
+                                            
+                                        </tbody>
+                                    </table>
                     </form>       
                                         <!--
                                         <div class="form-group">

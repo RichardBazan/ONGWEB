@@ -33,8 +33,12 @@ public class darAdopcion extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
        
-         DTO.DTODARADOPCION DTOADOP=new DTO.DTODARADOPCION(); 
-         DAO.DAOADOPCION    DAOADOP=new DAO.DAOADOPCION();
+         DTO.DTODARADOPCION DTOADOP =new DTO.DTODARADOPCION(); 
+         DAO.DAOADOPCION    DAOADOP =new DAO.DAOADOPCION();
+         DTO.DTODARADOPCION DTOADOP1=new DTO.DTODARADOPCION(); 
+         DTO.DTODARADOPCION DTOADOP2=new DTO.DTODARADOPCION(); 
+         DTO.DTODARADOPCION DTOADOP3=new DTO.DTODARADOPCION(); 
+         DTO.DTODARADOPCION DTOADOP4=new DTO.DTODARADOPCION(); 
        
           String pag ="registrarDarAdopcion.jsp";
        
@@ -43,10 +47,36 @@ public class darAdopcion extends HttpServlet {
                 DTOADOP.setCod_raza(Integer.parseInt(request.getParameter("cboBR")));            
                 DTOADOP.setSexo_mas(request.getParameter("cboBS"));
                 DTOADOP.setEdad_mas(request.getParameter("edad"));            
-                DTOADOP.setDescrip_mas(request.getParameter("descripcion"));            
-                
+                DTOADOP.setDescrip_mas(request.getParameter("descripcion")); 
+               
                 DAOADOP.darAdopcionAdd(DTOADOP);
-                JOptionPane.showMessageDialog(null, "REGISTRADO");
+                
+                JOptionPane.showMessageDialog(null, "DATO REGISTRADO");
+                
+                String f1 = request.getParameter("URL1");
+                String f2 = request.getParameter("URL2");
+                String f3 = request.getParameter("URL3");                
+                String f4 = request.getParameter("URL4");   
+
+                
+                if(!f1.equals("undefined")){ 
+                     DTOADOP1.setFoto(f1);
+                     DAOADOP.darAdopcionFotoAdd(DTOADOP1);}
+                
+                if(!f2.equals("undefined")){
+                     DTOADOP2.setFoto(f2);
+                     DAOADOP.darAdopcionFotoAdd(DTOADOP2);}
+                
+                if(!f3.equals("undefined")){
+                     DTOADOP3.setFoto(f3);
+                     DAOADOP.darAdopcionFotoAdd(DTOADOP3);}
+                
+                if(!f4.equals("undefined")){
+                    
+                     DTOADOP4.setFoto(f4);
+                     DAOADOP.darAdopcionFotoAdd(DTOADOP4);}         
+              
+                JOptionPane.showMessageDialog(null, "FOTO(S) REGISTRADO(S)");
                 response.sendRedirect(pag);
                 
         } catch (SQLException ex) {

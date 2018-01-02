@@ -330,7 +330,7 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
-                     <li>
+                                  <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>Formularios<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
@@ -341,7 +341,10 @@
                             </li>
                             <li>
                                 <a href="listaAdopcion.jsp">ListaPerrosenAdopcion</a>
-                            </li>    
+                            </li>  
+                            <li>
+                                <a href="listaAdoptados.jsp">ListaPerrosAdoptados</a>
+                            </li> 
                         </ul>
                             </li>
                             
@@ -358,20 +361,46 @@
                             </li>
                             
                             <li>
-                        <a href="#"><i class="fa fa-fw"></i>Maltrato<span class="fa arrow"></span></a> 
+                        <a href="#"><i class="fa fa-fw"></i>DenunciaMaltrato<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
                          <li>
-                                <a href="registrarMaltrato.jsp">RegistrarMaltrato</a>
+                                <a href="registrarMaltrato.jsp">RegistrarDenunciaMaltrato</a>
                             </li>
                             <li>
-                                <a href="listaMaltrato.jsp">ListadoMaltrato</a>
+                                <a href="listaMaltrato.jsp">ListadoDenunciaMaltrato</a>
+                            </li>
+                             <li>
+                                 <a href="listaDenunciaSolucionada.jsp">ListadoDenunciaSolucionado</a>
                             </li>
                         </ul>
                             </li>                         
                         </ul>
                         <!-- second-level-items -->
                     </li>
-                  
+
+                    
+                    <li>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i>Listas Admin<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                           <li>
+                               <a href="listaAdminMascota.jsp">Mascota Admin</a>
+                            </li>
+                            
+                           <li>
+                               <a href="listaAdminAdoptados.jsp">Adopcion Admin</a>
+                            </li>
+                            
+                            <li>
+                                <a href="listaAdminCasaRefugio.jsp">CasaRefugio Admin</a>
+                            </li>       
+                            
+                              <li>
+                                  <a href="listaAdminDenuncia.jsp">DenunciaMalrato Admin</a>
+                            </li>   
+                        </ul>
+                        <!-- second-level-items -->
+                    </li>
+                    
                     <li>
                         <a href="#"><i class="fa fa-files-o fa-fw"></i>Sample Pages<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -426,21 +455,22 @@
                                             DAO.DAODENUNCIA  obj=new DAO.DAODENUNCIA();
                                             for(DTO.DTODENUNCIA x:obj.readAll()){
                                             for(DTO.DTODENUNCIA y:obj.readImgAll(x.getCod_den())){
-                                            if(x.getDescrip_den().length() <= 147){ 
-                                                descrip_den = x.getDescrip_den().substring(0,x.getDescrip_den().length());}
+                                            if(x.getDescrip_den().length() <= 150){ 
+                                                descrip_den = x.getDescrip_den();}
                                             else{
-                                                descrip_den = x.getDescrip_den().substring(0,x.getDescrip_den().length()/2)+"...";}%>   
+                                                descrip_den = x.getDescrip_den().substring(0,150)+"...";}%>   
                                                 
-                                        <tr class="odd gradeX" onClick="CrearEnlace('detalleMaltrato.jsp?cod_den=<%=x.getCod_den()%>')">
+                                         <tr class="odd gradeX" onClick="CrearEnlace('detalleMaltrato.jsp?cod_den=<%=x.getCod_den()%>')">
                                             
-                                            <td><h2><b><center><%=x.getTitulo_den()%></center></b></h2><center><img src="<%=y.getFoto_den()%>" width="180" height="154"></center></td>
+                                            <td><h4><b><center><%=x.getTitulo_den()%></center></b></h4><center><img src="<%=y.getFoto_den()%>" width="180" height="154">
+                                            </center></td>
                                
                                              <td width="500"><br><br><br><%=descrip_den%></td>
                                             
                                              <td><center><br><br><a href="comentariosDenuncia.jsp?cod_den=<%=x.getCod_den()%>"> 
                                              <img src="assets/images/commenting_icon-icons.com_70233.png" width="150"  alt=""/></a></center></td>
                                             
-                                        </tr><%}}%> 
+                                         </tr><%}}%> 
                                      </tbody>
                                 </table>
                              </form>

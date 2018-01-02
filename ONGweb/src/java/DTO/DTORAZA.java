@@ -1,13 +1,20 @@
 package DTO;
 
-public class DTORAZA {
+public class DTORAZA extends DTOUSUARIO{
 
  private int cod_raza;
  private String nom_raza;
 
     public DTORAZA() {
     }
+    
+    
 
+    public DTORAZA(String nom_raza, String usuario) {
+        super(usuario);
+        this.nom_raza = nom_raza;
+    }
+    
     public DTORAZA(int cod_raza) {
         this.cod_raza = cod_raza;
     }

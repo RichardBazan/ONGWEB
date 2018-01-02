@@ -436,7 +436,7 @@
                                          <% String descrip_adop,tenencia;
                                             tenencia = request.getParameter("valor");
                                             DAO.DAOADOPCION  obj=new DAO.DAOADOPCION();
-                                            for(DTO.DTOMASCOTA x:obj.buscar_x_ONG_User(tenencia) ){
+                                            for(DTO.DTOMASCOTA x:obj.buscar_x_ONG_User(tenencia)){
                                             for(DTO.DTODARADOPCION y:obj.readImgAll(x.getCod_mas())){
                                             if(x.getDescrip_mas().length() <= 147){ 
                                                 descrip_adop = x.getDescrip_mas().substring(0,x.getDescrip_mas().length());}

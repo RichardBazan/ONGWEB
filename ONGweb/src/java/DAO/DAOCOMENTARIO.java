@@ -23,7 +23,7 @@ public class DAOCOMENTARIO {
             res = cst.executeQuery();
             
             while(res.next()){
-               comentario.add(new DTOCOMENTARIO(res.getString(1),res.getString(2)));
+                  comentario.add(new DTOCOMENTARIO(res.getString(1),res.getString(2)));
             }
 
          } catch (SQLException ex) {
@@ -42,7 +42,7 @@ public class DAOCOMENTARIO {
             cst.setString(1, comentario);
             cst.setInt(2, cod_den);
             
-            cst.executeQuery();
+            cst.executeUpdate();
 
          }catch (SQLException ex) {
             Logger.getLogger(DAOCOMENTARIO.class.getName()).log(Level.SEVERE, null, ex);

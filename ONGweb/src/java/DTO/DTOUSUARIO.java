@@ -8,6 +8,10 @@ private String nombre,apellido_pat,apellido_mat,fechaNacimiento,direccion,telefo
     public DTOUSUARIO() {
     }
 
+    public DTOUSUARIO(int codigo) {
+        this.codigo = codigo;
+    }
+
     public DTOUSUARIO(String usuario) {
         this.usuario = usuario;
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -9,16 +9,14 @@
     <link href="assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <link href="assets/css/main-style.css" rel="stylesheet" />
-    <!-- PARA INPUT FILE -->
-    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/component.css" />
-	
-		<!-- remove this if you use Modernizr -->
-		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
-    <!-- /PARA INPUT FILE -->            
+  <link href="assets/css/style.css" rel="stylesheet" />
+      <link href="assets/css/main-style.css" rel="stylesheet" />
+
+    <!-- Page-Level CSS -->
+    <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+
 </head>
+
 <body>
     <!--  wrapper -->
     <div id="wrapper">
@@ -293,7 +291,7 @@
                         <a href="inicio.html"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Charts<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="flot.html">Flot Charts</a>
@@ -307,10 +305,10 @@
                      <li>
                         <a href="timeline.html"><i class="fa fa-flask fa-fw"></i>Timeline</a>
                     </li>
-                    <li>
+                    <li class="selected">
                         <a href="tables.html"><i class="fa fa-table fa-fw"></i>Tables</a>
                     </li>
-                    <li>
+                   <li>
                         <a href="forms.html"><i class="fa fa-edit fa-fw"></i>Forms</a>
                     </li>
                     <li>
@@ -398,11 +396,11 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
-                    
+                  
                     <li>
                         <a href="#"><i class="fa fa-files-o fa-fw"></i>Sample Pages<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li class="selected">
+                            <li>
                                 <a href="blank.html">Blank Page</a>
                             </li>
                             <li>
@@ -411,6 +409,7 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
+                    <!--                              </MENU>                        -->
                 </ul>
                 <!-- end side-menu -->
             </div>
@@ -420,254 +419,72 @@
         <!--  page-wrapper -->
         <div id="page-wrapper">
 
+            
             <div class="row">
-                <!-- Page Header -->
+                 <!--  page header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Casas Refugio</h1>
+                    <h1 class="page-header">Comentarios</h1>
                 </div>
-                <!--End Page Header -->
+                 <!-- end  page header -->
             </div>
-
-              <div class="row">
+            <div class="row">
                 <div class="col-lg-12">
-                    <!-- Form Elements -->
+                    <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Datos de Casa Refugio
+                            <a href="listaDenunciaSolucionada.jsp">
+                                <img src="assets/images/retornar.png" width="25px" alt=""/>Atras</a>
                         </div>
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form">
-                                       
-                                        <div class="form-group">
-                                            <label>Nombre</label>
-                                            <input type="text" name="txtnomcasarefugio" class="form-control" placeholder="">
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Dirección</label>
-                                            <input type="text" name="txtdireccasarefugio" class="form-control" placeholder="">
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Teléfono Contacto</label>
-                                            <input type="tel" name="txttlf1" pattern="[0-9]{9}" class="form-control" placeholder="">
-                                            <p>Ejm: 012461254 / 945929934</p>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Descripción</label>
-                                            <textarea class="form-control" rows="3" maxlength="250"></textarea>
-                                            <p>Máximo 250 caractéres</p>
-                                        </div>
-                                        <!--
-                                        <div class="form-group">
-                                            <label>Static Control</label>
-                                            <p>email@example.com</p>
-                                        </div>
-                                        -->
-                                        <div class="form-group">
-                                            <label>Foto/Imagen de referencia</label>
-                                        </div>    
-                                        <div class="form-group">
-                                            <!-- PARA INPUT FILE -->
-                                            <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
-					<label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span>
-                                            <!-- PARA INPUT FILE -->
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">REGISTRAR</button>
-                                        </div>
-                                        
-                                        <!--
-                                        <div class="form-group">
-                                            <label>Text area</label>
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Checkboxes</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 1
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 2
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Checkboxes</label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">1
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">2
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Radio Buttons</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>Radio 1
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Radio 2
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Radio 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Radio Buttons</label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked>1
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Selects</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Multiple Selects</label>
-                                            <select multiple class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit Button</button>
-                                        <button type="reset" class="btn btn-success">Reset Button</button>
-                                    </form>
-                                </div>
-                                <div class="col-lg-6">
-                                    <h1>Disabled Form States</h1>
-                                    <form role="form">
-                                        <fieldset disabled="disabled">
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled input</label>
-                                                <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled select menu</label>
-                                                <select id="disabledSelect" class="form-control">
-                                                    <option>Disabled select</option>
-                                                </select>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">Disabled Checkbox
-                                                </label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Disabled Button</button>
-                                        </fieldset>
-                                    </form>
-                                    <h1>Form Validation States</h1>
-                                    <form role="form">
-                                        <div class="form-group has-success">
-                                            <label class="control-label" for="inputSuccess">Input with success</label>
-                                            <input type="text" class="form-control" id="inputSuccess">
-                                        </div>
-                                        <div class="form-group has-warning">
-                                            <label class="control-label" for="inputWarning">Input with warning</label>
-                                            <input type="text" class="form-control" id="inputWarning">
-                                        </div>
-                                        <div class="form-group has-error">
-                                            <label class="control-label" for="inputError">Input with error</label>
-                                            <input type="text" class="form-control" id="inputError">
-                                        </div>
-                                    </form>
-                                    <h1>Input Groups</h1>
-                                    <form role="form">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">@</span>
-                                            <input type="text" class="form-control" placeholder="Username">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-eur"></i>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="Font Awesome Icon">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                        -->
-                                    </form>
-                                </div>
-                                <div class="row text-center">
-                                    <img src="assets/images/casa.png" width="450" height="450">
-                                        </div>
-                            </div>
-                            
+                            <div class="table-responsive">
+                                <%int codDen  = Integer.parseInt(request.getParameter("cod_den"));
+                                  DAO.DAOCOMENTARIO obj=new DAO.DAOCOMENTARIO();%>
+                                  
+                                <form name="frmlistaDenuncia" method="POST" action="comentario">
+                                <table class="table table-striped table-bordered table-hover">
+                                   
+                                    <td><center>
+                                    <textarea class="form-control" name="comentario" placeholder="Escribir comentario" rows="5" cols="25" maxlength="330" style="width: 500px"></textarea><br>
+                                    <button type="submit" class="btn btn-primary">Comentar</button>
+                                    <input type="hidden" name="codigo" value="<%=codDen%>">
+                                    </center></td>
+                                </table>
+                                </form>
+                                 
+                                <form name="frmlistaDenuncia" method="POST">   
+                                <table class="table table-striped table-bordered table-hover">
+                                    <tbody>
+                                        <tr class="odd gradeX">
+                                        <%for(DTO.DTOCOMENTARIO x:obj.buscaComentario(codDen)){%>
+                                          <input type="hidden" name="cod_denun" value="<%=codDen%>">
+                                          <td width="200"><h3><b><%=x.getUsuario()%></b></h3></td>
+                                          </tr>  
+                                          <tr class="odd gradeX">
+                                          <td><%=x.getComentario()%></td>
+                                          </tr><%}%> 
+                                     </tbody>
+                                </table>
+                             </form>
+                            </div> 
                         </div>
-                        
                     </div>
-                     <!-- End Form Elements -->
+                    <!--End Advanced Tables -->
                 </div>
             </div>
-            
-            
-            
-
-        </div>
-        <!-- end page-wrapper -->
-
-    </div>
-    <!-- end wrapper -->
-
     <!-- Core Scripts - Include with every page -->
-    <!-- PARA INPUT FILE -->
-    <script src="assets/js/custom-file-input.js"></script>
-    <!-- /PARA INPUT FILE -->
     <script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
+    <!-- Page-Level Plugin Scripts-->
+    <script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTables-example').dataTable();
+        });
+    </script>
 
 </body>
-
 </html>
-

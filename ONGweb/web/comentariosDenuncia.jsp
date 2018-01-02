@@ -326,7 +326,7 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
-                     <li>
+                      <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>Formularios<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
@@ -337,7 +337,10 @@
                             </li>
                             <li>
                                 <a href="listaAdopcion.jsp">ListaPerrosenAdopcion</a>
-                            </li>    
+                            </li>  
+                            <li>
+                                <a href="listaAdoptados.jsp">ListaPerrosAdoptados</a>
+                            </li> 
                         </ul>
                             </li>
                             
@@ -354,16 +357,42 @@
                             </li>
                             
                             <li>
-                        <a href="#"><i class="fa fa-fw"></i>Maltrato<span class="fa arrow"></span></a> 
+                        <a href="#"><i class="fa fa-fw"></i>DenunciaMaltrato<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
                          <li>
-                                <a href="registrarMaltrato.jsp">RegistrarMaltrato</a>
+                                <a href="registrarMaltrato.jsp">RegistrarDenunciaMaltrato</a>
                             </li>
                             <li>
-                                <a href="listaMaltrato.jsp">ListadoMaltrato</a>
+                                <a href="listaMaltrato.jsp">ListadoDenunciaMaltrato</a>
+                            </li>
+                             <li>
+                                 <a href="listaDenunciaSolucionada.jsp">ListadoDenunciaSolucionado</a>
                             </li>
                         </ul>
                             </li>                         
+                        </ul>
+                        <!-- second-level-items -->
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i>Listas Admin<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                           <li>
+                               <a href="listaAdminMascota.jsp">Mascota Admin</a>
+                            </li>
+                            
+                           <li>
+                               <a href="listaAdminAdoptados.jsp">Adopcion Admin</a>
+                            </li>
+                            
+                            <li>
+                                <a href="listaAdminCasaRefugio.jsp">CasaRefugio Admin</a>
+                            </li>       
+                            
+                              <li>
+                                  <a href="listaAdminDenuncia.jsp">DenunciaMalrato Admin</a>
+                            </li>   
                         </ul>
                         <!-- second-level-items -->
                     </li>
@@ -394,7 +423,7 @@
             <div class="row">
                  <!--  page header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Lista de Comentarios</h1>
+                    <h1 class="page-header">Comentarios</h1>
                 </div>
                  <!-- end  page header -->
             </div>
@@ -408,22 +437,30 @@
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
+                                <%int codDen  = Integer.parseInt(request.getParameter("cod_den"));
+                                  DAO.DAOCOMENTARIO obj=new DAO.DAOCOMENTARIO();%>
+                                  
                                 <form name="frmlistaDenuncia" method="POST" action="comentario">
                                 <table class="table table-striped table-bordered table-hover">
-                                    <td><center><textarea class="form-control" name="comentario" placeholder="Escribir comentario" rows="5" cols="25" maxlength="330" style="width: 500px"></textarea><br>
-                                                <button type="submit" class="btn btn-primary">Comentar</button> 
+                                   
+                                    <td><center>
+                                    <textarea class="form-control" name="comentario" placeholder="Escribir comentario" rows="5" cols="25" maxlength="330" style="width: 500px"></textarea><br>
+                                    <button type="submit" class="btn btn-primary">Comentar</button>
+                                    <input type="hidden" name="codigo" value="<%=codDen%>">
                                     </center></td>
-                                    
+                                </table>
+                                </form>
+                                 
+                                <form name="frmlistaDenuncia" method="POST">   
+                                <table class="table table-striped table-bordered table-hover">
                                     <tbody>
                                         <tr class="odd gradeX">
-                                        <%int cod_d  = Integer.parseInt(request.getParameter("cod_den"));
-                                          DAO.DAOCOMENTARIO obj=new DAO.DAOCOMENTARIO();
-                                          for(DTO.DTOCOMENTARIO x:obj.buscaComentario(cod_d)){%>
-                                          <input type="hidden" name="cod_denun" value="<%=cod_d%>">
+                                        <%for(DTO.DTOCOMENTARIO x:obj.buscaComentario(codDen)){%>
+                                          <input type="hidden" name="cod_denun" value="<%=codDen%>">
                                           <td width="200"><h3><b><%=x.getUsuario()%></b></h3></td>
                                           </tr>  
                                           <tr class="odd gradeX">
-                                            <td><%=x.getComentario()%></td>
+                                          <td><%=x.getComentario()%></td>
                                           </tr><%}%> 
                                      </tbody>
                                 </table>

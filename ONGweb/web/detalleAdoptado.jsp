@@ -1,3 +1,7 @@
+<%@page import="DTO.DTODARADOPCION"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DAO.DAOADOPCION"%>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 
@@ -328,7 +332,7 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
-                      <li>
+                    <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>Formularios<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
@@ -423,7 +427,7 @@
             <div class="row">
                 <!-- Page Header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Casas Refugio</h1>
+                    <h1 class="page-header">Detalle de Adopción</h1>
                 </div>
                 <!--End Page Header -->
             </div>
@@ -433,53 +437,102 @@
                     <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Datos de Casa Refugio
+                            <a href="listaAdoptados.jsp">
+                                <img src="assets/images/retornar.png" width="25px" alt=""/>Atras</a>
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form role="form" name="frmDarAdopcion" method="POST" action="adopcion_mas">                    
+                                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <tbody>
+                                        <%   int cod  = Integer.parseInt(request.getParameter("cod_mas"));
+                                             DAOADOPCION obj= new DAOADOPCION();
+                                            for(DTODARADOPCION x:obj.buscarDetalleAdopcion(cod)){%> 
                                        
-                                        <div class="form-group">
-                                            <label>Nombre</label>
-                                            <input type="text" name="txtnomcasarefugio" class="form-control" placeholder="">
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Dirección</label>
-                                            <input type="text" name="txtdireccasarefugio" class="form-control" placeholder="">
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Teléfono Contacto</label>
-                                            <input type="tel" name="txttlf1" pattern="[0-9]{9}" class="form-control" placeholder="">
-                                            <p>Ejm: 012461254 / 945929934</p>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Descripción</label>
-                                            <textarea class="form-control" rows="3" maxlength="250"></textarea>
-                                            <p>Máximo 250 caractéres</p>
-                                        </div>
-                                        <!--
-                                        <div class="form-group">
-                                            <label>Static Control</label>
-                                            <p>email@example.com</p>
-                                        </div>
-                                        -->
-                                        <div class="form-group">
-                                            <label>Foto/Imagen de referencia</label>
-                                        </div>    
-                                        <div class="form-group">
-                                            <!-- PARA INPUT FILE -->
-                                            <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
-					<label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span>
-                                            <!-- PARA INPUT FILE -->
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">REGISTRAR</button>
-                                        </div>
-                                        
+                                            <tr class="odd gradeX"><br>
+                                            <td><h1><center><b><%=x.getNom_mas()%></b></center></h1></td>
+                                            </tr>
+                                           
+                                            <tr class="odd gradeX">
+                                                <td width="500" colspan="2"><center>Descripción</center></td><tr></tr>
+                                            <td colspan="3" style="height: 225px"><%=x.getDescrip_mas()%></td>
+                                            </tr>
+                                            
+                                            <tr class="odd gradeX">
+                                            <td><center>Raza</center></td>
+                                            <td colspan="2"><center><%=x.getNom_raza()%></center></td>
+                                            </tr>
+                                            
+                                            <input type="hidden" name="id_mas" value="<%=cod%>">                                               
+                                    </tbody>
+                                </table>   
+                                    
+                                <table>
+                                    
+                                         <!-- CARRUSEL -->
+                                        <tbody>
+                                             <div id="homeCarousel" class="carousel slide carousel-home" data-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    
+                                                    <%}int con=0;
+                                                      for (DTODARADOPCION y:obj.buscarImgDetalleAdopcion(cod)){
+                                                        if (con==0){
+                                                            %>
+                                                             <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+                                                            <%
+                                                        }else{
+                                                            %>
+                                                            <li data-target="#homeCarousel" data-slide-to="<%=con%>"></li>
+                                                            <%
+                                                        }
+                                                        con++;
+                                                    }
+                                                    con=0;
+                                                    %>
+                                                </ol>
+                                              
+                                                <div class="carousel-inner" role="listbox" >
+                                                
+                                                    <% String foto;
+                                                    for (DTODARADOPCION y:obj.buscarImgDetalleAdopcion(cod)){
+                                                        foto = y.getFoto();
+                                                      if (con==0){
+                                                          %>
+                                                          <div class="item active">
+                                                              <img src="<%=foto%>" style="height: 350px" alt="">
+                                                </div>           
+                                                          <%
+                                                      }else{
+                                                          %>
+                                                            <div class="item">
+                                                               <img src="<%=foto%>" style="height: 350px" alt="">
+                                                </div>           
+                                                 <%
+                                                      }  
+                                                      con++;
+                                                    }
+                                                    con=0;
+                                                    foto=null;
+                                                    %>
+                                                </div>
+                                                <a class="left carousel-control" href="#homeCarousel" role="button" data-slide="prev">
+                                                    <span class="fa fa-angle-left" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                
+                                                <a class="right carousel-control" href="#homeCarousel" role="button" data-slide="next">
+                                                    <span class="fa fa-angle-right" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </div>
+                                            
+                                            <!-- CARRUSEL -->
+                                            
+                                        </tbody>
+                                   
+                                    </table>
+                    </form>       
                                         <!--
                                         <div class="form-group">
                                             <label>Text area</label>
@@ -634,7 +687,6 @@
                                             </span>
                                         </div>
                                         -->
-                                    </form>
                                 </div>
                                 <div class="row text-center">
                                     <img src="assets/images/casa.png" width="450" height="450">
@@ -647,13 +699,8 @@
                      <!-- End Form Elements -->
                 </div>
             </div>
-            
-            
-            
-
         </div>
         <!-- end page-wrapper -->
-
     </div>
     <!-- end wrapper -->
 
@@ -666,8 +713,7 @@
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
-
 </body>
-
 </html>
+
 

@@ -17,13 +17,13 @@ public class DTODARADOPCION extends DTOMASCOTA{
         this.cod_dar_adop = cod_dar_adop;
     }
 
+    public DTODARADOPCION(String nom_mas, String descrip_mas, String nom_raza, String tendencia_mas) {
+        super(nom_mas, descrip_mas, nom_raza, tendencia_mas);
+    }
+    
     public DTODARADOPCION(String foto) {
         this.foto = foto;
     }
-    
-    public DTODARADOPCION(String nom_mas, String descrip_mas, String nom_raza) {
-        super(nom_mas, descrip_mas, nom_raza);
-    }   
     
     public int getCod_dar_adop() {
         return cod_dar_adop;

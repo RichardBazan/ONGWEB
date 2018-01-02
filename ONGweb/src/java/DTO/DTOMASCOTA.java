@@ -8,17 +8,24 @@ public class DTOMASCOTA extends DTORAZA{
     public DTOMASCOTA() {
     }
 
-    public DTOMASCOTA(int cod_mas, String nom_mas, String sexo_mas, String edad_mas, String descrip_mas, String estado_mas, String tendencia_mas, int cod_raza) {
-        super(cod_raza);
+    public DTOMASCOTA(String nom_mas) {
+        this.nom_mas = nom_mas;
+    }
+    
+    public DTOMASCOTA(int cod_mas) {
+        this.cod_mas = cod_mas;
+    }
+
+    public DTOMASCOTA(int cod_mas, String nom_mas, String sexo_mas, String edad_mas, String estado_mas, String tendencia_mas, String nom_raza, String usuario) {
+        super(nom_raza, usuario);
         this.nom_mas = nom_mas;
         this.sexo_mas = sexo_mas;
         this.edad_mas = edad_mas;
-        this.descrip_mas = descrip_mas;
         this.estado_mas = estado_mas;
         this.tendencia_mas = tendencia_mas;
         this.cod_mas = cod_mas;
     }
-
+    
     public DTOMASCOTA(int cod_mas, String nom_mas, String descrip_mas) {
         this.cod_mas = cod_mas;
         this.nom_mas = nom_mas;
@@ -30,10 +37,11 @@ public class DTOMASCOTA extends DTORAZA{
         this.descrip_mas = descrip_mas;
     }
 
-    public DTOMASCOTA(String nom_mas, String descrip_mas, String nom_raza) {
+    public DTOMASCOTA(String nom_mas, String descrip_mas, String nom_raza, String tendencia_mas) {
         super(nom_raza);
         this.nom_mas = nom_mas;
         this.descrip_mas = descrip_mas;
+        this.tendencia_mas = tendencia_mas;
     }
     
     public String getNom_mas() {
