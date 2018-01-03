@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -11,13 +11,14 @@
     <link href="assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/main-style.css" rel="stylesheet" />
-    <!-- PARA INPUT FILE -->
-    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/component.css" />
-	
-		<!-- remove this if you use Modernizr -->
-		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
-    <!-- /PARA INPUT FILE -->            
+
+    <!-- Page-Level CSS -->
+    <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+
+     <script langiage="javascript" type="text/javascript">
+            function CrearEnlace(url) {
+            location.href=url;}
+     </script>
 </head>
 
 <%!
@@ -47,7 +48,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="inicio.jsp">
+                <a class="navbar-brand" href="index.html">
                     <img src="assets/img/logo.png" alt="" />
                 </a>
             </div>
@@ -57,206 +58,11 @@
                 <!-- main dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="top-label label label-danger">3</span><i class="fa fa-envelope fa-3x"></i>
-                    </a>
-                    <!-- dropdown-messages -->
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong><span class=" label label-danger">Andrew Smith</span></strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong><span class=" label label-info">Jonney Depp</span></strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong><span class=" label label-success">Jonney Depp</span></strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- end dropdown-messages -->
-                </li>
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="top-label label label-success">4</span>  <i class="fa fa-tasks fa-3x"></i>
-                    </a>
-                    <!-- dropdown tasks -->
-                    <ul class="dropdown-menu dropdown-tasks">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 2</strong>
-                                        <span class="pull-right text-muted">20% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 3</strong>
-                                        <span class="pull-right text-muted">60% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 4</strong>
-                                        <span class="pull-right text-muted">80% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete (danger)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Tasks</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- end dropdown-tasks -->
-                </li>
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="top-label label label-warning">5</span>  <i class="fa fa-bell fa-3x"></i>
-                    </a>
-                    <!-- dropdown alerts-->
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i>New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i>3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i>Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i>New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i>Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- end dropdown-alerts -->
-                </li>
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-3x"></i>
                     </a>
                     <!-- dropdown user-->
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i>Settings</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="login.jsp"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
@@ -309,7 +115,7 @@
                         <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Charts<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="flot.html">Flot Charts</a>
@@ -323,10 +129,10 @@
                      <li>
                         <a href="timeline.html"><i class="fa fa-flask fa-fw"></i>Timeline</a>
                     </li>
-                    <li>
+                    <li class="selected">
                         <a href="tables.html"><i class="fa fa-table fa-fw"></i>Tables</a>
                     </li>
-                    <li>
+                   <li>
                         <a href="forms.html"><i class="fa fa-edit fa-fw"></i>Forms</a>
                     </li>
                     <li>
@@ -344,12 +150,12 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
-                      <li  class="active">
+                     <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>Formularios<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                         <a href="#"><i class="fa fa-fw"></i>Adopción<span class="fa arrow"></span></a> 
-                        <ul class="nav nav-third-level">
+                         <ul class="nav nav-third-level">
                         <li>
                                 <a href="registrarDarAdopcion.jsp">RegistrarDarEnAdopción</a>
                             </li>
@@ -362,7 +168,7 @@
                              <li>
                         <a href="#"><i class="fa fa-fw"></i>Casa Refugio<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
-                            <li>
+                        <li>
                             <a href="RegistrarCasaRefugio.jsp">RegistrarCasaRefugio</a>
                             </li>
                             <li>
@@ -371,13 +177,13 @@
                         </ul>
                             </li>
                             
-                            <li  class="active">
+                            <li>
                         <a href="#"><i class="fa fa-fw"></i>Maltrato<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
-                            <li>
+                         <li>
                                 <a href="registrarMaltrato.jsp">RegistrarMaltrato</a>
                             </li>
-                            <li class="selected">
+                            <li>
                                 <a href="listaMaltrato.jsp">ListadoMaltrato</a>
                             </li>
                         </ul>
@@ -385,10 +191,11 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
+                  
                     <li>
                         <a href="#"><i class="fa fa-files-o fa-fw"></i>Sample Pages<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li class="selected">
+                            <li>
                                 <a href="blank.html">Blank Page</a>
                             </li>
                             <li>
@@ -397,6 +204,7 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
+                    <!--                              </MENU>                        -->
                 </ul>
                 <!-- end side-menu -->
             </div>
@@ -406,235 +214,76 @@
         <!--  page-wrapper -->
         <div id="page-wrapper">
 
+            
             <div class="row">
-                <!-- Page Header -->
+                 <!--  page header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Casas Refugio</h1>
+                    <h1 class="page-header">Lista de Denuncias</h1>
                 </div>
-                <!--End Page Header -->
+                 <!-- end  page header -->
             </div>
-
-              <div class="row">
+            <div class="row">
                 <div class="col-lg-12">
-                    <!-- Form Elements -->
+                    <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Datos de Casa Refugio
+                             Registros de Denuncias
                         </div>
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form">
-                                       
-                                        <%
-    String nombre  = request.getParameter("titulo");
-    String cbor    = request.getParameter("cborBR");
-    String direcc  = request.getParameter("direccion");
-    String telefono = request.getParameter("telefono");
-    String descrip    = request.getParameter("descripcion");
-    String img    = request.getParameter("imagen");
-%> 
-              <table>
-                  
-                    <a href="registrarMaltrato.jsp">Registrar nueva adopción</a><br>
-              </table> 
-            <form name="frmDarAdopcion" method="POST" action="listaAdopcion.jsp">
-                <table border="1"><br>
-                    <th><center>Nombre</center></th><th>Descripción</th><th>Acción</th><tr></tr>
-                    <td><%=nombre%></td>
-                    <td width="200"><center><%=descrip%></center></td>
-                    <td><center><a href="detalleMaltrato.jsp?nom=<%=nombre%>&img=<%=img%>&raza=<%=cbor%>&descrip=<%=descrip%>">Ver mas</a></center></td> 
-                </table>
-            </form>
-                                        
-                                        <!--
-                                        <div class="form-group">
-                                            <label>Text area</label>
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Checkboxes</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 1
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 2
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Checkboxes</label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">1
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">2
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Radio Buttons</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>Radio 1
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Radio 2
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Radio 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Radio Buttons</label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked>1
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Selects</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Multiple Selects</label>
-                                            <select multiple class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit Button</button>
-                                        <button type="reset" class="btn btn-success">Reset Button</button>
-                                    </form>
-                                </div>
-                                <div class="col-lg-6">
-                                    <h1>Disabled Form States</h1>
-                                    <form role="form">
-                                        <fieldset disabled="disabled">
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled input</label>
-                                                <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled select menu</label>
-                                                <select id="disabledSelect" class="form-control">
-                                                    <option>Disabled select</option>
-                                                </select>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">Disabled Checkbox
-                                                </label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Disabled Button</button>
-                                        </fieldset>
-                                    </form>
-                                    <h1>Form Validation States</h1>
-                                    <form role="form">
-                                        <div class="form-group has-success">
-                                            <label class="control-label" for="inputSuccess">Input with success</label>
-                                            <input type="text" class="form-control" id="inputSuccess">
-                                        </div>
-                                        <div class="form-group has-warning">
-                                            <label class="control-label" for="inputWarning">Input with warning</label>
-                                            <input type="text" class="form-control" id="inputWarning">
-                                        </div>
-                                        <div class="form-group has-error">
-                                            <label class="control-label" for="inputError">Input with error</label>
-                                            <input type="text" class="form-control" id="inputError">
-                                        </div>
-                                    </form>
-                                    <h1>Input Groups</h1>
-                                    <form role="form">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">@</span>
-                                            <input type="text" class="form-control" placeholder="Username">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-eur"></i>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="Font Awesome Icon">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                        -->
-                                    </form>
-                                </div>
-                                <div class="row text-center">
-                                    <img src="assets/images/casa.png" width="450" height="450">
-                                        </div>
-                            </div>
-                            
+                            <div class="table-responsive">
+                               <form name="frmlistaDenuncia" method="POST">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                     <thead>
+                                         <tr class="odd gradeX">
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                     </thead>
+                                     
+                                     <tbody>
+                                         <%String descrip_den;
+                                            DAO.DAODENUNCIA  obj=new DAO.DAODENUNCIA();
+                                            for(DTO.DTODENUNCIA x:obj.readAll()){
+                                            for(DTO.DTODENUNCIA y:obj.readImgAll(x.getCod_den())){
+                                            if(x.getDescrip_den().length() <= 147){ 
+                                                descrip_den = x.getDescrip_den().substring(0,x.getDescrip_den().length());}
+                                            else{
+                                                descrip_den = x.getDescrip_den().substring(0,x.getDescrip_den().length()/2)+"...";}%>   
+                                                
+                                        <tr class="odd gradeX" onClick="CrearEnlace('detalleMaltrato.jsp?cod_den=<%=x.getCod_den()%>')">
+                                            
+                                            <td><h2><b><center><%=x.getTitulo_den()%></center></b></h2><center><img src="<%=y.getFoto_den()%>" width="180" height="154"></center></td>
+                               
+                                             <td width="500"><br><br><br><%=descrip_den%></td>
+                                            
+                                             <td><center><br><br><a href="comentariosDenuncia.jsp?cod_den=<%=x.getCod_den()%>"> 
+                                             <img src="assets/images/commenting_icon-icons.com_70233.png" width="150"  alt=""/></a></center></td>
+                                            
+                                        </tr><%}}%> 
+                                     </tbody>
+                                </table>
+                             </form>
+                            </div> 
                         </div>
-                        
                     </div>
-                     <!-- End Form Elements -->
+                    <!--End Advanced Tables -->
                 </div>
             </div>
-            
-            
-            
-
-        </div>
-        <!-- end page-wrapper -->
-
-    </div>
-    <!-- end wrapper -->
-
     <!-- Core Scripts - Include with every page -->
-    <!-- PARA INPUT FILE -->
-    <script src="assets/js/custom-file-input.js"></script>
-    <!-- /PARA INPUT FILE -->
     <script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
+    <!-- Page-Level Plugin Scripts-->
+    <script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTables-example').dataTable();
+        });
+    </script>
 
 </body>
-
 </html>
-

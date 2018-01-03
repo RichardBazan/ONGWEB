@@ -1,6 +1,6 @@
 package DTO;
 
-public class DTOUSUARIO {
+public class DTOUSUARIO{
 
     private Integer codigo;
     private String nombre,apellido_pat,apellido_mat,fechaNacimiento,direccion,telefono,usuario,contraseña,foto;
@@ -8,7 +8,11 @@ public class DTOUSUARIO {
     public DTOUSUARIO() {
     }
 
-    public DTOUSUARIO(Integer codigo, String nombre, String apellido_pat, String apellido_mat, String fechaNacimiento, String direccion, String telefono, String usuario, String contraseña, String foto) {
+    public DTOUSUARIO(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public DTOUSUARIO(int codigo, String nombre, String apellido_pat, String apellido_mat, String fechaNacimiento, String direccion, String telefono, String usuario, String contraseña, String foto) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellido_pat = apellido_pat;

@@ -418,7 +418,7 @@ a:hover, a:focus, a:active {
 /* Pages 
 ================================= */
 .page-heading {
-  //background: url('../images/heading-bg.jpg?1428795369') no-repeat center;
+
   background-size: cover;
   min-height: 190px;
   color: #fff;
@@ -1060,7 +1060,7 @@ form .alert {
 }
 
 
-//-------------------------------------------- UNION ------------------//
+
 
 /* Global Styles */
 

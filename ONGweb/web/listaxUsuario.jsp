@@ -1,5 +1,6 @@
+<%@page import="DTO.DTOADOPCION"%>
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -9,48 +10,17 @@
     <link href="assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <link href="assets/css/main-style.css" rel="stylesheet" />
-    <!-- PARA INPUT FILE -->
-    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/component.css" />
-	
-		<!-- remove this if you use Modernizr -->
-		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
-    <!-- /PARA INPUT FILE -->            
+  <link href="assets/css/style.css" rel="stylesheet" />
+      <link href="assets/css/main-style.css" rel="stylesheet" />
+
+    <!-- Page-Level CSS -->
+    <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+
+        <script langiage="javascript" type="text/javascript">
+            function CrearEnlace(url) {
+            location.href=url;}
+        </script>
 </head>
-
-<%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="";
-   %>
-
-<%
-    HttpSession ses = request.getSession();
-    if (ses.getAttribute("datosUsuario")!=null){
-         String[] datosUsuario = (String[])ses.getAttribute("datosUsuario");
-         nombreUsuario = datosUsuario[0];
-         primeraLetraApellidoPat = datosUsuario[1];
-         usernameUsuario = datosUsuario[2];
-     }
-    if(ses.getAttribute("resultadoRegistroCR")!=null){
-        String msje = ses.getAttribute("resultadoRegistroCR").toString();
-        if (msje.substring(0,1).equalsIgnoreCase("C")){
-            %>
-            <body onload="alertaok('<%=msje%>')">
-                <%
-        }else{
-            %>
-            <body onload="alertanot('<%=msje%>')">
-                <%
-        }
-    }else{
-        %>
-        <body>
-            <%
-        }
-    
-    ses.setAttribute("resultadoRegistroCR",null);
-%>
 
 <body>
     <!--  wrapper -->
@@ -107,8 +77,7 @@
                                 <img src="assets/img/user.jpg" alt="">
                             </div>
                             <div class="user-info">
-                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
-                                <div style="font-size: 14px; text-align: center;">( <i><%=usernameUsuario%></i> )</div>
+                                <div>Jonny <strong>Deen</strong></div>
                                 <div class="user-text-online">
                                     <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
                                 </div>
@@ -129,10 +98,10 @@
                         <!--end search section-->
                     </li>
                     <li class="">
-                        <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
+                        <a href="inicio.html"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Charts<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="flot.html">Flot Charts</a>
@@ -146,10 +115,10 @@
                      <li>
                         <a href="timeline.html"><i class="fa fa-flask fa-fw"></i>Timeline</a>
                     </li>
-                    <li>
+                    <li class="selected">
                         <a href="tables.html"><i class="fa fa-table fa-fw"></i>Tables</a>
                     </li>
-                    <li>
+                   <li>
                         <a href="forms.html"><i class="fa fa-edit fa-fw"></i>Forms</a>
                     </li>
                     <li>
@@ -167,12 +136,12 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
-                      <li  class="active">
+                     <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>Formularios<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                         <a href="#"><i class="fa fa-fw"></i>Adopción<span class="fa arrow"></span></a> 
-                        <ul class="nav nav-third-level">
+                         <ul class="nav nav-third-level">
                         <li>
                                 <a href="registrarDarAdopcion.jsp">RegistrarDarEnAdopción</a>
                             </li>
@@ -182,10 +151,10 @@
                         </ul>
                             </li>
                             
-                             <li  class="active">
+                             <li>
                         <a href="#"><i class="fa fa-fw"></i>Casa Refugio<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
-                            <li class="selected">
+                        <li>
                             <a href="RegistrarCasaRefugio.jsp">RegistrarCasaRefugio</a>
                             </li>
                             <li>
@@ -208,10 +177,11 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
+                  
                     <li>
                         <a href="#"><i class="fa fa-files-o fa-fw"></i>Sample Pages<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li class="selected">
+                            <li>
                                 <a href="blank.html">Blank Page</a>
                             </li>
                             <li>
@@ -220,6 +190,7 @@
                         </ul>
                         <!-- second-level-items -->
                     </li>
+                    <!--                              </MENU>                        -->
                 </ul>
                 <!-- end side-menu -->
             </div>
@@ -229,125 +200,93 @@
         <!--  page-wrapper -->
         <div id="page-wrapper">
 
+            
             <div class="row">
-                <!-- Page Header -->
+                 <!--  page header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Casas Refugio</h1>
+                    <h1 class="page-header">Lista de Adopción</h1>
                 </div>
-                <!--End Page Header -->
+                 <!-- end  page header -->
             </div>
-
-              <div class="row">
+            <div class="row">
                 <div class="col-lg-12">
-                    <!-- Form Elements -->
+                    <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Datos de Casa Refugio
+                             Lista de Perros en Adopción
                         </div>
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form" method="post" action="SERCASAREFUGIO">
+                            <div class="table-responsive">
+                                <form name="listaxUsuario" method="POST">
+                                   
                                         <div class="form-group">
-                                            <label>Nombre</label>
-                                            <input type="text" name="txtnombre" id="txtnombre" class="form-control" required>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Dirección</label>
-                                            <input type="text" name="txtdireccion" id="txtdireccion" class="form-control" required>
-                                            <i style="font-size: 12px">Ejm: Av. Sucre 525 Int. 204</i>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Teléfono Contacto</label>
-                                            <input type="tel" name="teltelefono" id="teltelefono" pattern="[0-9]{9}" class="form-control" maxlength="9" onkeypress="return valida(event)" required>
-                                            <i style="font-size: 12px">Ejm: 012461254 / 945929934</i>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Descripción</label>
-                                            <textarea class="form-control" name="txtdescripcion" id="txtdescripcion" rows="3" maxlength="330" required></textarea>
-                                            <p>Máximo 330 caractéres</p>
-                                        </div>
-                                        <!--
-                                        <div class="form-group">
-                                            <label>Static Control</label>
-                                            <p>email@example.com</p>
-                                        </div>
-                                        -->
-                                        <div class="form-group">
-                                            <label>Foto/Imagen de referencia</label>
-                                        </div>    
-                                        <div class="form-group">
-                                            <!-- PARA INPUT FILE -->
-                                            <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
-                                            <label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span></label>
-                                            <!-- PARA INPUT FILE -->
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">REGISTRAR</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="row text-center">
-                                    <img src="assets/images/casa.png" width="450" height="450">
-                                        </div>
+                                              <label>Buscar por :</label>      
+                                        <select class="form-control" style="width:150px" name="cboTenencia" onchange= "valida()">
+                                                <option value="#"  >:: Seleccionar ::</option>
+                                                <option value="Ong">ONG</option>
+                                                <option value="Usuario">Usuario</option>
+                                                <option value="Ambos">Ambos</option>
+                                        </select>
+                                        </div> 
+                                    
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                     <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                        </tr>
+                                     </thead>
+                                     
+                                     <tbody>
+                                         <% String descrip_adop,tenencia;
+                                            tenencia = request.getParameter("valor");
+                                            DAO.DAOADOPCION  obj=new DAO.DAOADOPCION();
+                                            for(DTO.DTOMASCOTA x:obj.buscar_x_ONG_User(tenencia)){
+                                            for(DTO.DTODARADOPCION y:obj.readImgAll(x.getCod_mas())){
+                                            if(x.getDescrip_mas().length() <= 147){ 
+                                                descrip_adop = x.getDescrip_mas().substring(0,x.getDescrip_mas().length());}
+                                            else{
+                                                descrip_adop = x.getDescrip_mas().substring(0,x.getDescrip_mas().length()/2)+"...";}%>
+                                       
+                                          <tr class="odd gradeX" onClick="CrearEnlace('detalleAdopcion.jsp?cod_mas=<%=x.getCod_mas()%>')"> 
+                                           
+                                              <td><h3><%=x.getNom_mas()%></h3><center><img src="<%=y.getFoto()%>" width="180" height="154"></center></td>
+                                
+                                              <td width="500"><br><br><%=descrip_adop%></td>
+                                              
+                                          </tr><%}}%>  
+                                     </tbody>
+                                </table>
+                             </form>
                             </div>
-                            
                         </div>
-                        
                     </div>
-                     <!-- End Form Elements -->
+                    <!--End Advanced Tables -->
                 </div>
             </div>
-            
-            
-            
-
         </div>
-        <!-- end page-wrapper -->
-
-    </div>
-    <!-- end wrapper -->
-
     <!-- Core Scripts - Include with every page -->
-    <!-- PARA INPUT FILE -->
-    <script src="assets/js/custom-file-input.js"></script>
-    <!-- /PARA INPUT FILE -->
     <script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script type="text/javascript">
-        function valida(e){
-    tecla = (document.all) ? e.keyCode : e.which;
-   //Tecla de retroceso para borrar, siempre la permite
-    if (tecla===8){
-        return true;
-    }        
-    // Patron de entrada, en este caso solo acepta numeros
-    patron =/[0-9]/;
-    tecla_final = String.fromCharCode(tecla);
-    return patron.test(tecla_final);
-    }
-    
-    function alerta(msje){
-        swal(msje);
-    }
-    
-    function alertaok(msje){
-        swal("¡BIEN HECHO!",msje,"success");
-    }
-    
-    function alertanot(msje){
-        swal("¡ERROR!",msje,"error");
-    }
-    </script>
-
+    <!-- Page-Level Plugin Scripts-->
+    <script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTables-example').dataTable();
+        });
+        
+            function valida(){ 
+            valor=document.listaxUsuario.cboTenencia.value; 
+            if(valor==='Ong'){
+             location.href = 'listaxONG.jsp?valor=Ong';}
+            if (valor ==='Usuario'){
+             location.href = 'listaxUsuario.jsp?valor=Usuario';}
+            if (valor ==='Ambos'){
+            location.href  = 'listaAdopcion.jsp';}}
+   </script>
 </body>
-
 </html>
-

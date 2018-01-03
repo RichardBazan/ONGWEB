@@ -1,3 +1,7 @@
+<%@page import="DTO.DTODARADOPCION"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DAO.DAOADOPCION"%>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
@@ -46,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="inicio.jsp">
+                <a class="navbar-brand" href="index.html">
                     <img src="assets/img/logo.png" alt="" />
                 </a>
             </div>
@@ -56,206 +60,11 @@
                 <!-- main dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="top-label label label-danger">3</span><i class="fa fa-envelope fa-3x"></i>
-                    </a>
-                    <!-- dropdown-messages -->
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong><span class=" label label-danger">Andrew Smith</span></strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong><span class=" label label-info">Jonney Depp</span></strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong><span class=" label label-success">Jonney Depp</span></strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- end dropdown-messages -->
-                </li>
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="top-label label label-success">4</span>  <i class="fa fa-tasks fa-3x"></i>
-                    </a>
-                    <!-- dropdown tasks -->
-                    <ul class="dropdown-menu dropdown-tasks">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 2</strong>
-                                        <span class="pull-right text-muted">20% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 3</strong>
-                                        <span class="pull-right text-muted">60% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 4</strong>
-                                        <span class="pull-right text-muted">80% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete (danger)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Tasks</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- end dropdown-tasks -->
-                </li>
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="top-label label label-warning">5</span>  <i class="fa fa-bell fa-3x"></i>
-                    </a>
-                    <!-- dropdown alerts-->
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i>New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i>3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i>Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i>New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i>Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- end dropdown-alerts -->
-                </li>
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-3x"></i>
                     </a>
                     <!-- dropdown user-->
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i>Settings</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="login.jsp"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
@@ -408,7 +217,7 @@
             <div class="row">
                 <!-- Page Header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Casas Refugio</h1>
+                    <h1 class="page-header">Detalle de Adopción</h1>
                 </div>
                 <!--End Page Header -->
             </div>
@@ -418,32 +227,46 @@
                     <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Datos de Casa Refugio
+                            <a href="listaAdopcion.jsp">
+                                <img src="assets/images/retornar.png" width="25px" alt=""/>Atras</a>
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form role="form" name="frmDarAdopcion" method="POST" action="adopcion_mas">                    
+                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <tbody>
+                                        <%   int cod  = Integer.parseInt(request.getParameter("cod_mas"));
+                                             DAOADOPCION obj= new DAOADOPCION();
+                                            for(DTODARADOPCION x:obj.buscarDetalleAdopcion(cod)){%> 
                                        
-                                        <%
-    String nombre  = request.getParameter("nom");
-    String cbor    = request.getParameter("raza");
-    String descripcion    = request.getParameter("descrip");
-    String img    = request.getParameter("img");
-%>
-                <table>
-                    <td><a href="registrarDarAdopcion.jsp">Denunciar nuevo malatrato</a></td>
-                    <td><a href="listaAdopcion.jsp">Listar Adopción</a></td><br>
-                </table> 
-            <form name="frmDarAdopcion" method="POST" action="listaAdopcion.jsp">
-                <table border="1"><br>
-                    <td><center><%=nombre%></center><td rowspan="5"><center><%=descripcion%></center></td></td><tr></tr><tr></tr><br>
-                    <td><center><img src="assets/images/clock-2560x1440.jpg" width="200px" alt=""/></center></td><tr></tr>
-
-                    <td>RAZA</td><td width="200"><center><%=cbor%></center></td>
-                        </table>
-                </form>
+                                            <tr class="odd gradeX"><br>
+                                            <td><h1><center><%=x.getNom_mas()%></center></h1></td>
+                                            </tr>
+                                           
+                                            <tr class="odd gradeX">
+                                                <td width="500"><center>Descripción</center></td><tr></tr>
+                                            <td colspan="3" style="height: 225px"><%=x.getDescrip_mas()%></td>
+                                            </tr>
+                                            
+                                            <tr class="odd gradeX">
+                                            <td><center>Raza</center></td>
+                                            <td colspan="2"><center><%=x.getNom_raza()%></center></td>
+                                            </tr>
+                                            
+                                            <input type="hidden" name="id_mas" value="<%=cod%>">
                                         
+                                        <%}int con=0;
+                                        for(DTODARADOPCION y:obj.buscarImgDetalleAdopcion(cod)){%>    
+                                        <td><img src="<%=y.getFoto()%>" width="250px" height="250px" alt=""/></td>
+                                        <%con++;if(con%2==0) out.print("<tr>");}%>
+                                    </tbody>
+                                </table>      
+                            <div class="form-group">
+                                            <button type="submit"class="btn btn-primary">Adoptar </button>
+                                            <a href="listaAdopcion.jsp"><button type="button" class="btn btn-primary">Cancelar</button></a>
+                            </div>
+                    </form>       
                                         <!--
                                         <div class="form-group">
                                             <label>Text area</label>
@@ -598,7 +421,6 @@
                                             </span>
                                         </div>
                                         -->
-                                    </form>
                                 </div>
                                 <div class="row text-center">
                                     <img src="assets/images/casa.png" width="450" height="450">
@@ -611,13 +433,8 @@
                      <!-- End Form Elements -->
                 </div>
             </div>
-            
-            
-            
-
         </div>
         <!-- end page-wrapper -->
-
     </div>
     <!-- end wrapper -->
 
@@ -630,8 +447,7 @@
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
-
 </body>
-
 </html>
+
 
