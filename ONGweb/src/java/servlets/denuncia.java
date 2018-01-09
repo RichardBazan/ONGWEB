@@ -48,7 +48,27 @@ public class denuncia extends HttpServlet {
                 DTODEN.setCod_raza(Integer.parseInt(request.getParameter("cboR")));
                 
                 DAODEN.denunciaAdd(DTODEN);
-                JOptionPane.showMessageDialog(null, "REGISTRADO");
+                JOptionPane.showMessageDialog(null, "DATOS REGISTRADOS");
+                
+                String f1 = request.getParameter("URL_1");
+                String f2 = request.getParameter("URL_2");
+                String f3 = request.getParameter("URL_3");                
+                String f4 = request.getParameter("URL_4");   
+
+                
+                if(!f1.equals("")){ 
+                     DAODEN.denunciaFotoAdd(f1);}
+                
+                if(!f2.equals("")){
+                     DAODEN.denunciaFotoAdd(f2);}
+                
+                if(!f3.equals("")){
+                     DAODEN.denunciaFotoAdd(f2);}
+                
+                if(!f4.equals("")){
+                     DAODEN.denunciaFotoAdd(f4);}  
+                
+                JOptionPane.showMessageDialog(null, "FOTO(S) REGISTRADO(S)");
                 response.sendRedirect(pag);
                 
         } catch (SQLException ex) {

@@ -1,4 +1,3 @@
-<%@page import="DTO.DTOADOPCION"%>
 <!DOCTYPE html>
 <html>
 
@@ -10,16 +9,11 @@
     <link href="assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
-  <link href="assets/css/style.css" rel="stylesheet" />
-      <link href="assets/css/main-style.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/main-style.css" rel="stylesheet" />
 
     <!-- Page-Level CSS -->
     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
-
-        <script langiage="javascript" type="text/javascript">
-            function CrearEnlace(url) {
-            location.href=url;}
-        </script>
 </head>
 
 <%!
@@ -34,7 +28,6 @@
          primeraLetraApellidoPat = datosUsuario[1];
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
-
      }
 %>
 
@@ -93,7 +86,7 @@
                                 <img src="assets/img/user.jpg" alt="">
                             </div>
                             <div class="user-info">
-                                 <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
+                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
                                 <div style="font-size: 14px; text-align: center;">( <i><%=usernameUsuario%></i> )</div>
                                 <div class="user-text-online">
                                     <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
@@ -103,18 +96,18 @@
                         <!--end user image section-->
                     </li>
                     <li>
-                        
+                       
                     </li>
-                     <li>
+                        <li>
                         <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>&nbsp;PRINCIPAL</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>ADOPCIÓN<span class="fa arrow"></span></a> 
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="registrarDarAdopcion.jsp">Dar en adopción</a>
                             </li>
-                            <li class="selected">
+                            <li>
                                 <a href="listaAdopcion.jsp">Perros en adopcion</a>
                             </li>  
                             <li>
@@ -152,7 +145,7 @@
                             <%
                             if (Integer.parseInt(codigoUsuario)<4){
                                 %>
-                                <li>
+                                <li class="active">
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i>ADMINISTRADOR<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                         <li>
@@ -164,7 +157,7 @@
                                         <li>
                                             <a href="listaAdminCasaRefugio.jsp">Casas refugio</a>
                                         </li>
-                                        <li>
+                                        <li class="selected">
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
                                     </ul>
@@ -186,7 +179,7 @@
             <div class="row">
                  <!--  page header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Lista de Adopción</h1>
+                    <h1 class="page-header">Lista de Denuncias</h1>
                 </div>
                  <!-- end  page header -->
             </div>
@@ -195,58 +188,49 @@
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Lista de Perros en Adopción
+                             Registros de Denuncias
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <form name="listaxONG" method="POST">
-                                   
-                                        <div class="form-group">
-                                              <label>Buscar por :</label>      
-                                        <select class="form-control" style="width:150px" name="cboTenencia" onchange= "valida()">
-                                                <option value="#"  >:: Seleccionar ::</option>
-                                                <option value="Ong">ONG</option>
-                                                <option value="Usuario">Usuario</option>
-                                                <option value="Ambos">Ambos</option>
-                                        </select>
-                                        </div> 
-                                    
+                                <form name="frmlistaDenuncia" method="POST">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                      <thead>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Descripción</th>
+                                         <tr class="odd gradeX">
+                                            <th>Codigo</th>
+                                            <th>Titulo</th>
+                                            <th>Dirección</th>
+                                            <th>Teléfono</th>
+                                            <th>Fecha registro</th>
+                                            <th>Estado</th>
+                                            <th>Raza</th>
+                                            <th>Usuario</th>
                                         </tr>
                                      </thead>
                                      
                                      <tbody>
-                                         <% String descrip_adop,tenencia;
-                                            tenencia = request.getParameter("valor");
-                                            DAO.DAOADOPCION  obj=new DAO.DAOADOPCION();
-                                            for(DTO.DTOMASCOTA x:obj.buscar_x_ONG_User(tenencia)){
-                                            for(DTO.DTODARADOPCION y:obj.readImgAll(x.getCod_mas())){
-                                            if(x.getDescrip_mas().length() <= 147){ 
-                                                descrip_adop = x.getDescrip_mas().substring(0,x.getDescrip_mas().length());}
-                                            else{
-                                                descrip_adop = x.getDescrip_mas().substring(0,x.getDescrip_mas().length()/2)+"...";}%>
-                                       
-                                          <tr class="odd gradeX" onClick="CrearEnlace('detalleAdopcion.jsp?cod_mas=<%=x.getCod_mas()%>')"> 
-                                           
-                                              <td><h3><%=x.getNom_mas()%></h3><center><img src="<%=y.getFoto()%>" width="180" height="154"></center></td>
-                                
-                                              <td width="500"><br><br><%=descrip_adop%></td>
-                                              
-                                          </tr><%}}%>  
+                                         <% DAO.DAODENUNCIA obj=new DAO.DAODENUNCIA();
+                                            for(DTO.DTODENUNCIA x:obj.readAllDenunciaMaltrato()){%>   
+                                                
+                                            <tr class="odd gradeX" onclick="popup('AdminDenunciaActu.jsp?cod=<%=x.getCod_den()%>&estado_den=<%=x.getEstado_den()%>',760,550)" target="popup">
+                                             <td><%=x.getCod_den()%></td>
+                                             <td><%=x.getTitulo_den()%></td>
+                                             <td><%=x.getDir_den()%></td>
+                                             <td><%=x.getTel_cont()%></td>
+                                             <td><%=x.getFecha_reg()%></td>
+                                             <td><%=x.getEstado_den()%></td>
+                                             <td><%=x.getNom_raza()%></td>
+                                             <td><%=x.getUsuario()%></td>
+                                         </tr>
+                                         <%}%> 
                                      </tbody>
                                 </table>
                              </form>
-                            </div>
+                            </div> 
                         </div>
                     </div>
                     <!--End Advanced Tables -->
                 </div>
             </div>
-        </div>
     <!-- Core Scripts - Include with every page -->
     <script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
@@ -261,14 +245,14 @@
             $('#dataTables-example').dataTable();
         });
         
-         function valida(){ 
-            valor=document.listaxONG.cboTenencia.value; 
-            if(valor==='Ong'){
-             location.href = 'listaxONG.jsp?valor=Ong';}
-            if (valor ==='Usuario'){
-             location.href = 'listaxUsuario.jsp?valor=Usuario';}
-            if (valor ==='Ambos'){
-            location.href  = 'listaAdopcion.jsp';}}
+            function popup(url,ancho,alto){ 
+                var posicion_x; 
+                var posicion_y; 
+                    posicion_x=(screen.width/2)-(ancho/2);     
+                    posicion_y=(screen.height/2)-(alto/2); 
+                    window.open(url, "AdminDenunciaActu.jsp", "width="+ancho+",height="+alto+",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left="+posicion_x+",top="+posicion_y+"");
+                }
     </script>
+
 </body>
 </html>

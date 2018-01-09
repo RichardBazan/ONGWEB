@@ -42,7 +42,7 @@
          String msje = ses.getAttribute("resultadoRegistro").toString();
          if (msje.substring(0,1).equalsIgnoreCase("R")){
              %>
-             <body onload="alerta('<%=msje%>')">
+             <body onload="alertaok('<%=msje%>')">
                  <%
          }else{
              %>
@@ -195,12 +195,13 @@
                                                     <input type="password" name="passwordpassword" id="passwordpassword" class="form-control" placeholder="Contraseña*" required>
                                                 </div>
                                             </div>
-                                                            
+<!--OLVIDASTE CONTRASEÑA?                                                            
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <a href="#">¿Olvidaste tu contraseña?</a>
                                                 </div>
                                             </div>
+-->
 <!--                                            
                         <div class="form-group alerts">
                         
@@ -319,7 +320,7 @@
 -->
                          <div class="row">
                              <div class="form-group col-md-6">
-                                 <input onclick="comprobarCampos()" type="button" id="btnRegistrar" name="btnRegistrar" value="REGISTRARSE"/>
+                                 <input class="btn btn-primary pull-right" onclick="comprobarCampos()" type="button" id="btnRegistrar" name="btnRegistrar" value="REGISTRARSE"/>
                             </div>
                         </div>
 
@@ -521,12 +522,12 @@
         usuario=document.getElementById("txtusuario");
         
         if(apellidopat.value.length===0 || apellidomat.value.length===0 || fechanac.value.length===0 || direccion.value.length===0 || telefono.value.length===0 || usuario.value.length===0){
-           alert("COMPLETE TODOS LOS CAMPOS. TODOS SON NECESARIOS.");
+           alertanot("COMPLETE TODOS LOS CAMPOS. TODOS SON NECESARIOS.");
            nombre.focus();
            return (false);
         }
         if(telefono.value.length<9 || telefono.value.length>9){
-           alert("EL NÚMERO DE CONTACTO DEBE TENER 9 DIGITOS COMO EN EL EJM.");
+           alertanot("EL NÚMERO DE CONTACTO DEBE TENER 9 DIGITOS COMO EN EL EJM.");
            telefono.focus();
            return (false);
         }
@@ -539,11 +540,11 @@
         botonregistrar = document.getElementById("btnRegistrar");
         formularioregistrarse = document.getElementById("formRegistrarse");
         if (clave1.value.length<6){
-        alert("LA CONTRASEÑA DEBE CONTENER AL MENOS 6 DÍGITOS.");
+        alertanot("LA CONTRASEÑA DEBE CONTENER AL MENOS 6 DÍGITOS.");
         return (false);
         }
    	if (clave1.value !== clave2.value){ 
-      	alert("LAS CONTRASEÑAS NO COINCIDEN.");
+      	alertanot("LAS CONTRASEÑAS NO COINCIDEN.");
         clave1.focus();
         return (false);
         }

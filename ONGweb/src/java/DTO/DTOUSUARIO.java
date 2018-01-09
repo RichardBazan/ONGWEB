@@ -8,6 +8,10 @@ public class DTOUSUARIO{
     public DTOUSUARIO() {
     }
 
+    public DTOUSUARIO(int codigo) {
+        this.codigo = codigo;
+    }
+
     public DTOUSUARIO(String usuario) {
         this.usuario = usuario;
     }

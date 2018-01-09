@@ -32,13 +32,29 @@ public class DAODENUNCIA {
          }
  }
  
+  public void denunciaFotoAdd(String foto_den) throws SQLException  {
+        CallableStatement cst;
+        try { 
+            cst = Conexion.getConexion().prepareCall("{call sp_FotoDenuncia(?)}");
+            
+            cst.setString(1, foto_den);
+            
+            cst.executeQuery();
+
+         }catch (SQLException ex) {
+            Logger.getLogger(DAODENUNCIA.class.getName()).log(Level.SEVERE, null, ex);
+         }finally{
+          Conexion.getConexion().close();
+         }
+ }
+ 
  public List<DTODENUNCIA> readAll() throws SQLException {
          CallableStatement cst;
          List<DTODENUNCIA> denuncia = new ArrayList<>();
          ResultSet res;
         
          try {
-            cst = Conexion.getConexion().prepareCall("select cod_den,titulo_den,descrip_den  from Denuncia");
+            cst = Conexion.getConexion().prepareCall("select cod_den,titulo_den,descrip_den  from Denuncia where estado_den = 'En tratamiento'");
             res = cst.executeQuery();
             
             while(res.next()){
@@ -52,6 +68,29 @@ public class DAODENUNCIA {
          }
          return denuncia;
      }
+ 
+  public List<DTODENUNCIA> readAllSolucionados() throws SQLException {
+         CallableStatement cst;
+         List<DTODENUNCIA> denuncia = new ArrayList<>();
+         ResultSet res;
+        
+         try {
+            cst = Conexion.getConexion().prepareCall("select cod_den,titulo_den,descrip_den  from Denuncia where estado_den = 'Solucionada'");
+            res = cst.executeQuery();
+            
+            while(res.next()){
+               denuncia.add(new DTODENUNCIA(res.getInt(1),res.getString(2), res.getString(3)));
+            }
+
+         } catch (SQLException ex) {
+            Logger.getLogger(DAODENUNCIA.class.getName()).log(Level.SEVERE, null, ex);
+         }finally{
+             Conexion.getConexion().close();
+         }
+         return denuncia;
+     }
+ 
+ 
  
   public List<DTODENUNCIA> readImgAll(int cod_den) throws SQLException {
          CallableStatement cst;
@@ -122,5 +161,40 @@ public class DAODENUNCIA {
          return list;
      } 
             
+   public List<DTODENUNCIA> readAllDenunciaMaltrato() throws SQLException {
+         CallableStatement cst;
+         List<DTODENUNCIA> denuncia = new ArrayList<>();
+         ResultSet res;
         
+         try {
+            cst = Conexion.getConexion().prepareCall("select cod_den,titulo_den,dir_den,tel_cont,CAST(DAY(fecha_reg) as varchar) + '-' + CAST(MONTH(fecha_reg) as varchar) + '-' + CAST(YEAR(fecha_reg) as varchar) as fecha_reg ,estado_den,r.nom_raza,u.usuario from Denuncia d inner join Usuario u on u.cod_usu = d.cod_den  inner join Raza r on r.cod_raza = d.cod_raza");
+            res = cst.executeQuery();
+            
+            while(res.next()){
+               denuncia.add(new DTODENUNCIA(res.getInt(1),res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6),res.getString(7),res.getString(8)));
+            }
+         } catch (SQLException ex) {
+            Logger.getLogger(DAODENUNCIA.class.getName()).log(Level.SEVERE, null, ex);
+         }finally{
+             Conexion.getConexion().close();
+         }
+         return denuncia;
+     }
+   
+       public void actualizaEstadoDenuncia(int codigo, String estado) throws SQLException  {
+        CallableStatement cst;
+        try { 
+            cst = Conexion.getConexion().prepareCall("{call sp_actualiza_estado_denuncia(?,?)}");
+            
+            cst.setInt(1, codigo);
+            cst.setString(2, estado);
+            
+            cst.executeQuery();
+
+         }catch (SQLException ex) {
+            Logger.getLogger(DAOADOPCION.class.getName()).log(Level.SEVERE, null, ex);
+         }finally{
+          Conexion.getConexion().close();
+         }
+     }
 }

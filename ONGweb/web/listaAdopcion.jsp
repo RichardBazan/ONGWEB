@@ -23,7 +23,7 @@
 </head>
 
 <%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="";
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="";
    %>
 
 <%
@@ -33,6 +33,7 @@
          nombreUsuario = datosUsuario[0];
          primeraLetraApellidoPat = datosUsuario[1];
          usernameUsuario = datosUsuario[2];
+         codigoUsuario = datosUsuario[3];
      }
 %>
 
@@ -66,7 +67,7 @@
                         <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.jsp"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                        <li><a href="SERLOGOUT"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
                         </li>
                     </ul>
                     <!-- end dropdown-user -->
@@ -100,111 +101,76 @@
                         </div>
                         <!--end user image section-->
                     </li>
-                    <li class="sidebar-search">
-                        <!-- search section-->
-                        <div class="input-group custom-search-form">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                        <!--end search section-->
-                    </li>
-                    <li class="">
-                        <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
+                    <li>
+                       
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Charts<span class="fa arrow"></span></a>
+                        <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>&nbsp;PRINCIPAL</a>
+                    </li>
+                    <li class="active">
+                        <a href="#"><i class="fa fa-edit fa-fw"></i>ADOPCIÓN<span class="fa arrow"></span></a> 
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="flot.html">Flot Charts</a>
+                                <a href="registrarDarAdopcion.jsp">Dar en adopción</a>
                             </li>
+                            <li class="selected">
+                                <a href="listaAdopcion.jsp">Perros en adopcion</a>
+                            </li>  
                             <li>
-                                <a href="morris.html">Morris Charts</a>
-                            </li>
+                                <a href="listaAdoptados.jsp">Perros adoptados</a>
+                            </li> 
                         </ul>
-                        <!-- second-level-items -->
                     </li>
-                     <li>
-                        <a href="timeline.html"><i class="fa fa-flask fa-fw"></i>Timeline</a>
-                    </li>
-                    <li class="selected">
-                        <a href="tables.html"><i class="fa fa-table fa-fw"></i>Tables</a>
-                    </li>
-                   <li>
-                        <a href="forms.html"><i class="fa fa-edit fa-fw"></i>Forms</a>
-                    </li>
+                    
                     <li>
-                        <a href="#"><i class="fa fa-wrench fa-fw"></i>UI Elements<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-edit fa-fw"></i>CASA REFUGIO<span class="fa arrow"></span></a> 
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="panels-wells.html">Panels and Wells</a>
+                            <a href="RegistrarCasaRefugio.jsp">Registrar casa refugio nueva</a>
                             </li>
                             <li>
-                                <a href="buttons.html">Buttons</a>
-                            </li>
-                            <li>
-                                <a href="typography.html">Typography</a>
+                                <a href="ListadoCasaRefugio.jsp">Casas refugio registradas</a>
                             </li>
                         </ul>
-                        <!-- second-level-items -->
                     </li>
-                     <li>
-                        <a href="#"><i class="fa fa-edit fa-fw"></i>Formularios<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                        <a href="#"><i class="fa fa-fw"></i>Adopción<span class="fa arrow"></span></a> 
-                         <ul class="nav nav-third-level">
-                        <li>
-                                <a href="registrarDarAdopcion.jsp">RegistrarDarEnAdopción</a>
-                            </li>
-                            <li>
-                                <a href="listaAdopcion.jsp">ListaPerrosenAdopcion</a>
-                            </li>    
-                        </ul>
-                            </li>
-                            
-                             <li>
-                        <a href="#"><i class="fa fa-fw"></i>Casa Refugio<span class="fa arrow"></span></a> 
-                        <ul class="nav nav-third-level">
-                        <li>
-                            <a href="RegistrarCasaRefugio.jsp">RegistrarCasaRefugio</a>
-                            </li>
-                            <li>
-                                <a href="ListadoCasaRefugio.jsp">ListadoCasaRefugio</a>
-                            </li>
-                        </ul>
-                            </li>
-                            
-                            <li>
-                        <a href="#"><i class="fa fa-fw"></i>Maltrato<span class="fa arrow"></span></a> 
+                    
+                    <li>
+                        <a href="#"><i class="fa fa-edit fa-fw"></i>CASOS DE MALTRATO<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
                          <li>
-                                <a href="registrarMaltrato.jsp">RegistrarMaltrato</a>
+                                <a href="registrarMaltrato.jsp">Denunciar caso nuevo</a>
                             </li>
                             <li>
-                                <a href="listaMaltrato.jsp">ListadoMaltrato</a>
+                                <a href="listaMaltrato.jsp">Casos registrados</a>
+                            </li>
+                             <li>
+                                 <a href="listaDenunciaSolucionada.jsp">Casos atendidos</a>
                             </li>
                         </ul>
-                            </li>                         
-                        </ul>
-                        <!-- second-level-items -->
-                    </li>
-                  
-                    <li>
-                        <a href="#"><i class="fa fa-files-o fa-fw"></i>Sample Pages<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="blank.html">Blank Page</a>
-                            </li>
-                            <li>
-                                <a href="login.html">Login Page</a>
-                            </li>
-                        </ul>
-                        <!-- second-level-items -->
-                    </li>
+                            </li>     
+                            <%
+                            if (Integer.parseInt(codigoUsuario)<4){
+                                %>
+                                <li>
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i>ADMINISTRADOR<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="listaAdminMascota.jsp">Mascotas</a>
+                                        </li>
+                                        <li>
+                                            <a href="listaAdminAdoptados.jsp">Adopciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="listaAdminCasaRefugio.jsp">Casas refugio</a>
+                                        </li>
+                                        <li>
+                                            <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <%
+                            }
+                                %>
                     <!--                              </MENU>                        -->
                 </ul>
                 <!-- end side-menu -->

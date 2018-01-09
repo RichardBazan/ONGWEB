@@ -1,6 +1,5 @@
 package servlets;
 
-import DAO.DAOCOMENTARIO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -36,16 +35,16 @@ public class comentario extends HttpServlet {
         DAO.DAOCOMENTARIO comentario = new DAO.DAOCOMENTARIO();        
         
         try {
-               int cod_den = Integer.parseInt(request.getParameter("cod_denun"));
+               int cod_den = Integer.parseInt(request.getParameter("codigo"));
                String coment = request.getParameter("comentario");
+
                comentario.comentarioAdd(coment, cod_den);
-               String pag ="http://localhost:8081/ONGweb/comentariosDenuncia.jsp?cod_den="+cod_den;
+               String pag ="comentariosDenuncia.jsp?cod_den="+cod_den;
                response.sendRedirect(pag);
                
         }catch (SQLException ex) {
             Logger.getLogger(comentario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }     
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

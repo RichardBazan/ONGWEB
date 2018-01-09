@@ -32,6 +32,23 @@ public class DAOADOPCION {
          }
      }
  
+  public void darAdopcionFotoAdd(DTODARADOPCION a) throws SQLException  {
+        CallableStatement cst;
+        try { 
+            cst = Conexion.getConexion().prepareCall("{call sp_FotoAdopcion(?)}");
+            
+            cst.setString(1, a.getFoto());
+            
+            cst.executeQuery();
+
+         }catch (SQLException ex) {
+            Logger.getLogger(DAOADOPCION.class.getName()).log(Level.SEVERE, null, ex);
+         }finally{
+          Conexion.getConexion().close();
+         }
+     }
+ 
+ 
 public void adopcionAdd(int cod_mas) throws SQLException  {
         CallableStatement cst;
         try { 
@@ -91,6 +108,26 @@ public List<DTODARADOPCION> readAll() throws SQLException {
          return adopcion;
      }
 
+public List<DTODARADOPCION> readAllAdoptados() throws SQLException {
+         CallableStatement cst;
+         List<DTODARADOPCION> adopcion = new ArrayList<>();
+         ResultSet res;
+        
+         try {
+            cst = Conexion.getConexion().prepareCall("select cod_mas,nom_mas,descrip_mas from Mascota where estado_mas = 'Adoptado'");
+            res = cst.executeQuery();
+            
+            while(res.next()){
+               adopcion.add(new DTODARADOPCION(res.getInt(1),res.getString(2), res.getString(3)));
+            }
+
+         } catch (SQLException ex) {
+            Logger.getLogger(DAOADOPCION.class.getName()).log(Level.SEVERE, null, ex);
+         }finally{
+             Conexion.getConexion().close();
+         }
+         return adopcion;
+     }
 
   public List<DTODARADOPCION> readImgAll(int cod_mas) throws SQLException{
            List<DTODARADOPCION> list=new ArrayList();   
@@ -126,7 +163,7 @@ public List<DTODARADOPCION> readAll() throws SQLException {
             
             ResultSet  res=pst.executeQuery();
              while(res.next()){
-               DTODARADOPCION obj=new DTODARADOPCION(res.getString(1), res.getString(2),res.getString(3));
+               DTODARADOPCION obj=new DTODARADOPCION(res.getString(1), res.getString(2),res.getString(3),res.getString(4));
           list.add(obj);        
       }
          }catch(SQLException ex){
@@ -160,4 +197,41 @@ public List<DTODARADOPCION> readAll() throws SQLException {
          
          return list;
      } 
+   
+   public List<DTOADOPCION> readAllPerrosAdoptados() throws SQLException {
+         CallableStatement cst;
+         List<DTOADOPCION> adoptados = new ArrayList<>();
+         ResultSet res;
+        
+         try {
+            cst = Conexion.getConexion().prepareCall("select  cod_adop,fecha_solic,CAST(DAY(fecha_solic) as varchar) + '-' + CAST(MONTH(fecha_solic) as varchar) + '-' + CAST(YEAR(fecha_solic) as varchar) as fecha_solic, estado_adop,u.usuario ,m.nom_mas from Adopcion a inner join Usuario u on u.cod_usu = a.cod_adop inner join Mascota m on m.cod_mas = a.cod_mas");
+            res = cst.executeQuery();
+            
+            while(res.next()){
+               adoptados.add(new DTOADOPCION(res.getInt(1),res.getString(2), res.getString(3),res.getString(4),res.getString(5)));
+            }
+         } catch (SQLException ex) {
+            Logger.getLogger(DAOADOPCION.class.getName()).log(Level.SEVERE, null, ex);
+         }finally{
+             Conexion.getConexion().close();
+         }
+         return adoptados;
+     }
+   
+    public void actualizaEstadoAdoptado(int codigo, String estado) throws SQLException  {
+        CallableStatement cst;
+        try { 
+            cst = Conexion.getConexion().prepareCall("{call sp_actualiza_estado_adopcion(?,?)}");
+            
+            cst.setInt(1, codigo);
+            cst.setString(2, estado);
+            
+            cst.executeQuery();
+
+         }catch (SQLException ex) {
+            Logger.getLogger(DAOADOPCION.class.getName()).log(Level.SEVERE, null, ex);
+         }finally{
+          Conexion.getConexion().close();
+         }
+     }
 }

@@ -14,17 +14,18 @@
     <link href="assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/main-style.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" type="text/css"/>
     <!-- PARA INPUT FILE -->
     <link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/component.css" />
 	
 		<!-- remove this if you use Modernizr -->
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
-    <!-- /PARA INPUT FILE -->            
+    <!-- /PARA INPUT FILE -->      
 </head>
 
 <%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="";
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="";
    %>
 
 <%
@@ -34,6 +35,7 @@
          nombreUsuario = datosUsuario[0];
          primeraLetraApellidoPat = datosUsuario[1];
          usernameUsuario = datosUsuario[2];
+         codigoUsuario = datosUsuario[3];
      }
 %>
 
@@ -67,7 +69,7 @@
                         <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.jsp"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                        <li><a href="SERLOGOUT"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
                         </li>
                     </ul>
                     <!-- end dropdown-user -->
@@ -101,110 +103,77 @@
                         </div>
                         <!--end user image section-->
                     </li>
-                    <li class="sidebar-search">
-                        <!-- search section-->
-                        <div class="input-group custom-search-form">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                        <!--end search section-->
-                    </li>
-                    <li class="">
-                        <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
-                    </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="flot.html">Flot Charts</a>
-                            </li>
-                            <li>
-                                <a href="morris.html">Morris Charts</a>
-                            </li>
-                        </ul>
-                        <!-- second-level-items -->
+                       
                     </li>
                      <li>
-                        <a href="timeline.html"><i class="fa fa-flask fa-fw"></i>Timeline</a>
+                        <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>&nbsp;PRINCIPAL</a>
                     </li>
-                    <li>
-                        <a href="tables.html"><i class="fa fa-table fa-fw"></i>Tables</a>
-                    </li>
-                    <li>
-                        <a href="forms.html"><i class="fa fa-edit fa-fw"></i>Forms</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-wrench fa-fw"></i>UI Elements<span class="fa arrow"></span></a>
+                    <li class="active">
+                        <a href="#"><i class="fa fa-edit fa-fw"></i>ADOPCIÓN<span class="fa arrow"></span></a> 
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="panels-wells.html">Panels and Wells</a>
+                                <a href="registrarDarAdopcion.jsp">Dar en adopción</a>
                             </li>
                             <li>
-                                <a href="buttons.html">Buttons</a>
-                            </li>
+                                <a href="listaAdopcion.jsp">Perros en adopcion</a>
+                            </li>  
                             <li>
-                                <a href="typography.html">Typography</a>
-                            </li>
+                                <a href="listaAdoptados.jsp">Perros adoptados</a>
+                            </li> 
                         </ul>
-                        <!-- second-level-items -->
                     </li>
-                      <li  class="active">
-                        <a href="#"><i class="fa fa-edit fa-fw"></i>Formularios<span class="fa arrow"></span></a>
+                    
+                    <li>
+                        <a href="#"><i class="fa fa-edit fa-fw"></i>CASA REFUGIO<span class="fa arrow"></span></a> 
                         <ul class="nav nav-second-level">
-                            <li   class="active">
-                        <a href="#"><i class="fa fa-fw"></i>Adopción<span class="fa arrow"></span></a> 
-                        <ul class="nav nav-third-level">
-                        <li>
-                                <a href="registrarDarAdopcion.jsp">RegistrarDarEnAdopción</a>
+                            <li>
+                            <a href="RegistrarCasaRefugio.jsp">Registrar casa refugio nueva</a>
                             </li>
                             <li>
-                                <a href="listaAdopcion.jsp">ListaPerrosenAdopcion</a>
-                            </li>    
-                        </ul>
-                            </li>
-                            
-                             <li>
-                        <a href="#"><i class="fa fa-fw"></i>Casa Refugio<span class="fa arrow"></span></a> 
-                        <ul class="nav nav-third-level">
-                            <li>
-                            <a href="RegistrarCasaRefugio.jsp">RegistrarCasaRefugio</a>
-                            </li>
-                            <li>
-                                <a href="ListadoCasaRefugio.jsp">ListadoCasaRefugio</a>
+                                <a href="ListadoCasaRefugio.jsp">Casas refugio registradas</a>
                             </li>
                         </ul>
-                            </li>
-                            
-                            <li>
-                        <a href="#"><i class="fa fa-fw"></i>Maltrato<span class="fa arrow"></span></a> 
+                    </li>
+                    
+                    <li>
+                        <a href="#"><i class="fa fa-edit fa-fw"></i>CASOS DE MALTRATO<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
                          <li>
-                                <a href="registrarMaltrato.jsp">RegistrarMaltrato</a>
+                                <a href="registrarMaltrato.jsp">Denunciar caso nuevo</a>
                             </li>
                             <li>
-                                <a href="listaMaltrato.jsp">ListadoMaltrato</a>
+                                <a href="listaMaltrato.jsp">Casos registrados</a>
+                            </li>
+                             <li>
+                                 <a href="listaDenunciaSolucionada.jsp">Casos atendidos</a>
                             </li>
                         </ul>
-                            </li>                         
-                        </ul>
-                        <!-- second-level-items -->
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-files-o fa-fw"></i>Sample Pages<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li class="selected">
-                                <a href="blank.html">Blank Page</a>
-                            </li>
-                            <li>
-                                <a href="login.html">Login Page</a>
-                            </li>
-                        </ul>
-                        <!-- second-level-items -->
-                    </li>
+                            </li>     
+                            <%
+                            if (Integer.parseInt(codigoUsuario)<4){
+                                %>
+                                <li>
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i>ADMINISTRADOR<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="listaAdminMascota.jsp">Mascotas</a>
+                                        </li>
+                                        <li>
+                                            <a href="listaAdminAdoptados.jsp">Adopciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="listaAdminCasaRefugio.jsp">Casas refugio</a>
+                                        </li>
+                                        <li>
+                                            <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <%
+                            }
+                                %>
+                    <!--                              </MENU>                        -->
                 </ul>
                 <!-- end side-menu -->
             </div>
@@ -228,24 +197,29 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <a href="listaAdopcion.jsp">
-                                <img src="assets/images/retornar.png" width="25px" alt=""/>Atras</a>
+                                <img src="assets/images/retornar.png" width="25px" alt=""/>
+                            </a>
                         </div>
+                        
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form" name="frmDarAdopcion" method="POST" action="adopcion_mas">                    
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                <form role="form" name="frmDarAdopcion_" method="POST">          
+                                    
+                                    <div class="col-lg-6">
                          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <tbody>
-                                        <%   int cod  = Integer.parseInt(request.getParameter("cod_mas"));
-                                             DAOADOPCION obj= new DAOADOPCION();
+                                        <%  int cod  = Integer.parseInt(request.getParameter("cod_mas")); 
+                                            DAOADOPCION obj= new DAOADOPCION();
                                             for(DTODARADOPCION x:obj.buscarDetalleAdopcion(cod)){%> 
                                        
                                             <tr class="odd gradeX"><br>
-                                            <td><h1><center><%=x.getNom_mas()%></center></h1></td>
+                                            <td><h1><center><b><%=x.getNom_mas()%></b></center></h1></td>
                                             </tr>
                                            
                                             <tr class="odd gradeX">
-                                                <td width="500"><center>Descripción</center></td><tr></tr>
+                                                <td width="500" colspan="2" ><center>Descripción</center></td><tr></tr>
                                             <td colspan="3" style="height: 225px"><%=x.getDescrip_mas()%></td>
                                             </tr>
                                             
@@ -254,184 +228,94 @@
                                             <td colspan="2"><center><%=x.getNom_raza()%></center></td>
                                             </tr>
                                             
-                                            <input type="hidden" name="id_mas" value="<%=cod%>">
-                                        
-                                        <%}int con=0;
-                                        for(DTODARADOPCION y:obj.buscarImgDetalleAdopcion(cod)){%>    
-                                        <td><img src="<%=y.getFoto()%>" width="250px" height="250px" alt=""/></td>
-                                        <%con++;if(con%2==0) out.print("<tr>");}%>
+                                            <input type="hidden" name="tenen" value="<%=x.getTendencia_mas()%>">                                      
                                     </tbody>
-                                </table>      
-                            <div class="form-group">
-                                            <button type="submit"class="btn btn-primary">Adoptar </button>
-                                            <a href="listaAdopcion.jsp"><button type="button" class="btn btn-primary">Cancelar</button></a>
+                                </table>
+                                </div>
+                                    <div class="col-lg-6">
+                                        <br>
+                                        <br>
+                                        <br>
+                                <table>
+                                         <!-- CARRUSEL -->
+                                         <tbody>
+                                             <div id="homeCarousel" class="carousel slide carousel-home" data-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    
+                                                    <%}int con=0;
+                                                      for (DTODARADOPCION y:obj.buscarImgDetalleAdopcion(cod)){
+                                                        if (con==0){
+                                                            %>
+                                                             <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+                                                            <%
+                                                        }else{
+                                                            %>
+                                                            <li data-target="#homeCarousel" data-slide-to="<%=con%>"></li>
+                                                            <%
+                                                        }
+                                                        con++;
+                                                    }
+                                                    con=0;
+                                                    %>
+                                                </ol>
+                                              
+                                                <div class="carousel-inner" role="listbox" >
+                                                
+                                                    <% String foto;
+                                                    for (DTODARADOPCION y:obj.buscarImgDetalleAdopcion(cod)){
+                                                        foto = y.getFoto();
+                                                      if (con==0){
+                                                          %>
+                                                          <div class="item active">
+                                                              <img src="<%=foto%>" style="height: 350px" alt="">
+                                                </div>           
+                                                          <%
+                                                      }else{
+                                                          %>
+                                                            <div class="item">
+                                                               <img src="<%=foto%>" style="height: 350px" alt="">
+                                                </div>           
+                                                 <%
+                                                      }  
+                                                      con++;
+                                                    }
+                                                    con=0;
+                                                    foto=null;
+                                                    %>
+                                                </div>
+                                                <a class="left carousel-control" href="#homeCarousel" role="button" data-slide="prev">
+                                                    <span class="fa fa-angle-left" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                
+                                                <a class="right carousel-control" href="#homeCarousel" role="button" data-slide="next">
+                                                    <span class="fa fa-angle-right" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </div>
+                                            
+                                            <!-- CARRUSEL -->
+                                        </tbody>
+                                    </table>
+                                             </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                            <input type="button" class="btn btn-primary" onclick="valida('<%=cod%>')" value="Adoptar">
                             </div>
-                    </form>       
-                                        <!--
-                                        <div class="form-group">
-                                            <label>Text area</label>
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Checkboxes</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 1
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 2
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Checkboxes</label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">1
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">2
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Radio Buttons</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>Radio 1
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Radio 2
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Radio 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Radio Buttons</label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked>1
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Selects</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Multiple Selects</label>
-                                            <select multiple class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit Button</button>
-                                        <button type="reset" class="btn btn-success">Reset Button</button>
-                                    </form>
+                                                </div>                    
                                 </div>
-                                <div class="col-lg-6">
-                                    <h1>Disabled Form States</h1>
-                                    <form role="form">
-                                        <fieldset disabled="disabled">
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled input</label>
-                                                <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled select menu</label>
-                                                <select id="disabledSelect" class="form-control">
-                                                    <option>Disabled select</option>
-                                                </select>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">Disabled Checkbox
-                                                </label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Disabled Button</button>
-                                        </fieldset>
-                                    </form>
-                                    <h1>Form Validation States</h1>
-                                    <form role="form">
-                                        <div class="form-group has-success">
-                                            <label class="control-label" for="inputSuccess">Input with success</label>
-                                            <input type="text" class="form-control" id="inputSuccess">
-                                        </div>
-                                        <div class="form-group has-warning">
-                                            <label class="control-label" for="inputWarning">Input with warning</label>
-                                            <input type="text" class="form-control" id="inputWarning">
-                                        </div>
-                                        <div class="form-group has-error">
-                                            <label class="control-label" for="inputError">Input with error</label>
-                                            <input type="text" class="form-control" id="inputError">
-                                        </div>
-                                    </form>
-                                    <h1>Input Groups</h1>
-                                    <form role="form">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">@</span>
-                                            <input type="text" class="form-control" placeholder="Username">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-eur"></i>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="Font Awesome Icon">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                        -->
-                                </div>
-                                <div class="row text-center">
-                                    <img src="assets/images/casa.png" width="450" height="450">
-                                        </div>
+                            </form> 
+                                
                             </div>
                             
                         </div>
-                        
+                        </div>
+                            </div>
                     </div>
                      <!-- End Form Elements -->
-                </div>
+                
             </div>
         </div>
         <!-- end page-wrapper -->
@@ -447,6 +331,15 @@
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
+            <script langiage="javascript" type="text/javascript">
+            function valida(codigo) {
+                valor=document.frmDarAdopcion_.tenen.value;
+                if(valor === 'Usuario'){
+                    location.href='confirmaAdopcionUsuario.jsp?id_mascot='+codigo;
+                }else{
+                    location.href='confirmaAdopcionONG.jsp?id_mascot='+codigo;
+                }} 
+        </script>
 </body>
 </html>
 

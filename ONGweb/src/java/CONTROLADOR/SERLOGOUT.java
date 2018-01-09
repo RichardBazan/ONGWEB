@@ -3,54 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package CONTROLADOR;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author bruno
- */
-@WebServlet(name = "adopcion_mas", urlPatterns = {"/adopcion_mas"})
-public class adopcion_mas extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+public class SERLOGOUT extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-         DAO.DAOADOPCION    DAOADOP=new DAO.DAOADOPCION();
-       
-         String pag ="listaAdopcion.jsp";
-       
-        try {         
-                int cod_mas = Integer.parseInt(request.getParameter("codigo_mascota"));
-                
-                DAOADOP.adopcionAdd(cod_mas);
-                JOptionPane.showMessageDialog(null, "REGISTRADO");
-                response.sendRedirect(pag);
-                
-        } catch (SQLException ex) {
-            Logger.getLogger(adopcion_mas.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            HttpSession ses = request.getSession();
+            String pag = "./login.jsp";
+            ses.setAttribute("usuarioEncontrado",null);
+            ses.setAttribute("datosUsuario",null);
+            ses.setAttribute("codigoUsuario",null);
+            response.sendRedirect(pag);
+        } catch (Exception e) {
+            System.err.println(e.toString());
         }
     }
 

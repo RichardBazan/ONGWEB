@@ -18,7 +18,7 @@
 
         <script langiage="javascript" type="text/javascript">
             function CrearEnlace(url) {
-            location.href=url;}
+            location.href=url;} 
         </script>
 </head>
 
@@ -34,7 +34,6 @@
          primeraLetraApellidoPat = datosUsuario[1];
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
-
      }
 %>
 
@@ -58,7 +57,7 @@
             <!-- end navbar-header -->
             <!-- navbar-top-links -->
             <ul class="nav navbar-top-links navbar-right">
-                <!-- main dropdown -->
+
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-3x"></i>
@@ -76,7 +75,6 @@
                 <!-- end main dropdown -->
             </ul>
             <!-- end navbar-top-links -->
-
         </nav>
         <!-- end navbar top -->
 
@@ -93,7 +91,7 @@
                                 <img src="assets/img/user.jpg" alt="">
                             </div>
                             <div class="user-info">
-                                 <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
+                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
                                 <div style="font-size: 14px; text-align: center;">( <i><%=usernameUsuario%></i> )</div>
                                 <div class="user-text-online">
                                     <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
@@ -103,7 +101,7 @@
                         <!--end user image section-->
                     </li>
                     <li>
-                        
+                       
                     </li>
                      <li>
                         <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>&nbsp;PRINCIPAL</a>
@@ -114,10 +112,10 @@
                             <li>
                                 <a href="registrarDarAdopcion.jsp">Dar en adopción</a>
                             </li>
-                            <li class="selected">
+                            <li>
                                 <a href="listaAdopcion.jsp">Perros en adopcion</a>
                             </li>  
-                            <li>
+                            <li class="selected">
                                 <a href="listaAdoptados.jsp">Perros adoptados</a>
                             </li> 
                         </ul>
@@ -199,44 +197,43 @@
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <form name="listaxONG" method="POST">
-                                   
+                                <form name="listaDarAdopcion" method="POST">
+                                    <!--
                                         <div class="form-group">
-                                              <label>Buscar por :</label>      
-                                        <select class="form-control" style="width:150px" name="cboTenencia" onchange= "valida()">
-                                                <option value="#"  >:: Seleccionar ::</option>
+                                              <label>Buscar por:</label>      
+                                              <select class="form-control" style="width:150px" name="cboTenencia" onchange= "valida()">
+                                                <option value="#">:: Seleccionar ::</option>
                                                 <option value="Ong">ONG</option>
                                                 <option value="Usuario">Usuario</option>
                                                 <option value="Ambos">Ambos</option>
-                                        </select>
+                                              </select>
                                         </div> 
-                                    
+                                    -->
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                      <thead>
                                         <tr>
-                                            <th>Nombre</th>
-                                            <th>Descripción</th>
+                                            <th>NOMBRE</th>
+                                            <th>DESCRIPCIÓN</th>
                                         </tr>
                                      </thead>
                                      
                                      <tbody>
-                                         <% String descrip_adop,tenencia;
-                                            tenencia = request.getParameter("valor");
+                                         <% String descrip_adop;
                                             DAO.DAOADOPCION  obj=new DAO.DAOADOPCION();
-                                            for(DTO.DTOMASCOTA x:obj.buscar_x_ONG_User(tenencia)){
-                                            for(DTO.DTODARADOPCION y:obj.readImgAll(x.getCod_mas())){
-                                            if(x.getDescrip_mas().length() <= 147){ 
-                                                descrip_adop = x.getDescrip_mas().substring(0,x.getDescrip_mas().length());}
+                                            for(DTO.DTODARADOPCION x:obj.readAllAdoptados()){
+                                            for(DTO.DTODARADOPCION y:obj.readImgAll(x.getCod_dar_adop())){
+                                            if(x.getDescrip_mas().length() <= 150){ 
+                                                descrip_adop = x.getDescrip_mas();}
                                             else{
-                                                descrip_adop = x.getDescrip_mas().substring(0,x.getDescrip_mas().length()/2)+"...";}%>
+                                                descrip_adop = x.getDescrip_mas().substring(0,150)+"...";}%>
                                        
-                                          <tr class="odd gradeX" onClick="CrearEnlace('detalleAdopcion.jsp?cod_mas=<%=x.getCod_mas()%>')"> 
+                                             <tr class="odd gradeX" onClick="CrearEnlace('detalleAdoptado.jsp?cod_mas=<%=x.getCod_dar_adop()%>')"> 
                                            
-                                              <td><h3><%=x.getNom_mas()%></h3><center><img src="<%=y.getFoto()%>" width="180" height="154"></center></td>
+                                             <td><h4><b><center> <%=x.getNom_mas().toUpperCase()%></center></b></h4><center><img src="<%=y.getFoto()%>" width="250" height="200"></center></td>
                                 
-                                              <td width="500"><br><br><%=descrip_adop%></td>
+                                             <td width="500"><br><br><br><br><%=descrip_adop%></td>
                                               
-                                          </tr><%}}%>  
+                                             </tr><%}}%>  
                                      </tbody>
                                 </table>
                              </form>
@@ -260,15 +257,15 @@
         $(document).ready(function () {
             $('#dataTables-example').dataTable();
         });
-        
-         function valida(){ 
-            valor=document.listaxONG.cboTenencia.value; 
+      
+          function valida(){ 
+            valor=document.listaDarAdopcion.cboTenencia.value; 
             if(valor==='Ong'){
              location.href = 'listaxONG.jsp?valor=Ong';}
             if (valor ==='Usuario'){
              location.href = 'listaxUsuario.jsp?valor=Usuario';}
             if (valor ==='Ambos'){
-            location.href  = 'listaAdopcion.jsp';}}
+             location.href  = 'listaAdopcion.jsp';}}
     </script>
 </body>
 </html>
