@@ -161,6 +161,9 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -245,7 +248,7 @@
                 var posicion_x; 
                 var posicion_y; 
                     posicion_x=(screen.width/2)-(ancho/2);     
-                    posicion_y=(screen.height/2)-(alto/2); 
+                    posicion_y=(screen.height/2.2)-(alto/2); 
                     window.open(url, "AdminAdoptadosActu.jsp", "width="+ancho+",height="+alto+",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left="+posicion_x+",top="+posicion_y+"");
 }
     </script>

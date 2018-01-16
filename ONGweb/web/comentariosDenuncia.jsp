@@ -161,6 +161,9 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -205,6 +208,7 @@
                                     <textarea class="form-control" name="comentario" placeholder="Escribir comentario" rows="5" cols="25" maxlength="330" style="width: 500px"></textarea><br>
                                     <button type="submit" class="btn btn-primary">Comentar</button>
                                     <input type="hidden" name="codigo" value="<%=codDen%>">
+                                    <input type="hidden" name="cod_user" value="<%=codigoUsuario%>">
                                     </center></td>
                                 </table>
                                 </form>
@@ -229,6 +233,7 @@
                     <!--End Advanced Tables -->
                 </div>
             </div>
+        </div>
     <!-- Core Scripts - Include with every page -->
     <script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>

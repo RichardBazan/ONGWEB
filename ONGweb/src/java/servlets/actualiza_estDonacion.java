@@ -1,17 +1,18 @@
-package CONTROLADOR;
+package servlets;
 
-import DAO.DAOCASAREFUGIO;
-import DTO.DTOCASAREFUGIO;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "SERCASAREFUGIOX", urlPatterns = {"/SERCASAREFUGIOX"})
-public class SERCASAREFUGIO extends HttpServlet {
+@WebServlet(name = "actualiza_estDonacion", urlPatterns = {"/actualiza_estDonacion"})
+public class actualiza_estDonacion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -24,30 +25,22 @@ public class SERCASAREFUGIO extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         
         try {
-            String nombre = request.getParameter("txtnombre");
-            String direccion = request.getParameter("txtdireccion");
-            String telefono = request.getParameter("teltelefono");
-            String descripcion = request.getParameter("txtdescripcion");
-            //JOptionPane.showMessageDialog(null,nombre+" "+direccion);
-            HttpSession ses = request.getSession();
-            int codigoUsuario = (Integer)ses.getAttribute("codigoUsuario");
-            DTOCASAREFUGIO dtocasarefugio = new DTOCASAREFUGIO(0,nombre, direccion, telefono, descripcion, telefono, codigoUsuario);
-            int filasafectadas = DAOCASAREFUGIO.agregarCasaRefugio(dtocasarefugio);
-            if(filasafectadas>0){
-                ses.setAttribute("resultadoRegistroCR", "CASA REFUGIO GUARDADA CORRECTAMENTE. ¡GRACIAS POR SUMARNOS TU AYUDA!");
-            }else{
-                ses.setAttribute("resultadoRegistroCR", "ALGO OCURRIÓ FALLIDO. INTÉNTELO NUEVAMENTE...");
-            }
-            String pag = "./RegistrarCasaRefugio.jsp";
+            int codigo = Integer.parseInt(request.getParameter("codigo_donacion"));
+            String estado = request.getParameter("cboEstadoDonacion");
+            String pag ="AdminDonacionesActu.jsp?codigo_donacion="+codigo+"&estado="+estado;
+            
+            DAO.DAODONACIONES  obj=new DAO.DAODONACIONES();
+            obj.actualizaEstadoDonacion(codigo, estado);
             response.sendRedirect(pag);
-        } catch (Exception e) {
-            System.err.println(e.toString());
+            
+        } catch (NumberFormatException | SQLException ex) {
+             Logger.getLogger(actualiza_estDonacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
-//@nombre varchar(50),@direccion varchar(50),@telefono varchar(50),@descripcion varchar(max),@codigoUsuario int   
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

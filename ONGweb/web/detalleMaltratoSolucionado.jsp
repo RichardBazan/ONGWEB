@@ -168,6 +168,9 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -226,6 +229,10 @@
                                         </tr>
                                     </tbody>
                         </table>      
+                                        
+                                            <a href="comentariosDenunciaSolucionado_Detalle.jsp?cod_den=<%=cod_d%>">
+                                             <button type="button" class="btn btn-primary">Ver comentarios</button></a>
+                                             
                                          </div>
                                         <div class="col-lg-6">
                                             <br>

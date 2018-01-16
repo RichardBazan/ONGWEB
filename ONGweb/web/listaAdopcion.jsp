@@ -35,6 +35,26 @@
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
      }
+    
+         
+     if(ses.getAttribute("men")!=null){
+          String msje = ses.getAttribute("men").toString();
+          
+          if (msje.substring(0,1).equalsIgnoreCase("N")){
+          %>
+            <body onload="alertanot('<%=msje%>')">
+                <%
+        }else{
+            %>
+            <body onload="alertaok('<%=msje%>')">
+                <%
+        }
+    }else{
+        %>
+        <body>
+            <%
+      }
+            ses.setAttribute("men",null);
 %>
 
 <body>
@@ -166,6 +186,9 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -202,7 +225,7 @@
                                         <div class="form-group">
                                               <label>Buscar por:</label>      
                                               <select class="form-control" style="width:150px" name="cboTenencia" onchange= "valida()">
-                                                <option value="#">:: Seleccionar ::</option>
+                                                <option value="#" selected disabled>:: Seleccionar ::</option>
                                                 <option value="Ong">ONG</option>
                                                 <option value="Usuario">Usuario</option>
                                                 <option value="Ambos">Ambos</option>
@@ -222,11 +245,11 @@
                                             for(DTO.DTODARADOPCION x:obj.readAll()){
                                             for(DTO.DTODARADOPCION y:obj.readImgAll(x.getCod_dar_adop())){
                                             if(x.getDescrip_mas().length() <= 147){ 
-                                                descrip_adop = x.getDescrip_mas().substring(0,x.getDescrip_mas().length());}
+                                                descrip_adop = x.getDescrip_mas();}
                                             else{
-                                                descrip_adop = x.getDescrip_mas().substring(0,x.getDescrip_mas().length()/2)+"...";}%>
+                                                 descrip_adop = x.getDescrip_mas().substring(0,150)+"...";}%>
                                        
-                                             <tr class="odd gradeX" onClick="CrearEnlace('detalleAdopcion.jsp?cod_mas=<%=x.getCod_dar_adop()%>')"> 
+                                             <tr class="odd gradeX" onClick="CrearEnlace('detalleAdopcion.jsp?cod_mas=<%=x.getCod_dar_adop()%>')" title="Ver más&hellip;"> 
                                            
                                              <td><h2><b><center><%=x.getNom_mas()%></center></b></h2><center><img src="<%=y.getFoto()%>" width="180" height="154"></center></td>
                                 
@@ -252,6 +275,7 @@
     <!-- Page-Level Plugin Scripts-->
     <script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#dataTables-example').dataTable();
@@ -265,6 +289,18 @@
              location.href = 'listaxUsuario.jsp?valor=Usuario';}
             if (valor ==='Ambos'){
              location.href  = 'listaAdopcion.jsp';}}
+     
+       function alerta(msje){
+        swal(msje);
+    }
+    
+    function alertaok(msje){
+        swal("¡BIEN HECHO!",msje,"success");
+    }
+    
+    function alertanot(msje){
+        swal("¡ERROR!",msje,"error");
+    }
     </script>
 </body>
 </html>

@@ -165,6 +165,9 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -227,7 +230,7 @@
                                             else{
                                                 descrip_adop = x.getDescrip_mas().substring(0,150)+"...";}%>
                                        
-                                             <tr class="odd gradeX" onClick="CrearEnlace('detalleAdoptado.jsp?cod_mas=<%=x.getCod_dar_adop()%>')"> 
+                                             <tr class="odd gradeX" onClick="CrearEnlace('detalleAdoptado.jsp?cod_mas=<%=x.getCod_dar_adop()%>')" title="Ver más&hellip;"> 
                                            
                                              <td><h4><b><center> <%=x.getNom_mas().toUpperCase()%></center></b></h4><center><img src="<%=y.getFoto()%>" width="250" height="200"></center></td>
                                 

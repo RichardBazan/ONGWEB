@@ -167,6 +167,9 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -223,9 +226,13 @@
                                             <td><center>Raza</center></td>
                                             <td colspan="2"><center><%=x.getNom_raza()%></center></td>
                                         </tr>
-                                    </tbody>
-                        </table>      
-                                         </div>
+                                       </tbody>
+                                 </table>   
+                                        
+                                        <a href="comentariosDenuncia_Detalle.jsp?cod_den=<%=cod_d%>">
+                                             <button type="button" class="btn btn-primary">Ver comentarios</button></a>
+                                             
+                                        </div>
                                         <div class="col-lg-6">
                                             <br>
                                             <br>

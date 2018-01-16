@@ -16,13 +16,13 @@
     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
        <script langiage="javascript" type="text/javascript">
             function validar_popup() {
-                var valor = document.getElementById("cboEstadoAdoptado").value;
+                var valor = document.getElementById("cboEstadoDonacion").value;
                 
              if(valor == "#"){
                   swal("Falta seleccionar estado!","Eliga un estado por favor", "warning");
              }else{
                   
-             document.frmActuAdoptado.submit();
+             document.frmActuDonacion.submit();
              window.opener.location.reload(); 
              swal("¡BIEN HECHO!","Ha sido actualizado el estado correctamente","success");                    
                 }
@@ -42,7 +42,7 @@
             <div class="row">
                  <!--  page header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Estado Adopción</h1>
+                    <h1 class="page-header">Estado Donación</h1>
                 </div>
                  <!-- end  page header -->
             </div>
@@ -51,30 +51,44 @@
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Registro Estado Adopción
+                             Registro Estado Donación
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <form name="frmActuAdoptado" method="POST" action="actualiza_estAdoptado">
+                                <form name="frmActuDonacion" method="POST" action="actualiza_estDonacion">
                                     <center>
                                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                             <td>Estado Actual</td><td><b><%=request.getParameter("estado")%></b></td><tr></tr>
                                             <td>Nuevo Estado</td> 
                                              <td>
-                                                 <select class="form-control" name="cboEstadoAdoptado" id="cboEstadoAdoptado">
+                                                 <select class="form-control" name="cboEstadoDonacion" id="cboEstadoDonacion">
                                                         <option value="#" disabled selected>:: Seleccionar ::</option>
                                                         <option value="En Espera">En Espera</option>
-                                                        <option value="Confirmada">Confirmada</option>
+                                                        <option value="Aceptada">Aceptada</option>
                                                         <option value="Rechazada">Rechazada</option>
-                                                        <option value="Cancelada">Cancelada</option>
                                                      </select>
                                              </td><tr></tr> 
-                                            <input type="hidden" name="codigo_adop" value="<%=request.getParameter("cod")%>">
+                                            <input type="hidden" name="codigo_donacion" value="<%=request.getParameter("codigo_donacion")%>">
                                             
                                             <td colspan="2"><center>
                                                 <input type="button" class="btn btn-primary" onclick="validar_popup()" id="Actualizar" value="Actualizar">
                                                 <input type="button" size="20" class="btn btn-primary" onclick="cerrar_popup()" value="Cancelar"></center></td>
                                          </table>
+                                            
+                                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                <thead>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                </thead>
+                                                
+                                                <tbody>
+                                                 <%DAO.DAODONACIONES  obj=new DAO.DAODONACIONES();
+                                                   for(DTO.DTOPRODUCTO x:obj.buscarDonacion(Integer.parseInt(request.getParameter("codigo_donacion")))){%>
+                                                        <td><%=x.getProducto()%></td>
+                                                        <td><%=x.getCantidad()%></td><tr></tr>
+                                                    <%}%>
+                                                </tbody>
+                                            </table>   
                                     </center>
                              </form>
                             </div> 
@@ -102,3 +116,4 @@
 
 </body>
 </html>
+

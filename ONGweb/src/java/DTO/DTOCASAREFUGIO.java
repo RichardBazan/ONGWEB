@@ -14,6 +14,13 @@ public class DTOCASAREFUGIO extends DTOUSUARIO {
     public DTOCASAREFUGIO() {
     }
 
+    public DTOCASAREFUGIO(String usuario, String nombre) {
+        super(usuario);
+        this.nombre = nombre;
+    }
+
+    
+    
     public DTOCASAREFUGIO(int codigo, String nombre, String direccion, String telefono, String descripcion, String fechaRegistro, int codigoUsuario) {
         this.codigocasa = codigo;
         this.nombre = nombre;

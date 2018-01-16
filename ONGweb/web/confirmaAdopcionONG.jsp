@@ -168,6 +168,9 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -230,6 +233,7 @@
                                         <%}%>
                          
                                             <input type="hidden" name="codigo_mascota" value="<%=cod%>">
+                                            <input type="hidden" name="cod_usuario" value="<%=codigoUsuario%>">   
                          
                                             <tr class="odd gradeX">
                                             <td>Si usted acepta, en los siguientes 5 días 
@@ -274,6 +278,7 @@
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>
 

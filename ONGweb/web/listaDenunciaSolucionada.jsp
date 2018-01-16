@@ -174,6 +174,9 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -224,16 +227,17 @@
                                             if(x.getDescrip_den().length() <= 150){ 
                                                 descrip_den = x.getDescrip_den();}
                                             else{
-                                                descrip_den = x.getDescrip_den().substring(0,150)+"...";}%>   
-                                                
+                                                descrip_den = x.getDescrip_den().substring(0,150)+"...";}
+                                          %>   
+                                    
                                          <tr class="odd gradeX" onClick="CrearEnlace('detalleMaltratoSolucionado.jsp?cod_den=<%=x.getCod_den()%>')">
                                             
                                             <td><h4><b><center><%=x.getTitulo_den()%></center></b></h4><center><img src="<%=y.getFoto_den()%>" width="180" height="154">
                                             </center></td>
                                
-                                             <td width="500"><br><br><br><%=descrip_den%></td>
+                                             <td width="500" title="Ver más&hellip;"><br><br><br><%=descrip_den%></td>
                                             
-                                             <td><center><br><br><a href="comentariosDenunciaSolucionado.jsp?cod_den=<%=x.getCod_den()%>"> 
+                                             <td title="Ver comentarios&hellip;"><center><br><br><a href="comentariosDenunciaSolucionado.jsp?cod_den=<%=x.getCod_den()%>"> 
                                              <img src="assets/images/commenting_icon-icons.com_70233.png" width="150"  alt=""/></a></center></td>
                                             
                                          </tr><%}}%> 

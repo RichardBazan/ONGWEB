@@ -168,6 +168,9 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -228,7 +231,8 @@
                                             <td colspan="2"><center><%=x.getNom_raza()%></center></td>
                                             </tr>
                                             
-                                            <input type="hidden" name="tenen" value="<%=x.getTendencia_mas()%>">                                      
+                                            <input type="hidden" name="tenen" value="<%=x.getTendencia_mas()%>">  
+ 
                                     </tbody>
                                 </table>
                                 </div>

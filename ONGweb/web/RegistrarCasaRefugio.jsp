@@ -182,6 +182,9 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -218,7 +221,7 @@
                                     <form role="form" method="post" action="SERCASAREFUGIO">
                                         <div class="form-group">
                                             <label>Nombre</label>
-                                            <input type="text" name="txtnombre" id="txtnombre" class="form-control" required>
+                                            <input type="text" name="txtnombre" id="txtnombre" class="form-control" onkeypress="return soloLetras(event)" onblur="limpia()" required>
                                         </div>
                                         
                                         <div class="form-group">
@@ -229,13 +232,13 @@
                                         
                                         <div class="form-group">
                                             <label>Teléfono Contacto</label>
-                                            <input type="tel" name="teltelefono" id="teltelefono" pattern="[0-9]{9}" class="form-control" maxlength="9" onkeypress="return valida(event)" required>
+                                            <input type="tel" name="teltelefono" id="teltelefono" pattern="[0-9]{9}" class="form-control" onkeypress="return valida(event)" maxlength="9" required>
                                             <i style="font-size: 12px">Ejm: 012461254 / 945929934</i>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label>Descripción</label>
-                                            <textarea class="form-control" name="txtdescripcion" id="txtdescripcion" rows="3" maxlength="330" required></textarea>
+                                            <textarea class="form-control" name="txtdescripcion" id="txtdescripcion" rows="3" maxlength="330" onkeypress="return soloLetrasConSignos(event)" onblur="limpia2()" required></textarea>
                                             <p>Máximo 330 caractéres</p>
                                         </div>
                                         <!--
@@ -315,6 +318,62 @@
     function alertanot(msje){
         swal("¡ERROR!",msje,"error");
     }
+    
+    function soloLetras(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = 'áéíóúabcdefghijklmnñopqrstuvwxyz. ';
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+
+    function soloLetrasConSignos(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = 'áéíóúabcdefghijklmnñopqrstuvwxyz.;,:" ';
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+    
+    function limpia(){
+        var val = document.getElementById('txtnombre').value;
+        var tam = val.length;
+        for(i = 0; i < tam; i++) {
+                if(!isNaN(val[i]))
+                document.getElementById('txtnombre').value = '';
+            }
+        }
+        
+    function limpia2(){
+        var val = document.getElementById('txtdescripcion').value;
+        var tam = val.length;
+        for(i = 0; i < tam; i++) {
+                if(!isNaN(val[i]))
+                document.getElementById('txtdescripcion').value = '';
+            }
+        }
     </script>
 
 </body>

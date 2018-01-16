@@ -34,6 +34,25 @@ if (ses.getAttribute("datosUsuario")!=null){
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
      }
+
+if(ses.getAttribute("men")!=null){
+          String msje = ses.getAttribute("men").toString();
+          
+          if (msje.substring(0,1).equalsIgnoreCase("N")){
+          %>
+          <body onload="alertanot('<%=msje%>')">
+                <%
+        }else{
+            %>
+            <body onload="alertaok('<%=msje%>')">
+                <%
+        }
+    }else{
+        %>
+        <body>
+            <%
+      }
+            ses.setAttribute("men",null);
 %>
 
 <body>
@@ -165,6 +184,9 @@ if (ses.getAttribute("datosUsuario")!=null){
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -198,18 +220,18 @@ if (ses.getAttribute("datosUsuario")!=null){
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form name="frmregistraDenuncia" method="POST" action="denuncia">
-                                        
+                                    <form name="frmregistraDenuncia" id="frmregistraDenuncia" method="POST" action="denuncia">
+                                        <input type="hidden" name="cod_usu" value="<%=codigoUsuario%>">
                             <div class="form-group">
                                             <label>Titulo</label>
-                                            <input type="text" name="titulo" class="form-control" placeholder="Ingrese titulo" required>
+                                            <input type="text" name="titulo" id="titulo" class="form-control" placeholder="Ingrese titulo" required>
                             </div>
                                         
                             <div class="form-group">
                                         <label>Raza</label>
                                           
-                                            <select class="form-control" name="cboR" required>
-                                                <option value="#">:: Seleccionar ::</option>
+                                        <select class="form-control" name="cboR" id="cboR" required>
+                                            <option value="#" selected disabled>:: Seleccionar ::</option>
                                                  <%DAO.DAORAZA obj=new DAO.DAORAZA();
                                                   for(DTO.DTORAZA x:obj.ListRaza()){%>  
                                                 <option value="<%=x.getCod_raza()%>"><%=x.getNom_raza()%></option><%}%>
@@ -218,40 +240,40 @@ if (ses.getAttribute("datosUsuario")!=null){
                                             
                             <div class="form-group">
                                             <label>Dirección de acontecimiento</label>
-                                            <input type="text" name="direccion" class="form-control" placeholder="Ingrese dirección" required>
+                                            <input type="text" name="direccion" id="direccion" class="form-control" placeholder="Ingrese dirección" required>
                             </div>     
                             
                             <div class="form-group">
                                             <label>Teléfono contacto</label>
-                                            <input type="text" name="telefono" class="form-control" placeholder="Ingrese teléfono" required>
+                                            <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Ingrese teléfono" maxlength="9" onkeypress="return justNumbers(event)" onblur="" required>
                             </div>
                                         
                             <div class="form-group">
                                             <label>Descripción</label>
-                                            <textarea placeholder="Escriba descripción aqui!" rows="5" cols="25" class="form-control" name="descripcion" required></textarea>
+                                            <textarea placeholder="Escriba descripción aqui!" rows="5" cols="25" class="form-control" name="descripcion" id="descripcion" required></textarea>
                                             <p>Máximo 250 caractéres</p>
                             </div>
                      
                             <div class="form-group">
                                             <!-- PARA INPUT FILE -->
-                                            <input type="file" name="files[]" id="files" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
+                                            <input type="file" name="files[]" id="files" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple/>
                                             <label for="files"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span></label>
                                             <!-- PARA INPUT FILE -->
                             </div>
-                                        
+                 
                             <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Denunciar</button>
+                                <button type="button" onclick="valida()" class="btn btn-primary">Denunciar</button>
                                             &nbsp;
                                             <button type="reset" class="btn btn-primary">Cancelar</button>
                             </div>
                             
                             <div class="form-group">      
-                                <input type="hidden" id="URL_1" name="URL_1" size="100"  value ="">
-                                <input type="hidden" id="URL_2" name="URL_2" size="100"  value ="">
-                                <input type="hidden" id="URL_3" name="URL_3" size="100"  value ="">
-                                <input type="hidden" id="URL_4" name="URL_4" size="100"  value ="">
+                                <input type="text" id="URL_1" name="URL_1" size="100"  value ="">
+                                <input type="text" id="URL_2" name="URL_2" size="100"  value ="">
+                                <input type="text" id="URL_3" name="URL_3" size="100"  value ="">
+                                <input type="text" id="URL_4" name="URL_4" size="100"  value ="">
                             </div>
-            
+                                            
                     </form>
                                     </form>
                                 </div>
@@ -281,6 +303,7 @@ if (ses.getAttribute("datosUsuario")!=null){
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </body>
 
@@ -299,22 +322,21 @@ if (ses.getAttribute("datosUsuario")!=null){
  
     for (var i = 0, f; f = files[i]; i++) {
         
-        if(files.length == 0){
-            alert('Por lo menos debe haber 1 foto');
+        if (files.length > 3) {
+            swal("Como máximo 3 fotos","", "warning");
+            limpiar();
             return;
-        }
-        if(files.length > 3){
-            alert('Solo se permite ingresar hasta 4 fotos');
-            return;
-        }
+            }
 
       if (!window.FileReader) {
-        alert('El navegador no soporta la lectura de archivos');
-        return;
+         swal("La página no soporta la lectura de archivos","", "warning");
+         limpiar();
+         return;
         }
       // Only process image files.
       if (!f.type.match('image.*')) {
-        alert('El archivo a adjuntar no es una imagen');
+          swal("El archivo a adjuntar no es una imagen","","warning");
+          limpiar();
         continue;
       }
 
@@ -336,25 +358,25 @@ if (ses.getAttribute("datosUsuario")!=null){
                      if(resultado[0] != null){
                          
                          if(document.getElementById('URL_1').value.length == 0){
-                             alert('URL1 campo vacio');
+                             //alert('URL1 campo vacio');
                              document.frmregistraDenuncia.URL_1.value = resultado[0];
                              
                          }else{
-                             alert('URL1 campo lleno');
+                             //alert('URL1 campo lleno');
                           
                             if(document.getElementById('URL_2').value.length == 0){
-                             alert('URL2 campo vacio');
+                             //alert('URL2 campo vacio');
                              document.frmregistraDenuncia.URL_2.value = resultado[1];
                           
                          }else{
-                             alert('URL2 campo lleno');
+                             //alert('URL2 campo lleno');
                              
                              if(document.getElementById('URL_3').value.length == 0){
-                             alert('URL3 campo vacio');
+                             //alert('URL3 campo vacio');
                              document.frmregistraDenuncia.URL_3.value = resultado[2];
                              
                           }else{
-                             alert('URL3 campo lleno');
+                             //alert('URL3 campo lleno');
                              document.frmregistraDenuncia.URL_4.value = resultado[3];
                             } 
                            }
@@ -372,6 +394,127 @@ if (ses.getAttribute("datosUsuario")!=null){
     }
   }
   document.getElementById('files').addEventListener('change', handleFileSelect, false);
+  
+  function alerta(msje){
+        swal(msje);
+    }
+    
+    function alertaok(msje){
+        swal("¡BIEN HECHO!",msje,"success");
+    }
+    
+    function alertanot(msje){
+        swal("¡ERROR!",msje,"error");
+    }
+    
+    function valida(){
+       var titulo = document.getElementById("titulo").value;
+       var raza = document.getElementById("cboR").value;
+       var direccion = document.getElementById("direccion").value;
+       var telefono = document.getElementById("telefono").value;
+       var descripcion = document.getElementById("descripcion").value;
+       
+       if(descripcion=="" || titulo=="" || raza=="#" || direccion == "" || telefono ==""){
+      
+       if(descripcion==""){
+           swal("Falta descripción de la mascota","", "warning");
+       
+       }
+       
+       if(telefono==""){
+           swal("Falta teléfono","", "warning");
+       }
+       
+        if(direccion==""){
+          swal("Falta dirección de denuncia","", "warning");
+       }
+       
+       if(raza == "#"){
+          swal("Falta seleccionar raza","", "warning");
+       }
+       
+       if(titulo==""){
+           swal("Falta titulo de denuncia","", "warning");
+       }
+   }else{
+       document.getElementById("frmregistraDenuncia").submit();
+   }        
+  }
+  
+   function soloLetras(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = 'áéíóúabcdefghijklmnñopqrstuvwxyz. ';
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+
+    function soloLetrasConSignos(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = 'áéíóúabcdefghijklmnñopqrstuvwxyz.;,:" ';
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+    
+    function limpia(){
+        var val = document.getElementById('txtnombre').value;
+        var tam = val.length;
+        for(i = 0; i < tam; i++) {
+                if(!isNaN(val[i]))
+                document.getElementById('txtnombre').value = '';
+            }
+        }
+        
+    function limpia2(){
+        var val = document.getElementById('txtdescripcion').value;
+        var tam = val.length;
+        for(i = 0; i < tam; i++) {
+                if(!isNaN(val[i]))
+                document.getElementById('txtdescripcion').value = '';
+            }
+        }
+    
+    function justNumbers(e)
+        {
+        var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
+        return true;
+         
+        return /\d/.test(String.fromCharCode(keynum));
+        }
+        
+        function lanzadera(){
+        handleFileSelect(evt);
+    }
+    
+      function limpiar(){
+        input=document.getElementById("files");
+        input.value = ''}
+    
+  
 </script>
 </html>
 

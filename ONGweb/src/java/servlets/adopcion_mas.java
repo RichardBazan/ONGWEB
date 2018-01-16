@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,13 +43,20 @@ public class adopcion_mas extends HttpServlet {
        
          String pag ="listaAdopcion.jsp";
        
-        try {         
+        try {   
+                int res = 0;
                 int cod_mas = Integer.parseInt(request.getParameter("codigo_mascota"));
+                int cod_usu = Integer.parseInt(request.getParameter("cod_usuario"));
                 
-                DAOADOP.adopcionAdd(cod_mas);
-                JOptionPane.showMessageDialog(null, "REGISTRADO");
-                response.sendRedirect(pag);
+                res = DAOADOP.adopcionAdd(cod_mas,cod_usu);
+                HttpSession ses = request.getSession();
                 
+                if(res == 0){
+                   ses.setAttribute("men", ("No se registro con exito...Intenlo nuevamente").toUpperCase());
+                }else{
+                   ses.setAttribute("men", ("Registro con exito!").toUpperCase()); 
+                   response.sendRedirect(pag);
+                } 
         } catch (SQLException ex) {
             Logger.getLogger(adopcion_mas.class.getName()).log(Level.SEVERE, null, ex);
         }
