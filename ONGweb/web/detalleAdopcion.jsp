@@ -171,6 +171,9 @@
                                         <li>
                                             <a href="listaAdminDonacion.jsp">Donaciones</a>
                                         </li>
+                                        <li>
+                                            <a href="AdminRegistrarUsuario.jsp">Registro de Colaboradores</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%

@@ -35,6 +35,7 @@ if (ses.getAttribute("datosUsuario")!=null){
          codigoUsuario = datosUsuario[3];
      }
 
+
 if(ses.getAttribute("men")!=null){
           String msje = ses.getAttribute("men").toString();
           
@@ -167,7 +168,7 @@ if(ses.getAttribute("men")!=null){
                         </ul>
                             </li>     
                             <%
-                            if (Integer.parseInt(codigoUsuario)<4){
+                            if (Integer.parseInt(codigoUsuario)<6){
                                 %>
                                 <li>
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i>ADMINISTRADOR<span class="fa arrow"></span></a>
@@ -186,6 +187,9 @@ if(ses.getAttribute("men")!=null){
                                         </li>
                                         <li>
                                             <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="AdminRegistrarUsuario.jsp">Registro de Colaboradores</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -245,12 +249,12 @@ if(ses.getAttribute("men")!=null){
                             
                             <div class="form-group">
                                             <label>Teléfono contacto</label>
-                                            <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Ingrese teléfono" maxlength="9" onkeypress="return justNumbers(event)" onblur="" required>
+                                            <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Ejm : 012571231 / 912720251" maxlength="9" onkeypress="return justNumbers(event)" required>
                             </div>
                                         
                             <div class="form-group">
                                             <label>Descripción</label>
-                                            <textarea placeholder="Escriba descripción aqui!" rows="5" cols="25" class="form-control" name="descripcion" id="descripcion" required></textarea>
+                                            <textarea placeholder="Escriba la descripción aqui!" rows="5" cols="25" class="form-control" name="descripcion" id="descripcion" required></textarea>
                                             <p>Máximo 250 caractéres</p>
                             </div>
                      
@@ -268,10 +272,10 @@ if(ses.getAttribute("men")!=null){
                             </div>
                             
                             <div class="form-group">      
-                                <input type="text" id="URL_1" name="URL_1" size="100"  value ="">
-                                <input type="text" id="URL_2" name="URL_2" size="100"  value ="">
-                                <input type="text" id="URL_3" name="URL_3" size="100"  value ="">
-                                <input type="text" id="URL_4" name="URL_4" size="100"  value ="">
+                                <input type="hidden" id="URL_1" name="URL_1" size="100"  value ="">
+                                <input type="hidden" id="URL_2" name="URL_2" size="100"  value ="">
+                                <input type="hidden" id="URL_3" name="URL_3" size="100"  value ="">
+                                <input type="hidden" id="URL_4" name="URL_4" size="100"  value ="">
                             </div>
                                             
                     </form>
@@ -323,19 +327,19 @@ if(ses.getAttribute("men")!=null){
     for (var i = 0, f; f = files[i]; i++) {
         
         if (files.length > 3) {
-            swal("Como máximo 3 fotos","", "warning");
+            swal("Como máximo 3 fotos","", "error");
             limpiar();
             return;
             }
 
       if (!window.FileReader) {
-         swal("La página no soporta la lectura de archivos","", "warning");
+         swal("La página no soporta la lectura de archivos","", "error");
          limpiar();
          return;
         }
       // Only process image files.
       if (!f.type.match('image.*')) {
-          swal("El archivo a adjuntar no es una imagen","","warning");
+          swal("El archivo a adjuntar no es una imagen","","error");
           limpiar();
         continue;
       }
@@ -418,10 +422,9 @@ if(ses.getAttribute("men")!=null){
       
        if(descripcion==""){
            swal("Falta descripción de la mascota","", "warning");
-       
        }
        
-       if(telefono==""){
+       if(telefono=="" ){
            swal("Falta teléfono","", "warning");
        }
        
@@ -436,9 +439,15 @@ if(ses.getAttribute("men")!=null){
        if(titulo==""){
            swal("Falta titulo de denuncia","", "warning");
        }
-   }else{
+      }else{
+          if(telefono.length < 9 ){
+          swal("El teléfono debe tener 9 digitos","", "warning");
+          telefono.focus(); 
+       }
        document.getElementById("frmregistraDenuncia").submit();
-   }        
+      }
+       
+           
   }
   
    function soloLetras(e){

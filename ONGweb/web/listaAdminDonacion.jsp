@@ -152,7 +152,7 @@
                                         <li>
                                             <a href="listaAdminMascota.jsp">Mascotas</a>
                                         </li>
-                                        <li class="selected">
+                                        <li>
                                             <a href="listaAdminAdoptados.jsp">Adopciones</a>
                                         </li>
                                         <li>
@@ -161,8 +161,11 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
-                                        <li>
+                                        <li class="selected">
                                             <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="AdminRegistrarUsuario.jsp">Registro de Colaboradores</a>
                                         </li>
                                     </ul>
                                 </li>

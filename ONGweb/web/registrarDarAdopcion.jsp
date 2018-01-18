@@ -192,6 +192,9 @@
                                         <li>
                                             <a href="listaAdminDonacion.jsp">Donaciones</a>
                                         </li>
+                                        <li>
+                                            <a href="AdminRegistrarUsuario.jsp">Registro de Colaboradores</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -331,19 +334,19 @@
             return;
         }
         if(files.length > 3){
-            swal("Como máximo 3 fotos","", "warning");
+            swal("Como máximo 3 fotos","", "error");
             limpiar();
             return;
         }
 
       if (!window.FileReader) {
-        swal("La página no soporta la lectura de archivos","", "warning");
+        swal("La página no soporta la lectura de archivos","", "error");
          limpiar();
         return;
         }
       // Only process image files.
       if (!f.type.match('image.*')) {
-        swal("El archivo a adjuntar no es una imagen","","warning");
+        swal("El archivo a adjuntar no es una imagen","","error");
           limpiar();
         continue;
       }
