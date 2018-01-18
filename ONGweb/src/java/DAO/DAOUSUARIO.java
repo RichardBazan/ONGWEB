@@ -1,6 +1,10 @@
 package DAO;
 import DTO.DTOUSUARIO;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.codec.digest.DigestUtils;
 public class DAOUSUARIO {
     
@@ -71,8 +75,30 @@ public class DAOUSUARIO {
         }
     return res;
     }
-    }
+    
+//select nom_usu, ape_pat + ' ' + ape_mat as apellidos,CAST(DAY(fecha_nac) as varchar) + '-' + CAST(MONTH(fecha_nac) as varchar) + '-' + CAST(YEAR(fecha_nac) as varchar) as fecha_nac,dir_usu,tel_usu,usuario,foto_usu from Usuario
 
+      public List<DTOUSUARIO> readAll() throws SQLException {
+         CallableStatement cst;
+         List<DTOUSUARIO> usu = new ArrayList<>();
+         ResultSet res;
+        
+         try {
+            cst = Conexion.getConexion().prepareCall("select nom_usu, ape_pat + ' ' + ape_mat as apellidos,CAST(DAY(fecha_nac) as varchar) + '-' + CAST(MONTH(fecha_nac) as varchar) + '-' + CAST(YEAR(fecha_nac) as varchar) as fecha_nac,dir_usu,tel_usu,usuario,pertenencia,foto_usu from Usuario");
+            res = cst.executeQuery();
+            
+            while(res.next()){
+               usu.add(new DTOUSUARIO(res.getString(1),res.getString(2), res.getString(3),res.getString(4),res.getString(5), res.getString(6), res.getString(7), res.getString(8)));
+            }
+
+         } catch (SQLException ex) {
+            Logger.getLogger(DTOUSUARIO.class.getName()).log(Level.SEVERE, null, ex);
+         }finally{
+             Conexion.getConexion().close();
+         }
+         return usu;
+     }
+}
 /*
 @nombre varchar(50), @apellido_pat varchar(50), @apellido_mat varchar(50),
 @fechaNacimiento date, @direccion varchar(50), @telefono varchar(50), @usuario varchar(50),

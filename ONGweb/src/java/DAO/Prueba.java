@@ -7,17 +7,17 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class Prueba {
     public static void main(String[] args) {
   
-        //Conexion.getConexion();
+//        Conexion.getConexion();
+;
         
-        try {
-            ResultSet rs = DAOCASAREFUGIO.detalleDonacion(18);
-            while (rs.next()){
-                System.out.println(rs.getString(2));
-            }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        
+//        try {
+//            ResultSet rs = DAOCASAREFUGIO.detalleDonacion(18);
+//            while (rs.next()){
+//                System.out.println(rs.getString(2));
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e.toString());
+//        }
         
         //DAOCASAREFUGIO.agregarDetalleDonacion(4,1,100);
         

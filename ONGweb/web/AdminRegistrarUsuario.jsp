@@ -22,7 +22,7 @@
 
 <%!
      String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="";
-   %>
+%>
 
 <%
 HttpSession ses = request.getSession();
@@ -301,7 +301,41 @@ if (ses.getAttribute("datosUsuario")!=null){
                         <div class="clearfix"></div>
 
 					</form>
+                                    
+                                    <form name="frmAdminListUsuario" method="post">
+                                        
+                                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                            <thead>
+                                         <tr class="odd gradeX">
+                                            <th>Nombres</th>
+                                            <th>Apellidos</th>
+                                            <th>Fecha&nbsp;Nacimiento</th>
+                                            <th>Dirección</th>
+                                            <th>Teléfono</th>
+                                            <th>Usuario</th>
+                                            <th>Pertenencia</th>
+                                            <th>Foto</th>
+                                        </tr>
+                                     </thead>
+                                     
+                                     <tbody>
+                                          <% DAO.DAOUSUARIO obj=new DAO.DAOUSUARIO();DAO.DAOVALIDA v=new DAO.DAOVALIDA();
+                                            for(DTO.DTOUSUARIO x:obj.readAll()){%>   
+                                            <tr class="odd gradeX">
+                                             <td><%=v.primeraLetraMayuscula(x.getNombre())%></td>
+                                             <td><%=v.primeraLetraMayuscula(x.getApellidos())%></td>
+                                             <td><%=x.getFechaNacimiento()%></td>
+                                             <td><%=v.primeraLetraMayuscula(x.getDireccion())%></td>
+                                             <td><%=x.getTelefono()%></td>
+                                             <td><%=x.getUsuario()%></td>
+                                             <td><%=x.getPertenencia()%></td>
+                                             <td><img src="<%=x.getFoto()%>" height="70"></a></td>
+                                         </tr>
+                                         <%}%> 
+                                     </tbody>
+                                        </table>
                                     </form>
+                                    
                                 </div>
                                 <div class="row text-center">
                                     <br><br>

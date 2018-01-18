@@ -3,7 +3,7 @@ package DTO;
 public class DTOUSUARIO{
 
     private Integer codigo;
-    private String nombre,apellido_pat,apellido_mat,fechaNacimiento,direccion,telefono,usuario,contraseña,foto;
+    private String nombre,apellido_pat,apellido_mat,fechaNacimiento,direccion,telefono,usuario,contraseña,foto,apellidos,pertenencia;
 
     public DTOUSUARIO() {
     }
@@ -15,6 +15,8 @@ public class DTOUSUARIO{
     public DTOUSUARIO(String usuario) {
         this.usuario = usuario;
     }
+    
+    
 
     public DTOUSUARIO(int codigo, String nombre, String apellido_pat, String apellido_mat, String fechaNacimiento, String direccion, String telefono, String usuario, String contraseña, String foto) {
         this.codigo = codigo;
@@ -29,6 +31,20 @@ public class DTOUSUARIO{
         this.foto = foto;
     }
 
+    public DTOUSUARIO(String nombre,  String apellidos, String fechaNacimiento, String direccion, String telefono, String usuario, String pertenencia, String foto) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.fechaNacimiento = fechaNacimiento;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.usuario = usuario;
+        this.pertenencia = pertenencia;
+        this.foto = foto;
+        
+    }
+
+    
+    
     public Integer getCodigo() {
         return codigo;
     }
@@ -107,6 +123,22 @@ public class DTOUSUARIO{
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getPertenencia() {
+        return pertenencia;
+    }
+
+    public void setPertenencia(String pertenencia) {
+        this.pertenencia = pertenencia;
     }
 
     
