@@ -156,4 +156,15 @@ public class DAOCASAREFUGIO {
           Conexion.getConexion().close();
          }
      }
+        public static ResultSet cantidadCasasRefugioRegistradaPor(int codigoUsuario){
+        ResultSet rs = null;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call cantidadCasasRefugioRegistradaPor(?)}");
+            cst.setInt(1, codigoUsuario);
+            rs = cst.executeQuery();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        return rs;
+    }
 }

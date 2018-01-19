@@ -22,7 +22,7 @@
 </head>
 
 <%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="";
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",pertenenciaUsuario="";
    %>
 
 <%
@@ -33,6 +33,7 @@
          primeraLetraApellidoPat = datosUsuario[1];
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
+         pertenenciaUsuario=datosUsuario[9];
      }
 %>
 
@@ -157,7 +158,7 @@
                         </ul>
                             </li>     
                             <%
-                            if (Integer.parseInt(codigoUsuario)<4){
+                            if (pertenenciaUsuario.equalsIgnoreCase("ONG")){
                                 %>
                                 <li>
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i>ADMINISTRADOR<span class="fa arrow"></span></a>

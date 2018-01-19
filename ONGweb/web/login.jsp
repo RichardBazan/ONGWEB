@@ -141,9 +141,7 @@
                       </ul>
                     </li>
                      -->
-                    <li><a href="gallery.html">GALERIA</a></li>
                     <!-- <li><a href="contact.html">CONTACTANOS</a></li> -->
-                    
                   </ul>
 
                 </div> <!-- /#navbar -->

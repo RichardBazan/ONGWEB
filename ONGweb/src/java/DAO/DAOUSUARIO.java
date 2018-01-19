@@ -34,10 +34,10 @@ public class DAOUSUARIO {
             cst.setString(2, contraseña);
             rs = cst.executeQuery();
             if (rs.next()){
-                user = new DTOUSUARIO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10));
+                user = new DTOUSUARIO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs.getString(11));
             }              
         } catch (SQLException e) {
-        System.err.println(e.toString());;
+        System.err.println(e.toString());
         }
         return user;
     }

@@ -1,3 +1,5 @@
+
+<%@page import="java.sql.ResultSet,DAO.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,10 +14,23 @@
     <link href="assets/css/main-style.css" rel="stylesheet" />
     <!-- Page-Level CSS -->
     <link href="assets/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
+      
+    <!-- PARA INPUT FILE -->
+    <!-- Modernizr -->
+        <script src="assets/js/modernizr-2.6.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/component.css" />
+	
+		<!-- remove this if you use Modernizr -->
+		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
+    <!-- /PARA INPUT FILE -->     
+
    </head>
    
    <%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="";
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",apellidoPat="",apellidoMat="",fechaNacimiento="",direccion="",telefono="",pertenenciaUsuario="";
+     int cantidadDenuncias,cantidadCasas,cantidadAdoptados,cantidadDadosAdopcion;
+
    %>
     <%
      HttpSession ses = request.getSession();
@@ -37,8 +52,34 @@
          primeraLetraApellidoPat = datosUsuario[1];
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
+         apellidoPat=datosUsuario[4];
+         apellidoMat=datosUsuario[5];
+         fechaNacimiento=datosUsuario[6];
+         direccion=datosUsuario[7];
+         telefono=datosUsuario[8];
+         pertenenciaUsuario=datosUsuario[9];
      }
      ses.setAttribute("resultadoLogin",null);
+     
+     ResultSet rs = DAOADOPCION.cantidadPerrosDadosenAdopcionPor(Integer.parseInt(codigoUsuario));
+     if(rs.next()){
+         cantidadDadosAdopcion=Integer.parseInt(rs.getString(1));
+     }
+     
+     rs = DAOADOPCION.cantidadPerrosAdoptadosPor(Integer.parseInt(codigoUsuario));
+     if(rs.next()){
+         cantidadAdoptados=rs.getInt(1);
+     }
+     
+     rs = DAOCASAREFUGIO.cantidadCasasRefugioRegistradaPor(Integer.parseInt(codigoUsuario));
+     if(rs.next()){
+         cantidadCasas=rs.getInt(1);
+     }
+     
+     rs = DAODENUNCIA.cantidadDenunciasRegistradaPor(Integer.parseInt(codigoUsuario));
+     if(rs.next()){
+         cantidadDenuncias=rs.getInt(1);
+     }
     %>
 <body>
     <!--  wrapper -->
@@ -153,7 +194,7 @@
                         </ul>
                             </li>     
                             <%
-                            if (Integer.parseInt(codigoUsuario)<4){
+                            if (pertenenciaUsuario.equalsIgnoreCase("ONG")){
                                 %>
                                 <li>
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i>ADMINISTRADOR<span class="fa arrow"></span></a>
@@ -188,7 +229,7 @@
             <div class="row">
                 <!-- Page Header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Dashboard</h1>
+                    <h1 class="page-header">Principal</h1>
                 </div>
                 <!--End Page Header -->
             </div>
@@ -197,8 +238,7 @@
                 <!-- Welcome -->
                 <div class="col-lg-12">
                     <div class="alert alert-info">
-                        <i class="fa fa-folder-open"></i><b>&nbsp;Hello ! </b>Welcome Back <b>Jonny Deen </b>
- <i class="fa  fa-pencil"></i><b>&nbsp;2,000 </b>Support Tickets Pending to Answere. nbsp;
+                        <i class="fa fa-folder-open"></i><b>&nbsp;Hola ! </b>Bienvenido <b><%=nombreUsuario+" "+primeraLetraApellidoPat%>. </b>
                     </div>
                 </div>
                 <!--end  Welcome -->
@@ -209,407 +249,147 @@
                 <!--quick info section -->
                 <div class="col-lg-3">
                     <div class="alert alert-danger text-center">
-                        <i class="fa fa-calendar fa-3x"></i>&nbsp;<b>20 </b>Meetings Sheduled This Month
-
+                        <i class="fa fa-3x"><img src="assets/images/pataperro.png" width="50" height="40"></i>&nbsp;<b><%=cantidadDadosAdopcion%> </b>
+                        <%
+                        if (cantidadDadosAdopcion==1){
+                            %>
+                        perros dado en adopción.
+                        <%
+                        }else{
+                            %>
+                            perros dados en adopción.
+                            <%
+                        }
+                        %>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="alert alert-success text-center">
-                        <i class="fa  fa-beer fa-3x"></i>&nbsp;<b>27 % </b>Profit Recorded in This Month  
+                        <i class="fa fa-3x"><img src="assets/images/pataperro.png" width="50" height="40"></i>&nbsp;<b><%=cantidadAdoptados%> </b>
+                        <%
+                        if (cantidadAdoptados==1){
+                            %>
+                        perro adoptado.
+                        <%
+                        }else{
+                            %>
+                            perros adoptados.
+                            <%
+                        }
+                        %>                        
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="alert alert-info text-center">
-                        <i class="fa fa-rss fa-3x"></i>&nbsp;<b>1,900</b> New Subscribers This Year
+                        <i class="fa fa-3x"><img src="assets/images/casarefugio.png" width="50" height="40"></i>&nbsp;<b><%=cantidadCasas%> </b>
+                        
+                        <%
+                        if (cantidadCasas==1){
+                            %>
+                        casa refugio registrada.
+                        <%
+                        }else{
+                            %>
+                            casas refugio registradas.
+                            <%
+                        }
+                        %>
 
                     </div>
                 </div>
+                        
                 <div class="col-lg-3">
                     <div class="alert alert-warning text-center">
-                        <i class="fa  fa-pencil fa-3x"></i>&nbsp;<b>2,000 $ </b>Payment Dues For Rejected Items
+                        <i class="fa fa-3x"><img src="assets/images/denuncia.png" width="50" height="40"></i>&nbsp;<b><%=cantidadDenuncias%> </b>
+                        
+                        <%
+                        if (cantidadDenuncias==1){
+                            %>
+                        caso denunciado.
+                        <%
+                        }else{
+                            %>
+                            casos denunciados.
+                            <%
+                        }
+                        %>
                     </div>
                 </div>
-                <!--end quick info section -->
+                
             </div>
-
-            <div class="row">
-                <div class="col-lg-8">
-
-
-
-                    <!--Area chart example -->
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i>Area Chart Example
-                            <div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#">Action</a>
-                                        </li>
-                                        <li><a href="#">Another action</a>
-                                        </li>
-                                        <li><a href="#">Something else here</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a>
-                                        </li>
-                                    </ul>
+                    
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    DATOS PERSONALES
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="panel-body">
-                            <div id="morris-area-chart"></div>
-                        </div>
-
-                    </div>
-                    <!--End area chart example -->
-                    <!--Simple table example -->
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i>Simple Table Example
-                            <div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#">Action</a>
-                                        </li>
-                                        <li><a href="#">Another action</a>
-                                        </li>
-                                        <li><a href="#">Something else here</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-hover table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Date</th>
-                                                    <th>Time</th>
-                                                    <th>Amount</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>3326</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>3:29 PM</td>
-                                                    <td>$321.33</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3325</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>3:20 PM</td>
-                                                    <td>$234.34</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3324</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>3:03 PM</td>
-                                                    <td>$724.17</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3323</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>3:00 PM</td>
-                                                    <td>$23.71</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3322</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>2:49 PM</td>
-                                                    <td>$8345.23</td>
-                                                </tr>
-
-
-                                            </tbody>
-                                        </table>
+                                <div class="panel-body">
+                                    <div class="col-lg-12">
+                                    <div class="row">
+                                        
+                                        <div class="col-lg-12">
+                                            <img src="assets/images/team/member-1.jpg" width="300" height="300">
+                                            <br>
+                                            <br>
+                                        </div>
+                                        <div class="col-lg-12">
+                                                         <!-- PARA INPUT FILE -->             
+                                            <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple/>
+                                            <label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Cambiar foto&hellip;</span></label>
+                                        </div>
+                                        
+                                        <div class="col-lg-12">
+                                        <b>Nombre Completo:  </b> 
+                                        <input type="text" id="txtNombreCompleto" name="txtNombreCompleto" disabled value="<%=apellidoPat+" "+apellidoMat+", "+nombreUsuario%>">
+                                        &nbsp;
+                                        <a onclick="activar('txtNombreCompleto')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
+                                        <br>
+                                        <br>
+                                        </div>
+                                        
+                                        <div class="col-lg-12">
+                                        <b>Fecha Nacimiento: </b>
+                                        <input type="text" name="dateFechaNacimiento" id="dateFechaNacimiento" disabled value="<%=fechaNacimiento%>">
+                                        &nbsp;&nbsp;
+                                        <a onclick="activar('dateFechaNacimiento')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
+                                        <br>
+                                        <br>
+                                        </div>
+                                        
+                                        <div class="col-lg-12">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <b>Dirección:  </b>
+                                            <input type="text" id="txtDireccion" name="txtDireccion" disabled value="<%=direccion%>">
+                                            &nbsp;&nbsp;
+                                        <a onclick="activar('txtDireccion')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
+                                        <br>
+                                        <br>
+                                        </div>
+                                        
+                                        <div class="col-lg-12">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <b>Teléfono:  </b>
+                                        <input type="text" id="txtTelefono" name="txtTelefono" disabled value="<%=telefono%>">
+                                        &nbsp;&nbsp;
+                                        <a onclick="activar('txtTelefono')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
+                                        <br>
+                                        <br>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <button type="button" class="btn-primary" name="btnGuardarCambios" id="btnGuardarCambios" disabled title="No se han realizado cambios. BOTÓN DESACTIVADO." onclick="alerta('H')" style="cursor: text">GUARDAR CAMBIOS</button>
+                                            &nbsp;
+                                            <button type="button" class="btn-primary" name="btnCancelar" id="btnCancelar" disabled title="No se han realizado cambios. BOTÓN DESACTIVADO." onclick="alerta('H')" style="cursor: text">CANCELAR</button>                                            
+                                        </div>
                                     </div>
-
+                                    </div>
                                 </div>
-
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!--End simple table example -->
-
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="panel panel-primary text-center no-boder">
-                        <div class="panel-body yellow">
-                            <i class="fa fa-bar-chart-o fa-3x"></i>
-                            <h3>20,741 </h3>
-                        </div>
-                        <div class="panel-footer">
-                            <span class="panel-eyecandy-title">Daily User Visits
-                            </span>
+                            </div> 
                         </div>
                     </div>
-                    <div class="panel panel-primary text-center no-boder">
-                        <div class="panel-body blue">
-                            <i class="fa fa-pencil-square-o fa-3x"></i>
-                            <h3>2,060 </h3>
-                        </div>
-                        <div class="panel-footer">
-                            <span class="panel-eyecandy-title">Pending Orders Found
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary text-center no-boder">
-                        <div class="panel-body green">
-                            <i class="fa fa fa-floppy-o fa-3x"></i>
-                            <h3>20 GB</h3>
-                        </div>
-                        <div class="panel-footer">
-                            <span class="panel-eyecandy-title">New Data Uploaded
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary text-center no-boder">
-                        <div class="panel-body red">
-                            <i class="fa fa-thumbs-up fa-3x"></i>
-                            <h3>2,700 </h3>
-                        </div>
-                        <div class="panel-footer">
-                            <span class="panel-eyecandy-title">New User Registered
-                            </span>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                </div>
-
             </div>
-
-            <div class="row">
-                <div class="col-lg-4">
-                    <!-- Notifications-->
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i>Notifications Panel
-                        </div>
-
-                        <div class="panel-body">
-                            <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-comment fa-fw"></i>New Comment
-                                    <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-twitter fa-fw"></i>3 New Followers
-                                    <span class="pull-right text-muted small"><em>12 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-envelope fa-fw"></i>Message Sent
-                                    <span class="pull-right text-muted small"><em>27 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-tasks fa-fw"></i>New Task
-                                    <span class="pull-right text-muted small"><em>43 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-upload fa-fw"></i>Server Rebooted
-                                    <span class="pull-right text-muted small"><em>11:32 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-bolt fa-fw"></i>Server Crashed!
-                                    <span class="pull-right text-muted small"><em>11:13 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-warning fa-fw"></i>Server Not Responding
-                                    <span class="pull-right text-muted small"><em>10:57 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-shopping-cart fa-fw"></i>New Order Placed
-                                    <span class="pull-right text-muted small"><em>9:49 AM</em>
-                                    </span>
-                                </a>
-
-                            </div>
-                            <!-- /.list-group -->
-                            <a href="#" class="btn btn-default btn-block">View All Alerts</a>
-                        </div>
-
-                    </div>
-                    <!--End Notifications-->
-                </div>
-                <div class="col-lg-4">
-                    <!-- Donut Example-->
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i>Donut Chart Example
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-donut-chart"></div>
-                            <a href="#" class="btn btn-default btn-block">View Details</a>
-                        </div>
-
-                    </div>
-                    <!--End Donut Example-->
-                </div>
-                <div class="col-lg-4">
-                    <!-- Chat Panel Example-->
-                    <div class="chat-panel panel panel-primary">
-                        <div class="panel-heading">
-                            <i class="fa fa-comments fa-fw"></i>
-                            Chat
-                            <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-chevron-down"></i>
-                                </button>
-                                <ul class="dropdown-menu slidedown">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-refresh fa-fw"></i>Refresh
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-check-circle fa-fw"></i>Available
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-times fa-fw"></i>Busy
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-clock-o fa-fw"></i>Away
-                                        </a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-sign-out fa-fw"></i>Sign Out
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="panel-body">
-                            <ul class="chat">
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>12 mins ago
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>13 mins ago</small>
-                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>14 mins ago</small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>15 mins ago</small>
-                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="panel-footer">
-                            <div class="input-group">
-                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btn-chat">
-                                        Send
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!--End Chat Panel Example-->
-                </div>
-            </div>
-
-
-         
-
-
         </div>
         <!-- end page-wrapper -->
-
-    </div>
     <!-- end wrapper -->
 
     <!-- Core Scripts - Include with every page -->
@@ -623,10 +403,45 @@
     <script src="assets/plugins/morris/morris.js"></script>
     <script src="assets/scripts/dashboard-demo.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+      <!-- PARA INPUT FILE -->
+    <script src="assets/js/custom-file-input.js"></script>
+    <!-- /PARA INPUT FILE -->
+    
     <script type="text/javascript">
     
     function alerta(msje){
         swal(msje);
+    }
+    
+    function activar(idelemento){
+        txt = document.getElementById(idelemento);
+        btnGuardar = document.getElementById("btnGuardarCambios");
+        btnCancelar = document.getElementById("btnCancelar");
+        if (txt.id==="dateFechaNacimiento"){
+            txt.setAttribute("type","date");
+            txt.setAttribute("min","1937-01-01");
+            txt.setAttribute("max","2000-12-31");
+        }
+        txt.disabled=false;
+        txt.focus();
+        btnGuardar.disabled=false;
+        btnCancelar.disabled = false;
+        btnGuardar.setAttribute("style","cursor: pointer");
+        btnCancelar.setAttribute("style","cursor: pointer");
+        btnGuardar.setAttribute("title","");
+        btnCancelar.setAttribute("title","");
+    }
+    
+    function guardarCambios(){
+        btn = document.getElementById("btnGuardarCambios");
+        if(btn.disabled){
+            alerta("NO SE HAN REALIZADO CAMBIOS...");
+        }
+    }
+    
+    function Cancelar(){
+        
     }
     </script> 
 

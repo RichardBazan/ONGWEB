@@ -10,9 +10,9 @@ public class Prueba {
         //Conexion.getConexion();
         
         try {
-            ResultSet rs = DAOCASAREFUGIO.detalleDonacion(18);
-            while (rs.next()){
-                System.out.println(rs.getString(2));
+             ResultSet rs = DAOADOPCION.cantidadPerrosDadosenAdopcionPor(2);
+            if (rs.next()){
+                System.out.println(rs.getString(1));
             }
         } catch (Exception e) {
             System.out.println(e.toString());

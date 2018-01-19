@@ -25,7 +25,7 @@
 </head>
 
 <%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",nombreCasa="",direccionCasa="",codigoUsuario="";
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",nombreCasa="",direccionCasa="",codigoUsuario="",apellidoPat="",apellidoMat="",pertenenciaUsuario="";
      String telefonoCasa="",descripcionCasa="",fechaRegistroCasa="";
      int codigoCRseleccionada;
      ArrayList<String> fotos = new ArrayList();
@@ -39,6 +39,7 @@
          primeraLetraApellidoPat = datosUsuario[1];
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
+         pertenenciaUsuario=datosUsuario[9];
      }
 
     codigoCRseleccionada = Integer.parseInt(request.getParameter("codigoCR"));
@@ -169,7 +170,7 @@
                         </ul>
                             </li>     
                             <%
-                            if (Integer.parseInt(codigoUsuario)<4){
+                            if (pertenenciaUsuario.equalsIgnoreCase("ONG")){
                                 %>
                                 <li>
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i>ADMINISTRADOR<span class="fa arrow"></span></a>

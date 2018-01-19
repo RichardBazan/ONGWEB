@@ -40,7 +40,7 @@ public class SerLoginRegistrarse extends HttpServlet {
                 }
                 String pag = "./inicio.jsp";
                 response.sendRedirect(pag);
-                String[] arregloDatos = {usuarioencontrado.getNombre(),usuarioencontrado.getApellido_pat().substring(0,1),usuarioencontrado.getUsuario(),usuarioencontrado.getCodigo().toString()};                
+                String[] arregloDatos = {usuarioencontrado.getNombre(),usuarioencontrado.getApellido_pat().substring(0,1),usuarioencontrado.getUsuario(),usuarioencontrado.getCodigo().toString(),usuarioencontrado.getApellido_pat(),usuarioencontrado.getApellido_mat(),usuarioencontrado.getFechaNacimiento(),usuarioencontrado.getDireccion(),usuarioencontrado.getTelefono(),usuarioencontrado.getPertenencia()};                
                 ses.setAttribute("datosUsuario",arregloDatos);
                 ses.setAttribute("codigoUsuario",usuarioencontrado.getCodigo());
             }else{

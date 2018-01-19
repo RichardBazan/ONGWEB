@@ -234,4 +234,28 @@ public List<DTODARADOPCION> readAllAdoptados() throws SQLException {
           Conexion.getConexion().close();
          }
      }
+    
+    public static ResultSet cantidadPerrosDadosenAdopcionPor(int codigoUsuario){
+        ResultSet rs = null;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call cantidadPerrosDadosenAdopcionPor(?)}");
+            cst.setInt(1, codigoUsuario);
+            rs = cst.executeQuery();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        return rs;
+    }
+    
+    public static ResultSet cantidadPerrosAdoptadosPor(int codigoUsuario){
+        ResultSet rs = null;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call cantidadPerrosAdoptadosPor(?)}");
+            cst.setInt(1, codigoUsuario);
+            rs = cst.executeQuery();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        return rs;
+    }
 }

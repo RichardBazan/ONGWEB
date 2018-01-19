@@ -197,4 +197,15 @@ public class DAODENUNCIA {
           Conexion.getConexion().close();
          }
      }
+           public static ResultSet cantidadDenunciasRegistradaPor(int codigoUsuario){
+        ResultSet rs = null;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call cantidadDenunciasRegistradaPor(?)}");
+            cst.setInt(1, codigoUsuario);
+            rs = cst.executeQuery();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        return rs;
+    }
 }
