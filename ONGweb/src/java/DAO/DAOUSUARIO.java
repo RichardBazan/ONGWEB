@@ -84,11 +84,11 @@ public class DAOUSUARIO {
          ResultSet res;
         
          try {
-            cst = Conexion.getConexion().prepareCall("select nom_usu, ape_pat + ' ' + ape_mat as apellidos,CAST(DAY(fecha_nac) as varchar) + '-' + CAST(MONTH(fecha_nac) as varchar) + '-' + CAST(YEAR(fecha_nac) as varchar) as fecha_nac,dir_usu,tel_usu,usuario,pertenencia,foto_usu from Usuario");
+            cst = Conexion.getConexion().prepareCall("select nom_usu, ape_pat, ape_mat, CAST(DAY(fecha_nac) as varchar) + '-' + CAST(MONTH(fecha_nac) as varchar) + '-' + CAST(YEAR(fecha_nac) as varchar) as fecha_nac,dir_usu,tel_usu,usuario,pertenencia,foto_usu from Usuario");
             res = cst.executeQuery();
             
             while(res.next()){
-               usu.add(new DTOUSUARIO(res.getString(1),res.getString(2), res.getString(3),res.getString(4),res.getString(5), res.getString(6), res.getString(7), res.getString(8)));
+               usu.add(new DTOUSUARIO(res.getString(1),res.getString(2), res.getString(3),res.getString(4),res.getString(5), res.getString(6), res.getString(7), res.getString(8),res.getString(9)));
             }
 
          } catch (SQLException ex) {

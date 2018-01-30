@@ -17,7 +17,10 @@
 	
 		<!-- remove this if you use Modernizr -->
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
-    <!-- /PARA INPUT FILE -->            
+    <!-- /PARA INPUT FILE -->      
+    <style>.contenedor {position: relative;height: 125px;width: 220px;margin: 50px 20px;float: left;margin: 10px 5px 0 0;}
+                       .contenedor img {position: absolute;left: 0;transition: opacity 0.5s ease-in-out;}
+                       .contenedor img.top:hover {opacity: 0.50;}</style>    
 </head>
 
 <%!
@@ -55,9 +58,9 @@
 
 <body>
     <!--  wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" style="background: #115C9B">
         <!-- navbar top -->
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar" style="background: #115C9B">
             <!-- navbar-header -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -100,18 +103,18 @@
             <!-- sidebar-collapse -->
             <div class="sidebar-collapse">
                 <!-- side-menu -->
-                <ul class="nav" id="side-menu">
+                <ul class="nav" id="side-menu" style="background: #1F76BD">
                     <li>
                         <!-- user image section-->
-                        <div class="user-section">
+                        <div class="user-section" style="background: #115C9B">
                             <div class="user-section-inner">
                                 <img src="assets/img/user.jpg" alt="">
                             </div>
                             <div class="user-info">
-                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
-                                <div style="font-size: 14px; text-align: center;">( <i><%=usernameUsuario%></i> )</div>
+                                <div style="color: #ffffff"><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
+                                <div style="font-size: 14px; text-align: center;color: #ffffff">( <i><%=usernameUsuario%></i> )</div>
                                 <div class="user-text-online">
-                                    <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
+                                    <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;En línea
                                 </div>
                             </div>
                         </div>
@@ -221,27 +224,25 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" method="post" action="SERCASAREFUGIO">
+                                    <form name="frmRegistrarCasaRefugio" id="frmRegistrarCasaRefugio" role="form" method="post" action="SERCASAREFUGIO">
                                         <div class="form-group">
                                             <label>Nombre</label>
-                                            <input type="text" name="txtnombre" id="txtnombre" class="form-control" onkeypress="return soloLetras(event)" onblur="limpia()" required>
+                                            <input type="text" name="txtnombre" id="txtnombre" class="form-control" onkeypress="return soloLetras(event)" placeholder="Ingrese nombre" required>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label>Dirección</label>
-                                            <input type="text" name="txtdireccion" id="txtdireccion" class="form-control" required>
-                                            <i style="font-size: 12px">Ejm: Av. Sucre 525 Int. 204</i>
+                                            <input type="text" name="txtdireccion" id="txtdireccion" class="form-control" placeholder="Ingrese dirección" required>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label>Teléfono Contacto</label>
-                                            <input type="tel" name="teltelefono" id="teltelefono" pattern="[0-9]{9}" class="form-control" onkeypress="return valida(event)" maxlength="9" required>
-                                            <i style="font-size: 12px">Ejm: 012461254 / 945929934</i>
+                                            <input type="tel" name="teltelefono" id="teltelefono" pattern="[0-9]{9}" class="form-control" onkeypress="return valida(event)" maxlength="9" placeholder="Ejm : 012571231 / 912720251" required>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label>Descripción</label>
-                                            <textarea class="form-control" name="txtdescripcion" id="txtdescripcion" rows="3" maxlength="330" onkeypress="return soloLetrasConSignos(event)" onblur="limpia2()" required></textarea>
+                                            <textarea class="form-control" name="txtdescripcion" id="txtdescripcion" placeholder="Escriba la descripción aqui!" rows="5" cols="25" onkeypress="return soloLetrasConSignos(event)"  required></textarea>
                                             <p>Máximo 330 caractéres</p>
                                         </div>
                                         <!--
@@ -255,14 +256,22 @@
                                         </div>    
                                         <div class="form-group">
                                             <!-- PARA INPUT FILE -->
-                                            <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
-                                            <label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span></label>
+                                            <input type="file" name="files[]" id="files" class="inputfile inputfile-4" data-multiple-caption="{count} Fotos seleccionadas" multiple />
+                                            <label for="files"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Seleccionar imagen&hellip;</span></label>
                                             <!-- PARA INPUT FILE -->
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Registrar</button>
+                                            <button type="button" class="btn btn-primary" onclick="valid()">Registrar</button>
                                             &nbsp;
                                             <button type="reset" class="btn btn-primary">Cancelar</button>
+                                        </div>
+                                        
+                                        <div class="form-group">      
+                                            <input type="hidden" id="URL_1" name="URL_1" size="100"  value ="">
+                                            <input type="hidden" id="URL_2" name="URL_2" size="100"  value ="">
+                                            <input type="hidden" id="URL_3" name="URL_3" size="100"  value ="">
+                                            <input type="hidden" id="URL_4" name="URL_4" size="100"  value ="">
+                                            <input type="hidden" id="delete" name="delete" size="100"  value ="imgdelete">
                                         </div>
                                     </form>
                                 </div>
@@ -270,7 +279,7 @@
                                     <img src="assets/images/casa.png" width="450" height="450">
                                         </div>
                             </div>
-                            
+                               <output id="list"></output> 
                         </div>
                         
                     </div>
@@ -298,7 +307,114 @@
     <script src="assets/scripts/siminta.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript">
-        function valida(e){
+     function handleFileSelect(evt) { 
+    var files = evt.target.files; // FileList object
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {        
+         //document.getElementById("contador").value = files.length;
+        
+        if(files.length == 0){
+            swal("Por lo menos debe haber 1 foto","", "warning");
+            limpiar();
+            return;
+        }
+        if(files.length > 3){
+            swal("Como máximo 3 fotos","", "error");
+            limpiar();
+            return;
+        }
+
+      if (!window.FileReader) {
+        swal("La página no soporta la lectura de archivos","", "error");
+         limpiar();
+        return;
+        }
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+        swal("El archivo a adjuntar no es una imagen","","error");
+          limpiar();
+        continue;
+      }
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var span = document.createElement('span');
+          span.innerHTML = ['<div class="contenedor"><img src="assets/img/delete.png" title = "Eliminar" height= "125" width="220" id="imgdelete"/>\n\
+                            <a><img class="top" src="', e.target.result,'" id="', e.target.result, '" title="', escape(theFile.name), '" height= "125" width="220" name="imagen"/></a></div>'].join('');
+          document.getElementById('list').insertBefore(span, null);      
+         
+                    if(!f){
+                                                  
+                         if(document.getElementById('URL_1').value.length === 0){
+                             document.frmRegistrarCasaRefugio.URL_1.value = e.target.result;
+                           
+                         }else{                          
+                            if(document.getElementById('URL_2').value.length === 0){
+                             document.frmRegistrarCasaRefugio.URL_2.value = e.target.result;
+                          
+                         }else{
+                             if(document.getElementById('URL_3').value.length === 0){
+                             document.frmRegistrarCasaRefugio.URL_3.value = e.target.result;
+                             
+                          }}}
+                         if(document.getElementById('URL_1').value.length > 0 && document.getElementById('URL_2').value.length > 0 && document.getElementById('URL_3').value.length > 0 ){
+                              document.getElementById("files").disabled = true;
+                         }else{
+                               document.getElementById("files").disabled = false;
+                         }
+                      }               
+                      
+                      
+        $(document).ready(function(){
+	$("img[name=imagen]").click(function () {
+	//alert("has hecho click en la imagen");       
+        var img1 = document.frmRegistrarCasaRefugio.URL_1.value;
+        var img2 = document.frmRegistrarCasaRefugio.URL_2.value;
+        var img3 = document.frmRegistrarCasaRefugio.URL_3.value;
+        var imagenes = [img1,img2,img3];  
+        
+                  if(!f){
+                         //Eliminando value de los input text
+                            if(imagenes[0].length > 0){
+                                eliminaFotos(imagenes[0]);
+                                document.frmRegistrarCasaRefugio.URL_1.value = "";
+                                eliminaFotoDelete()[0];
+                               }  
+                               
+                             if(imagenes[1].length > 0){
+                                eliminaFotos(imagenes[1]);
+                                document.frmRegistrarCasaRefugio.URL_2.value = "";
+                                eliminaFotoDelete()[1];
+                               }   
+                         
+                            if(imagenes[2].length > 0){
+                                eliminaFotos(imagenes[2]);
+                                document.frmRegistrarCasaRefugio.URL_3.value = "";
+                                eliminaFotoDelete()[2];
+                               }
+                        } 
+                             /*var con = files.length;
+                             alert(contador(con));*/
+	});
+        });
+        
+        
+        };
+      })(f);
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f); 
+    }
+}         
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);    
+    
+    
+    
+    function valida(e){
     tecla = (document.all) ? e.keyCode : e.which;
    //Tecla de retroceso para borrar, siempre la permite
     if (tecla===8){
@@ -315,7 +431,7 @@
     }
     
     function alertaok(msje){
-        swal("¡BIEN HECHO!",msje,"success");
+        swal("¡Registro de Casa Refugio Correctamente!",msje,"success");
     }
     
     function alertanot(msje){
@@ -325,7 +441,7 @@
     function soloLetras(e){
        key = e.keyCode || e.which;
        tecla = String.fromCharCode(key).toLowerCase();
-       letras = 'áéíóúabcdefghijklmnñopqrstuvwxyz. ';
+       letras = ' áéíóúabcdefghijklmnñopqrstuvwxyz."';
        especiales = "8-37-39-46";
 
        tecla_especial = false
@@ -377,6 +493,54 @@
                 document.getElementById('txtdescripcion').value = '';
             }
         }
+        
+         function eliminaFotos(id){       
+	imagen = document.getElementById(id);
+        document.getElementById(id).setAttribute('name',null);
+		padre = imagen.parentNode;
+		padre.removeChild(imagen);
+            } 
+     
+    function eliminaFotoDelete(){
+	imagen2 = document.getElementById(document.getElementById("delete").value);
+        document.getElementById(document.getElementById("delete").value).setAttribute('name',null);
+		padre2 = imagen2.parentNode;
+		padre2.removeChild(imagen2);
+         } 
+     
+    function valid(){
+       var nombre = document.getElementById("txtnombre").value;
+       var direccion = document.getElementById("txtdireccion").value;
+       var telefono = document.getElementById("teltelefono").value;
+       var descripcion = document.getElementById("txtdescripcion").value;
+       
+       if(nombre=="" || direccion=="" || telefono=="" || descripcion == ""){     
+       
+       if(descripcion==""){
+           swal("Falta descripción casa refugio","", "warning");
+       }
+       
+        if(telefono==""){
+          swal("Falta teléfono casa refugio","", "warning");
+       }
+       
+       if(direccion == ""){
+          swal("Falta dirección casa refugio","", "warning");
+       }
+       
+       if(nombre==""){
+           swal("Falta nombre de casa refugio","", "warning");
+       }
+   }else{
+         if(telefono.length<9 || telefono.length>9){
+            swal("El número de contacto debe tener 9 digitos","INGRESE CORRECTAMENTE EL NÚMERO DE CONTACTO." ,"error");
+            telefono.focus();
+            return (false);
+         }else{
+       document.getElementById("frmRegistrarCasaRefugio").submit();
+   }
+   }        
+  }
     </script>
 
 </body>

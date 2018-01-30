@@ -79,7 +79,7 @@ public class denuncia extends HttpServlet {
                 if(res == 0){
                    ses.setAttribute("men", ("No se registro con exito...Intenlo nuevamente").toUpperCase());
                 }else{
-                   ses.setAttribute("men", ("Registro con exito!").toUpperCase()); 
+                   ses.setAttribute("men", ("Su denuncia ha sido registrado correctamente. Gracias por tu ayuda!").toUpperCase()); 
                    response.sendRedirect(pag);
                 }       
         } catch (SQLException ex) {

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import DAO.DAOVALIDA;
 
 
 @WebServlet(name = "SerLoginRegistrarse", urlPatterns = {"/SerLoginRegistrarse"})
@@ -56,7 +57,7 @@ public class SerLoginRegistrarse extends HttpServlet {
                 ses.setAttribute("datosUsuario",arregloDatos);
                 ses.setAttribute("codigoUsuario",usuarioencontrado.getCodigo());
             }else{
-                ses.setAttribute("resultadoLogin","ALGO OCURRIÓ FALLIDO. INTÉNTELO NUEVAMENTE...");
+                ses.setAttribute("resultadoLogin","INTÉNTELO NUEVAMENTE...");
                 String pag = "./login.jsp";                
                 response.sendRedirect(pag);
             }
@@ -70,7 +71,7 @@ public class SerLoginRegistrarse extends HttpServlet {
             String usuario = request.getParameter("txtusuario");
             String contraseña = request.getParameter("passwordcontraseña1");
             String contraseñaencript = DAOUSUARIO.encriptarContraseña(contraseña);
-            String foto = "";
+            String foto = request.getParameter("URL_1");
             //String foto = request.getParameter("lblfoto");
             
             //JOptionPane.showMessageDialog(null,foto);
@@ -88,8 +89,10 @@ public class SerLoginRegistrarse extends HttpServlet {
             //JOptionPane.showMessageDialog(null,nombre+" "+apellido_pat+" "+apellido_mat+" "+fechaNacimiento+" "+direccion+" "+telefono+" "+usuario+" "+contraseña+" "+foto);
             int filasafectadas = DAOUSUARIO.agregarNuevoUsuario(dtousuario);
             
+            DAOVALIDA obj=new DAOVALIDA();
+            
             if(filasafectadas>0){
-                ses.setAttribute("resultadoRegistro","REGISTRADO CORRECTAMENTE. ¡BIENVENIDO "+ dtousuario.getUsuario() +" A NUESTRO EQUIPO!");
+                ses.setAttribute("resultadoRegistro","SE HA REGITRADO CORRECTAMENTE. ¡BIENVENIDO "+ obj.primeraLetraMayuscula(dtousuario.getUsuario()) +" A NUESTRO EQUIPO!");
             }else{
                 ses.setAttribute("resultadoRegistro","ALGO OCURRIÓ FALLIDO. INTÉNTELO NUEVAMENTE...");
             }

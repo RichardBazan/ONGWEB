@@ -17,7 +17,9 @@
 		<!-- remove this if you use Modernizr -->
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
     <!-- /PARA INPUT FILE -->     
-                  <style>.thumb {width: 450px; border: 1px solid #000;margin: 10px 5px 0 0;}</style>  
+                   <style>.contenedor {position: relative;height: 125px;width: 220px;margin: 50px 20px;float: left;margin: 10px 5px 0 0;}
+                       .contenedor img {position: absolute;left: 0;transition: opacity 0.5s ease-in-out;}
+                       .contenedor img.top:hover {opacity: 0.50;}</style>     
 </head>
 
 <%!
@@ -56,9 +58,9 @@ if (ses.getAttribute("datosUsuario")!=null){
 
 <body>
     <!--  wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" style="background: #115C9B">
         <!-- navbar top -->
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar" style="background: #115C9B">
             <!-- navbar-header -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -101,18 +103,18 @@ if (ses.getAttribute("datosUsuario")!=null){
             <!-- sidebar-collapse -->
             <div class="sidebar-collapse">
                 <!-- side-menu -->
-                <ul class="nav" id="side-menu">
+                <ul class="nav" id="side-menu" style="background: #1F76BD">
                     <li>
                         <!-- user image section-->
-                        <div class="user-section">
+                        <div class="user-section" style="background: #115C9B">
                             <div class="user-section-inner">
                                 <img src="assets/img/user.jpg" alt="">
                             </div>
                             <div class="user-info">
-                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
-                                <div style="font-size: 14px; text-align: center;">( <i><%=usernameUsuario%></i> )</div>
+                                <div style="color: #ffffff"><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
+                                <div style="font-size: 14px; text-align: center;color: #ffffff">( <i><%=usernameUsuario%></i> )</div>
                                 <div class="user-text-online">
-                                    <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
+                                    <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;En línea
                                 </div>
                             </div>
                         </div>
@@ -273,7 +275,7 @@ if (ses.getAttribute("datosUsuario")!=null){
                                             
                                             <div class="form-group">
                                                          <!-- PARA INPUT FILE -->             
-                                            <input type="file" name="files[]" id="files" class="inputfile inputfile-4" data-multiple-caption="{count} files selected"/>
+                                            <input type="file" name="files[]" id="files" class="inputfile inputfile-4"/>
                                             <label for="files"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge una foto&hellip;</span></label>
                                             <!-- PARA INPUT FILE -->
                             </div>   
@@ -297,14 +299,14 @@ if (ses.getAttribute("datosUsuario")!=null){
                                  <input class="btn btn-primary" onclick="comprobarCampos()" type="button" id="btnRegistrar" name="btnRegistrar" value="Registrarse"/>
                             </div>
                         </div>
+                        
                         <input type="hidden" name="URL_1" id="URL_1" size="100" value="">
-                        <div class="clearfix"></div>
-
-					</form>
-                                    
+                        <input type= "hidden" id="delete" name="delete" size="100"  value ="imgdelete">          
+                        <output id="list"></output>
+            </form>
                                     <form name="frmAdminListUsuario" method="post">
-                                        
                                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                         
                                             <thead>
                                          <tr class="odd gradeX">
                                             <th>Nombres</th>
@@ -323,7 +325,7 @@ if (ses.getAttribute("datosUsuario")!=null){
                                             for(DTO.DTOUSUARIO x:obj.readAll()){%>   
                                             <tr class="odd gradeX">
                                              <td><%=v.primeraLetraMayuscula(x.getNombre())%></td>
-                                             <td><%=v.primeraLetraMayuscula(x.getApellidos())%></td>
+                                             <td><%=v.primeraLetraMayuscula(x.getApellido_pat())%>&nbsp;<%=v.primeraLetraMayuscula(x.getApellido_mat())%></td>
                                              <td><%=x.getFechaNacimiento()%></td>
                                              <td><%=v.primeraLetraMayuscula(x.getDireccion())%></td>
                                              <td><%=x.getTelefono()%></td>
@@ -342,7 +344,7 @@ if (ses.getAttribute("datosUsuario")!=null){
                                     <img  src="assets/img/user-1633249_960_720.png" alt="" width="350">
                                         </div>
                             </div>
-                              <output id="list"></output> 
+                              
                         </div>
                         
                     </div>
@@ -376,40 +378,31 @@ if (ses.getAttribute("datosUsuario")!=null){
   }
 </style>
 <script>
-  
-  function alerta(msje){
-        swal(msje);
-    }
-    
-    function alertaok(msje){
-        swal("¡BIEN HECHO!",msje,"success");
-    }
-    
-    function alertanot(msje){
-        swal("¡ERROR!",msje,"error");
-    }
-    
-    function handleFileSelect(evt) {
+     function handleFileSelect(evt) { 
     var files = evt.target.files; // FileList object
-     var resultado = [];
+    
     // Loop through the FileList and render image files as thumbnails.
- 
-    for (var i = 0, f; f = files[i]; i++) {
+    for (var i = 0, f; f = files[i]; i++) {        
+         //document.getElementById("contador").value = files.length;
         
-        if (files.length > 3) {
-            swal("Como máximo 1 foto","", "error");
+        if(files.length == 0){
+            swal("Por lo menos debe haber 1 foto","", "warning");
             limpiar();
             return;
-            }
+        }
+        if(files.length > 1){
+            swal("Como máximo 1 fotos","", "error");
+            return;
+        }
 
       if (!window.FileReader) {
-         swal("La página no soporta la lectura de archivos","", "error");
+        swal("La página no soporta la lectura de archivos","", "error");
          limpiar();
-         return;
+        return;
         }
       // Only process image files.
       if (!f.type.match('image.*')) {
-          swal("El archivo a adjuntar no es una imagen","","error");
+        swal("El archivo a adjuntar no es una imagen","","error");
           limpiar();
         continue;
       }
@@ -421,31 +414,60 @@ if (ses.getAttribute("datosUsuario")!=null){
         return function(e) {
           // Render thumbnail.
           var span = document.createElement('span');
-          
-          resultado.push(e.target.result);
-          for(var y = 0 ; y < resultado.length; y++){
-          
-          span.innerHTML = ['<img class="thumb" style="height: 250px" src="', resultado[y],'" title="', escape(theFile.name), '"/>'].join('');
-          document.getElementById('list').insertBefore(span, null);
-       
-         }
-                     if(resultado[0] != null){
-                         
-                         if(document.getElementById('URL_1').value.length == 0){
-                             document.formRegistrarseUsu.URL_1.value = resultado[0];  
-                         } 
-                      }                 
+          span.innerHTML = ['<div class="contenedor"><img src="assets/img/delete.png" title = "Eliminar" height= "125" width="220" id="imgdelete"/>\n\
+                            <a><img class="top" src="', e.target.result,'" id="', e.target.result, '" title="', escape(theFile.name), '" height= "125" width="220" name="imagen" /></a></div><br><br><br><br><br><br><br><br>'].join('');
+          document.getElementById('list').insertBefore(span, null);      
+         
+                    if(!f){
+                                                  
+                         if(document.getElementById('URL_1').value.length === 0){
+                                 document.formRegistrarseUsu.URL_1.value = e.target.result;
+                                 document.getElementById("files").disabled = true;
+                                 
+                                 }
+                             }    
+                  
+        $(document).ready(function(){
+	$("img[name=imagen]").click(function () {
+	//alert("has hecho click en la imagen");       
+        var img1 = document.formRegistrarseUsu.URL_1.value;
+        
+                  if(!f){
+                         //Eliminando value de los input text
+                            if(img1[0].length > 0){
+                                document.getElementById("files").disabled = false;
+                                eliminaFotos(img1);
+                                document.formRegistrarseUsu.URL_1.value = "";
+                                eliminaFotoDelete()[0];                                	
+                                limpia();
+                               } 
+                        } 
+	});
+        });
+        
+        
         };
       })(f);
       // Read in the image file as a data URL.
-      reader.readAsDataURL(f);    
+      reader.readAsDataURL(f); 
     }
-  }
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
-  
-    
+}         
 
-  
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);    
+    
+    
+  function alerta(msje){
+        swal(msje);
+    }
+    
+    function alertaok(msje){
+        swal("¡BIEN HECHO!",msje,"success");
+    }
+    
+    function alertanot(msje){
+        swal("¡ERROR!",msje,"error");
+    }
+
    function soloLetras(e){
        key = e.keyCode || e.which;
        tecla = String.fromCharCode(key).toLowerCase();
@@ -547,6 +569,20 @@ if (ses.getAttribute("datosUsuario")!=null){
         }
     }
     
+         function eliminaFotos(id){       
+	imagen = document.getElementById(id);
+        document.getElementById(id).setAttribute('name',null);
+		padre = imagen.parentNode;
+		padre.removeChild(imagen);
+            } 
+     
+    function eliminaFotoDelete(){
+	imagen2 = document.getElementById(document.getElementById("delete").value);
+        document.getElementById(document.getElementById("delete").value).setAttribute('name',null);
+		padre2 = imagen2.parentNode;
+		padre2.removeChild(imagen2);
+         }   
+
 </script>
 </html>
 

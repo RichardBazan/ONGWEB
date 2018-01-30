@@ -41,9 +41,9 @@
 
 <body>
     <!--  wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" style="background: #115C9B">
         <!-- navbar top -->
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar" style="background: #115C9B">
             <!-- navbar-header -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -87,18 +87,18 @@
             <!-- sidebar-collapse -->
             <div class="sidebar-collapse">
                 <!-- side-menu -->
-                <ul class="nav" id="side-menu">
+                <ul class="nav" id="side-menu" style="background: #1F76BD">
                     <li>
                         <!-- user image section-->
-                        <div class="user-section">
+                        <div class="user-section" style="background: #115C9B">
                             <div class="user-section-inner">
                                 <img src="assets/img/user.jpg" alt="">
                             </div>
                             <div class="user-info">
-                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
-                                <div style="font-size: 14px; text-align: center;">( <i><%=usernameUsuario%></i> )</div>
+                                <div style="color: #ffffff"><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
+                                <div style="font-size: 14px; text-align: center;color: #ffffff">( <i><%=usernameUsuario%></i> )</div>
                                 <div class="user-text-online">
-                                    <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
+                                    <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;En línea
                                 </div>
                             </div>
                         </div>

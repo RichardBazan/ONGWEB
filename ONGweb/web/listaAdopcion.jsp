@@ -59,9 +59,9 @@
 
 <body>
     <!--  wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" style="background: #115C9B">
         <!-- navbar top -->
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar" style="background: #115C9B">
             <!-- navbar-header -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -104,18 +104,18 @@
             <!-- sidebar-collapse -->
             <div class="sidebar-collapse">
                 <!-- side-menu -->
-                <ul class="nav" id="side-menu">
+                <ul class="nav" id="side-menu" style="background: #1F76BD">
                     <li>
                         <!-- user image section-->
-                        <div class="user-section">
+                        <div class="user-section" style="background: #115C9B">
                             <div class="user-section-inner">
                                 <img src="assets/img/user.jpg" alt="">
                             </div>
                             <div class="user-info">
-                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
-                                <div style="font-size: 14px; text-align: center;">( <i><%=usernameUsuario%></i> )</div>
+                                <div style="color: #ffffff"><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
+                                <div style="font-size: 14px; text-align: center;color: #ffffff">( <i><%=usernameUsuario%></i> )</div>
                                 <div class="user-text-online">
-                                    <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
+                                    <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;En línea
                                 </div>
                             </div>
                         </div>
@@ -228,7 +228,7 @@
                                         <div class="form-group">
                                               <label>Buscar por:</label>      
                                               <select class="form-control" style="width:150px" name="cboTenencia" onchange= "valida()">
-                                                <option value="#" selected disabled>:: Seleccionar ::</option>
+                                                <option value="#" selected disabled>Seleccionar </option>
                                                 <option value="Ong">ONG</option>
                                                 <option value="Usuario">Usuario</option>
                                                 <option value="Ambos">Ambos</option>
@@ -252,11 +252,10 @@
                                             else{
                                                  descrip_adop = x.getDescrip_mas().substring(0,150)+"...";}%>
                                        
-                                             <tr class="odd gradeX" onClick="CrearEnlace('detalleAdopcion.jsp?cod_mas=<%=x.getCod_dar_adop()%>')" title="Ver más&hellip;"> 
-                                           
+                                             <tr class="odd gradeX"> 
                                              <td><h2><b><center><%=x.getNom_mas()%></center></b></h2><center><img src="<%=y.getFoto()%>" width="180" height="154"></center></td>
                                 
-                                             <td width="500"><br><br><%=descrip_adop%></td>
+                                             <td width="500" title="Ver más&hellip;" onClick="CrearEnlace('detalleAdopcion.jsp?cod_mas=<%=x.getCod_dar_adop()%>')"><br><br><%=descrip_adop%></td>
                                               
                                              </tr><%}}%>  
                                      </tbody>
@@ -269,6 +268,7 @@
                 </div>
             </div>
         </div>
+    </div>
     <!-- Core Scripts - Include with every page -->
     <script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
@@ -298,7 +298,7 @@
     }
     
     function alertaok(msje){
-        swal("¡BIEN HECHO!",msje,"success");
+        swal("¡Adopción Solicitada Correctamente!",msje,"success");
     }
     
     function alertanot(msje){
