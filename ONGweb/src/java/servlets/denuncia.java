@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,37 +40,48 @@ public class denuncia extends HttpServlet {
        
            String pag ="registrarMaltrato.jsp";
        
-        try {   
+        try {  
+                HttpSession ses = request.getSession();
+                int res = 0;
                 DTODEN.setTitulo_den(request.getParameter("titulo"));
                 DTODEN.setDir_den(request.getParameter("direccion"));
                 DTODEN.setTel_cont(request.getParameter("telefono"));
                 DTODEN.setDescrip_den(request.getParameter("descripcion"));
                 DTODEN.setCod_raza(Integer.parseInt(request.getParameter("cboR")));
+                DTODEN.setCodigo(Integer.parseInt(request.getParameter("cod_usu")));
                 
-                DAODEN.denunciaAdd(DTODEN);
-                JOptionPane.showMessageDialog(null, "DATOS REGISTRADOS");
+                res = DAODEN.denunciaAdd(DTODEN);
                 
                 String f1 = request.getParameter("URL_1");
                 String f2 = request.getParameter("URL_2");
                 String f3 = request.getParameter("URL_3");                
                 String f4 = request.getParameter("URL_4");   
 
+
+                if(f1.equalsIgnoreCase("") && f2.equalsIgnoreCase("") && f3.equalsIgnoreCase("") && f4.equalsIgnoreCase("")){
+                f1 = "assets/images/animal-2029726_960_720.png";
+                res = DAODEN.denunciaFotoAdd(f1);
+                }else{
                 
-                if(!f1.equals("")){ 
-                     DAODEN.denunciaFotoAdd(f1);}
+                if(!f1.equals("")){
+                     String ff1 = request.getParameter("URL_1");
+                     res = DAODEN.denunciaFotoAdd(ff1);}
                 
                 if(!f2.equals("")){
-                     DAODEN.denunciaFotoAdd(f2);}
+                     res = DAODEN.denunciaFotoAdd(f2);}
                 
                 if(!f3.equals("")){
-                     DAODEN.denunciaFotoAdd(f2);}
+                     res = DAODEN.denunciaFotoAdd(f3);}
                 
                 if(!f4.equals("")){
-                     DAODEN.denunciaFotoAdd(f4);}  
+                     res = DAODEN.denunciaFotoAdd(f4);}}
                 
-                JOptionPane.showMessageDialog(null, "FOTO(S) REGISTRADO(S)");
-                response.sendRedirect(pag);
-                
+                if(res == 0){
+                   ses.setAttribute("men", ("No se registro con exito...Intenlo nuevamente").toUpperCase());
+                }else{
+                   ses.setAttribute("men", ("Registro con exito!").toUpperCase()); 
+                   response.sendRedirect(pag);
+                }       
         } catch (SQLException ex) {
             Logger.getLogger(darAdopcion.class.getName()).log(Level.SEVERE, null, ex);
         }

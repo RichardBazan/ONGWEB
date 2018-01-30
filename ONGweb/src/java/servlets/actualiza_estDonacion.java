@@ -1,16 +1,18 @@
-package CONTROLADOR;
+package servlets;
 
-import DAO.DAOCASAREFUGIO;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "SERDONACION", urlPatterns = {"/SERDONACION"})
-public class SERDONACION extends HttpServlet {
+@WebServlet(name = "actualiza_estDonacion", urlPatterns = {"/actualiza_estDonacion"})
+public class actualiza_estDonacion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -23,28 +25,22 @@ public class SERDONACION extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         
-        HttpSession ses = request.getSession();
-        int cantf = Integer.parseInt(request.getParameter("txtcantfilas"));
-        int codigoCasa = Integer.parseInt(request.getParameter("txtcodcasa"));
-        int codigoUsuario = Integer.parseInt(request.getParameter("txtcodusuario"));
-        
-        int res = DAOCASAREFUGIO.agregarDonacion(codigoCasa,codigoUsuario);
-       
-        for(int i=1;i<=cantf;i++){
-            int codigoprod = Integer.parseInt(request.getParameter("txtcodigoproducto"+String.valueOf(i)));
-            int cant = Integer.parseInt(request.getParameter("txtcantidad"+String.valueOf(i)));
-            res+= DAOCASAREFUGIO.agregarDetalleDonacion(codigoprod,cant);
+        try {
+            int codigo = Integer.parseInt(request.getParameter("codigo_donacion"));
+            String estado = request.getParameter("cboEstadoDonacion");
+            String pag ="AdminDonacionesActu.jsp?codigo_donacion="+codigo+"&estado="+estado;
+            
+            DAO.DAODONACIONES  obj=new DAO.DAODONACIONES();
+            obj.actualizaEstadoDonacion(codigo, estado);
+            response.sendRedirect(pag);
+            
+        } catch (NumberFormatException | SQLException ex) {
+             Logger.getLogger(actualiza_estDonacion.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if(res==cantf+1){
-           ses.setAttribute("resultadoDonacion","MUCHAS GRACIAS POR REGISTRAR TU DONACIÓN. NOS ESTAREMOS COMUNICANDO CONTIGO...");
-        }else{
-           ses.setAttribute("resultadoDonacion","ALGO OCURRIÓ FALLIDO. INTÉNTELO NUEVAMENTE..."); 
-        }
-        
-        response.sendRedirect("./Donaciones.jsp?codigoCR="+String.valueOf(codigoCasa));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

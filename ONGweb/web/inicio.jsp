@@ -24,23 +24,37 @@
 		<!-- remove this if you use Modernizr -->
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
     <!-- /PARA INPUT FILE -->     
-
+    <style>.thumb {width: 450px; border: 1px solid #000;margin: 10px 5px 0 0;}</style>
    </head>
    
    <%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",apellidoPat="",apellidoMat="",fechaNacimiento="",direccion="",telefono="",pertenenciaUsuario="";
-     int cantidadDenuncias,cantidadCasas,cantidadAdoptados,cantidadDadosAdopcion;
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",apellidoPat="",apellidoMat="",fechaNacimiento="",direccion="",telefono="",pertenenciaUsuario="",fotoUsuario="";
+     int cantidadDenuncias,cantidadCasas,cantidadAdoptados,cantidadDadosAdopcion,cantidadDenunciasTotal,cantidadCasasTotal,cantidadAdoptadosTotal,cantidadDadosAdopcionTotal;
 
    %>
     <%
      HttpSession ses = request.getSession();
+     String msje="";
      //JOptionPane.showMessageDialog(null,ses.getAttribute("resultadoRegistro"));
-     if (ses.getAttribute("resultadoLogin")!=null){
-         String msje = ses.getAttribute("resultadoLogin").toString();
-    %>
-        <body onload="alerta('<%=msje%>')">
-    <%
-        }
+     if (ses.getAttribute("resultadoLogin")!=null || ses.getAttribute("resultadoActualizacion")!=null ){
+         if (ses.getAttribute("resultadoLogin")!=null){
+             msje = ses.getAttribute("resultadoLogin").toString();
+             %>
+             <body onload="alerta('<%=msje%>')">
+             <%
+         }else if(ses.getAttribute("resultadoActualizacion")!=null){
+             msje = ses.getAttribute("resultadoActualizacion").toString();
+             if (msje.substring(0,1).equalsIgnoreCase("S")){
+                 %>
+                 <body onload="alertaok('<%=msje%>')">
+                 <%
+             }else{
+                 %>
+                 <body onload="alertanot('<%=msje%>')">
+                 <%
+             }
+         }
+     }
      else{
     %>
          <body>
@@ -58,8 +72,10 @@
          direccion=datosUsuario[7];
          telefono=datosUsuario[8];
          pertenenciaUsuario=datosUsuario[9];
+         fotoUsuario=datosUsuario[10];
      }
      ses.setAttribute("resultadoLogin",null);
+     ses.setAttribute("resultadoActualizacion",null);
      
      ResultSet rs = DAOADOPCION.cantidadPerrosDadosenAdopcionPor(Integer.parseInt(codigoUsuario));
      if(rs.next()){
@@ -80,6 +96,28 @@
      if(rs.next()){
          cantidadDenuncias=rs.getInt(1);
      }
+     
+     rs = DAOADOPCION.cantidadPerrosDadosenAdopcion();
+     if(rs.next()){
+         cantidadDadosAdopcionTotal=rs.getInt(1);
+     }
+     
+     rs = DAOADOPCION.cantidadPerrosAdoptados();
+     if(rs.next()){
+         cantidadAdoptadosTotal=rs.getInt(1);
+     }
+     
+     rs = DAOCASAREFUGIO.cantidadCasasRefugioRegistrada();
+     if(rs.next()){
+         cantidadCasasTotal=rs.getInt(1);
+     }
+     
+     rs = DAODENUNCIA.cantidadDenunciasRegistrada();
+     if(rs.next()){
+         cantidadDenunciasTotal=rs.getInt(1);
+     }
+     
+     
     %>
 <body>
     <!--  wrapper -->
@@ -108,7 +146,7 @@
                     </a>
                     <!-- dropdown user-->
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
+                        <li><a href="inicio.jsp"><i class="fa fa-user fa-fw"></i>User Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="SERLOGOUT"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
@@ -133,7 +171,7 @@
                         <!-- user image section-->
                         <div class="user-section">
                             <div class="user-section-inner">
-                                <img src="assets/img/user.jpg" alt="">
+                                <img src="<%=fotoUsuario%>" alt="">
                             </div>
                             <div class="user-info">
                                 <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
@@ -211,6 +249,12 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="AdminRegistrarUsuario.jsp">Registro de Colaboradores</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -247,6 +291,85 @@
 
             <div class="row">
                 <!--quick info section -->
+                <div class="col-lg-12">
+                    <h3>RÉCORDS GENERALES</h3>
+                </div>
+                <div class="col-lg-3">
+                    <div class="alert alert-danger text-center">
+                        <i class="fa fa-3x"><img src="assets/images/pataperro.png" width="50" height="40"></i>&nbsp;<b><%=cantidadDadosAdopcionTotal%> </b>
+                        <%
+                        if (cantidadDadosAdopcionTotal==1){
+                            %>
+                        perros dado en adopción.
+                        <%
+                        }else{
+                            %>
+                            perros dados en adopción.
+                            <%
+                        }
+                        %>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="alert alert-success text-center">
+                        <i class="fa fa-3x"><img src="assets/images/pataperro.png" width="50" height="40"></i>&nbsp;<b><%=cantidadAdoptadosTotal%> </b>
+                        <%
+                        if (cantidadAdoptadosTotal==1){
+                            %>
+                        perro adoptado.
+                        <%
+                        }else{
+                            %>
+                            perros adoptados.
+                            <%
+                        }
+                        %>                        
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="alert alert-info text-center">
+                        <i class="fa fa-3x"><img src="assets/images/casarefugio.png" width="50" height="40"></i>&nbsp;<b><%=cantidadCasasTotal%> </b>
+                        
+                        <%
+                        if (cantidadCasasTotal==1){
+                            %>
+                        casa refugio registrada.
+                        <%
+                        }else{
+                            %>
+                            casas refugio registradas.
+                            <%
+                        }
+                        %>
+
+                    </div>
+                </div>
+                        
+                <div class="col-lg-3">
+                    <div class="alert alert-warning text-center">
+                        <i class="fa fa-3x"><img src="assets/images/denuncia.png" width="50" height="40"></i>&nbsp;<b><%=cantidadDenunciasTotal%> </b>
+                        
+                        <%
+                        if (cantidadDenunciasTotal==1){
+                            %>
+                        caso denunciado.
+                        <%
+                        }else{
+                            %>
+                            casos denunciados.
+                            <%
+                        }
+                        %>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="row">
+                <!--quick info section -->
+                <div class="col-lg-12">
+                    <h3>RÉCORDS PERSONALES</h3>
+                </div>
                 <div class="col-lg-3">
                     <div class="alert alert-danger text-center">
                         <i class="fa fa-3x"><img src="assets/images/pataperro.png" width="50" height="40"></i>&nbsp;<b><%=cantidadDadosAdopcion%> </b>
@@ -320,6 +443,7 @@
                     
                     <div class="row">
                         <div class="col-lg-12">
+                            <form name="frmDatosUsuario" id="frmDatosUsuario" action="./SERACTUALIZADATOSUSUARIO" method="post" onload="alerta('HOLA')">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     DATOS PERSONALES
@@ -329,21 +453,55 @@
                                     <div class="row">
                                         
                                         <div class="col-lg-12">
-                                            <img src="assets/images/team/member-1.jpg" width="300" height="300">
-                                            <br>
-                                            <br>
+                                            <table>
+                                                <tr><td><img src="<%=fotoUsuario%>" width="300" height="300">
+                                                        <input type="hidden" value="<%=fotoUsuario%>" name="txtFotoUsuario" id="txtFotoUsuario">
+                                                        <input type="hidden" value="<%=codigoUsuario%>" name="txtCodigo" id="txtCodigo">
+                                                        <input type="hidden" value="<%=pertenenciaUsuario%>" name="txtPertenencia" id="txtPertenencia">
+                                                        <input type="hidden" value="<%=usernameUsuario%>" name="txtUserName" id="txtUserName">
+                                                    <td style="width: 187px">
+                                                            <!-- PARA INPUT FILE -->
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <input type="file" name="files[]" id="files" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple/>
+                                                            <label for="files"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span></label>
+                                                            <!-- PARA INPUT FILE -->
+                                                    </td>
+                                                    <td>
+                                                        <output id="list"></output>
+                                                    </td>
+                                            </table>
                                         </div>
-                                        <div class="col-lg-12">
-                                                         <!-- PARA INPUT FILE -->             
-                                            <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple/>
-                                            <label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Cambiar foto&hellip;</span></label>
+                                        
+                                                    <div class="col-lg-12">
+                                                        &nbsp;
+                                                    </div>
+                                                    
+                                                    <div class="col-lg-12">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <b>Nombre(s):  </b> 
+                                        <input type="text" id="txtNombres" name="txtNombres" disabled value="<%=nombreUsuario%>">
+                                        &nbsp;
+                                        <a onclick="activar('txtNombres')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
+                                        <br>
+                                        <br>
                                         </div>
                                         
                                         <div class="col-lg-12">
-                                        <b>Nombre Completo:  </b> 
-                                        <input type="text" id="txtNombreCompleto" name="txtNombreCompleto" disabled value="<%=apellidoPat+" "+apellidoMat+", "+nombreUsuario%>">
                                         &nbsp;
-                                        <a onclick="activar('txtNombreCompleto')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
+                                        <b>Apellido Paterno:  </b> 
+                                        <input type="text" id="txtApellidoPat" name="txtApellidoPat" disabled value="<%=apellidoPat%>">
+                                        &nbsp;
+                                        <a onclick="activar('txtApellidoPat')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
+                                        <br>
+                                        <br>
+                                        </div>
+                                        
+                                        <div class="col-lg-12">
+                                            &nbsp;
+                                        <b>Apellido Materno:  </b> 
+                                        <input type="text" id="txtApellidoMat" name="txtApellidoMat" disabled value="<%=apellidoMat%>">
+                                        &nbsp;
+                                        <a onclick="activar('txtApellidoMat')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
                                         <br>
                                         <br>
                                         </div>
@@ -377,14 +535,22 @@
                                         <br>
                                         </div>
                                         <div class="col-lg-12">
-                                            <button type="button" class="btn-primary" name="btnGuardarCambios" id="btnGuardarCambios" disabled title="No se han realizado cambios. BOTÓN DESACTIVADO." onclick="alerta('H')" style="cursor: text">GUARDAR CAMBIOS</button>
+                                            <input type="button" class="btn-primary" name="btnGuardarCambios" value="GUARDAR CAMBIOS" id="btnGuardarCambios" disabled title="No se han realizado cambios. BOTÓN DESACTIVADO." style="cursor: text" onclick="guardarCambios()">
                                             &nbsp;
-                                            <button type="button" class="btn-primary" name="btnCancelar" id="btnCancelar" disabled title="No se han realizado cambios. BOTÓN DESACTIVADO." onclick="alerta('H')" style="cursor: text">CANCELAR</button>                                            
+                                            <button type="button" class="btn-primary" name="btnCancelar" id="btnCancelar" disabled title="No se han realizado cambios. BOTÓN DESACTIVADO." style="cursor: text">CANCELAR</button>                                            
                                         </div>
+                                        
+                                         <div class="col-lg-12">      
+                                            <input type="hidden" id="URL_1" name="URL_1" size="100"  value ="">
+                                            <input type="hidden" id="URL_2" name="URL_2" size="100"  value ="">
+                                            <input type="hidden" id="URL_3" name="URL_3" size="100"  value ="">
+                                            <input type="hidden" id="URL_4" name="URL_4" size="100"  value ="">
+                                        </div>    
                                     </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
+                        </form>
                         </div>
                     </div>
             </div>
@@ -393,7 +559,18 @@
     <!-- end wrapper -->
 
     <!-- Core Scripts - Include with every page -->
-    <script src="assets/plugins/jquery-1.10.2.js"></script>
+    
+</body>
+    
+<style>
+  .thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+</style>
+
+<script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
@@ -443,8 +620,95 @@
     function Cancelar(){
         
     }
+    
+  function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+     var resultado = [];
+    // Loop through the FileList and render image files as thumbnails.
+ 
+    for (var i = 0, f; f = files[i]; i++) {
+        
+        if (files.length > 3) {
+            swal("Como máximo 3 fotos","", "error");
+            limpiar();
+            return;
+            }
+
+      if (!window.FileReader) {
+         swal("La página no soporta la lectura de archivos","", "error");
+         limpiar();
+         return;
+        }
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+          swal("El archivo a adjuntar no es una imagen","","error");
+          limpiar();
+        continue;
+      }
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var span = document.createElement('span');
+          
+          resultado.push(e.target.result);
+          for(var y = 0 ; y < resultado.length; y++){
+          
+          span.innerHTML = ['<img class="thumb" style="height: 250px" src="', resultado[y],'" title="', escape(theFile.name), '"/>'].join('');
+          document.getElementById('list').insertBefore(span, null);
+       
+         }
+                     if(resultado[0] != null){
+                         
+                         if(document.getElementById('URL_1').value.length == 0){
+                             //alert('URL1 campo vacio');
+                             document.frmDatosUsuario.URL_1.value = resultado[0];
+                             
+                         }else{
+                             //alert('URL1 campo lleno');
+                          
+                            if(document.getElementById('URL_2').value.length == 0){
+                             //alert('URL2 campo vacio');
+                             document.frmDatosUsuario.URL_2.value = resultado[1];
+                          
+                         }else{
+                             //alert('URL2 campo lleno');
+                             
+                             if(document.getElementById('URL_3').value.length == 0){
+                             //alert('URL3 campo vacio');
+                             document.frmDatosUsuario.URL_3.value = resultado[2];
+                             
+                          }else{
+                             //alert('URL3 campo lleno');
+                             document.frmDatosUsuario.URL_4.value = resultado[3];
+                            } 
+                           }
+                         }  
+                      }    
+              /*  alert(resultado[0]);
+                  alert(resultado[1]);
+                  alert(resultado[2]);
+                  alert(resultado[3]);
+              */               
+        };
+      })(f);
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);    
+    }
+  }
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+ function guardarCambios(){
+    activar('txtNombres');
+    activar('txtApellidoPat');
+    activar('txtApellidoMat');
+    activar('dateFechaNacimiento');
+    activar('txtDireccion');
+    activar('txtTelefono');
+    document.frmDatosUsuario.submit();
+ }
     </script> 
-
-</body>
-
 </html>

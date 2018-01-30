@@ -167,4 +167,33 @@ public class DAOCASAREFUGIO {
         }
         return rs;
     }
+        
+    public static int casaRefugioFotoAdd(String foto_cr) throws SQLException  {
+        CallableStatement cst;
+        int res = 0;
+        try { 
+            cst = Conexion.getConexion().prepareCall("{call sp_FotoCR(?)}");
+            
+            cst.setString(1, foto_cr);
+            
+            res = cst.executeUpdate();
+
+         }catch (SQLException ex) {
+            Logger.getLogger(DAOCASAREFUGIO.class.getName()).log(Level.SEVERE, null, ex);
+         }finally{
+          Conexion.getConexion().close();
+         }
+         return res;
+    }    
+    
+     public static ResultSet cantidadCasasRefugioRegistrada(){
+        ResultSet rs = null;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call cantidadCasasRefugioRegistrada()}");
+            rs = cst.executeQuery();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        return rs;
+    }
 }

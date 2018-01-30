@@ -18,10 +18,11 @@
 		<!-- remove this if you use Modernizr -->
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
     <!-- /PARA INPUT FILE -->            
+    <style>.thumb {width: 450px; border: 1px solid #000;margin: 10px 5px 0 0;}</style>
 </head>
 
 <%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",pertenenciaUsuario="";
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",pertenenciaUsuario="",fotoUsuario="";
    %>
 
 <%
@@ -33,6 +34,7 @@
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
          pertenenciaUsuario=datosUsuario[9];
+         fotoUsuario=datosUsuario[10];
      }
     if(ses.getAttribute("resultadoRegistroCR")!=null){
         String msje = ses.getAttribute("resultadoRegistroCR").toString();
@@ -81,7 +83,7 @@
                     </a>
                     <!-- dropdown user-->
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
+                        <li><a href="inicio.jsp"><i class="fa fa-user fa-fw"></i>User Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="SERLOGOUT"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
@@ -106,7 +108,7 @@
                         <!-- user image section-->
                         <div class="user-section">
                             <div class="user-section-inner">
-                                <img src="assets/img/user.jpg" alt="">
+                                <img src="<%=fotoUsuario%>" alt="">
                             </div>
                             <div class="user-info">
                                 <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
@@ -183,6 +185,12 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="AdminRegistrarUsuario.jsp">Registro de Colaboradores</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -216,10 +224,10 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" method="post" action="SERCASAREFUGIO">
+                                    <form role="form" method="post" action="SERCASAREFUGIO" id="frmCR" name="frmCR">
                                         <div class="form-group">
                                             <label>Nombre</label>
-                                            <input type="text" name="txtnombre" id="txtnombre" class="form-control" required>
+                                            <input type="text" name="txtnombre" id="txtnombre" class="form-control" onkeypress="return soloLetras(event)" onblur="limpia()" required>
                                         </div>
                                         
                                         <div class="form-group">
@@ -230,13 +238,13 @@
                                         
                                         <div class="form-group">
                                             <label>Teléfono Contacto</label>
-                                            <input type="tel" name="teltelefono" id="teltelefono" pattern="[0-9]{9}" class="form-control" maxlength="9" onkeypress="return valida(event)" required>
+                                            <input type="tel" name="teltelefono" id="teltelefono" pattern="[0-9]{9}" class="form-control" onkeypress="return valida(event)" maxlength="9" required>
                                             <i style="font-size: 12px">Ejm: 012461254 / 945929934</i>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label>Descripción</label>
-                                            <textarea class="form-control" name="txtdescripcion" id="txtdescripcion" rows="3" maxlength="330" required></textarea>
+                                            <textarea class="form-control" name="txtdescripcion" id="txtdescripcion" rows="3" maxlength="330" onkeypress="return soloLetrasConSignos(event)" onblur="limpia2()" required></textarea>
                                             <p>Máximo 330 caractéres</p>
                                         </div>
                                         <!--
@@ -250,22 +258,29 @@
                                         </div>    
                                         <div class="form-group">
                                             <!-- PARA INPUT FILE -->
-                                            <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
-                                            <label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span></label>
+                                            <input type="file" name="files[]" id="files" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple/>
+                                            <label for="files"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span></label>
                                             <!-- PARA INPUT FILE -->
                                         </div>
+                                        
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary">Registrar</button>
                                             &nbsp;
                                             <button type="reset" class="btn btn-primary">Cancelar</button>
                                         </div>
+                                        <div class="form-group">      
+                                <input type="hidden" id="URL_1" name="URL_1" size="100"  value ="">
+                                <input type="hidden" id="URL_2" name="URL_2" size="100"  value ="">
+                                <input type="hidden" id="URL_3" name="URL_3" size="100"  value ="">
+                                <input type="hidden" id="URL_4" name="URL_4" size="100"  value ="">
+                            </div>
                                     </form>
                                 </div>
                                 <div class="row text-center">
                                     <img src="assets/images/casa.png" width="450" height="450">
                                         </div>
                             </div>
-                            
+                            <output id="list"></output> 
                         </div>
                         
                     </div>
@@ -281,8 +296,16 @@
 
     </div>
     <!-- end wrapper -->
+</body>
 
-    <!-- Core Scripts - Include with every page -->
+<style>
+  .thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+</style>
+
     <!-- PARA INPUT FILE -->
     <script src="assets/js/custom-file-input.js"></script>
     <!-- /PARA INPUT FILE -->
@@ -292,6 +315,7 @@
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
     <script type="text/javascript">
         function valida(e){
     tecla = (document.all) ? e.keyCode : e.which;
@@ -316,9 +340,142 @@
     function alertanot(msje){
         swal("¡ERROR!",msje,"error");
     }
+    
+    function soloLetras(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = 'áéíóúabcdefghijklmnñopqrstuvwxyz. ';
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+
+    function soloLetrasConSignos(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = 'áéíóúabcdefghijklmnñopqrstuvwxyz.;,:" ';
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+    
+    function limpia(){
+        var val = document.getElementById('txtnombre').value;
+        var tam = val.length;
+        for(i = 0; i < tam; i++) {
+                if(!isNaN(val[i]))
+                document.getElementById('txtnombre').value = '';
+            }
+        }
+        
+    function limpia2(){
+        var val = document.getElementById('txtdescripcion').value;
+        var tam = val.length;
+        for(i = 0; i < tam; i++) {
+                if(!isNaN(val[i]))
+                document.getElementById('txtdescripcion').value = '';
+            }
+        }
+        
+        function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+     var resultado = [];
+    // Loop through the FileList and render image files as thumbnails.
+ 
+    for (var i = 0, f; f = files[i]; i++) {
+        
+        if (files.length > 3) {
+            swal("Como máximo 3 fotos","", "error");
+            limpiar();
+            return;
+            }
+
+      if (!window.FileReader) {
+         swal("La página no soporta la lectura de archivos","", "error");
+         limpiar();
+         return;
+        }
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+          swal("El archivo a adjuntar no es una imagen","","error");
+          limpiar();
+        continue;
+      }
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var span = document.createElement('span');
+          
+          resultado.push(e.target.result);
+          for(var y = 0 ; y < resultado.length; y++){
+          
+          span.innerHTML = ['<img class="thumb" style="height: 250px" src="', resultado[y],'" title="', escape(theFile.name), '"/>'].join('');
+          document.getElementById('list').insertBefore(span, null);
+       
+         }
+                     if(resultado[0] != null){
+                         
+                         if(document.getElementById('URL_1').value.length == 0){
+                             //alert('URL1 campo vacio');
+                             document.frmCR.URL_1.value = resultado[0];
+                             
+                         }else{
+                             //alert('URL1 campo lleno');
+                          
+                            if(document.getElementById('URL_2').value.length == 0){
+                             //alert('URL2 campo vacio');
+                             document.frmCR.URL_2.value = resultado[1];
+                          
+                         }else{
+                             //alert('URL2 campo lleno');
+                             
+                             if(document.getElementById('URL_3').value.length == 0){
+                             //alert('URL3 campo vacio');
+                             document.frmCR.URL_3.value = resultado[2];
+                             
+                          }else{
+                             //alert('URL3 campo lleno');
+                             document.frmCR.URL_4.value = resultado[3];
+                            } 
+                           }
+                         }  
+                      }    
+              /*  alert(resultado[0]);
+                  alert(resultado[1]);
+                  alert(resultado[2]);
+                  alert(resultado[3]);
+              */               
+        };
+      })(f);
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);    
+    }
+  }
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
     </script>
-
-</body>
-
 </html>
 

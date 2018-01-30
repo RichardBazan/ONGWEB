@@ -7,7 +7,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class Prueba {
     public static void main(String[] args) {
   
-        //Conexion.getConexion();
+//        Conexion.getConexion();
+;
         
         try {
              ResultSet rs = DAOADOPCION.cantidadPerrosDadosenAdopcionPor(2);

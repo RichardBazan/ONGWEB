@@ -1,4 +1,3 @@
-<%@page import="DTO.DTOADOPCION"%>
 <!DOCTYPE html>
 <html>
 
@@ -16,14 +15,10 @@
     <!-- Page-Level CSS -->
     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
 
-        <script langiage="javascript" type="text/javascript">
-            function CrearEnlace(url) {
-            location.href=url;}
-        </script>
 </head>
 
 <%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",pertenenciaUsuario="",fotoUsuario="";
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",fotoUsuario="";
    %>
 
 <%
@@ -34,7 +29,6 @@
          primeraLetraApellidoPat = datosUsuario[1];
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
-         pertenenciaUsuario=datosUsuario[9];
          fotoUsuario=datosUsuario[10];
      }
 %>
@@ -94,7 +88,7 @@
                                 <img src="<%=fotoUsuario%>" alt="">
                             </div>
                             <div class="user-info">
-                                 <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
+                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
                                 <div style="font-size: 14px; text-align: center;">( <i><%=usernameUsuario%></i> )</div>
                                 <div class="user-text-online">
                                     <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
@@ -104,18 +98,18 @@
                         <!--end user image section-->
                     </li>
                     <li>
-                        
+                       
                     </li>
-                     <li>
+                    <li>
                         <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>&nbsp;PRINCIPAL</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>ADOPCIÓN<span class="fa arrow"></span></a> 
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="registrarDarAdopcion.jsp">Dar en adopción</a>
                             </li>
-                            <li class="selected">
+                            <li>
                                 <a href="listaAdopcion.jsp">Perros en adopcion</a>
                             </li>  
                             <li>
@@ -136,7 +130,7 @@
                         </ul>
                     </li>
                     
-                    <li>
+                    <li class="active">
                         <a href="#"><i class="fa fa-edit fa-fw"></i>CASOS DE MALTRATO<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
                          <li>
@@ -151,7 +145,7 @@
                         </ul>
                             </li>     
                             <%
-                            if (pertenenciaUsuario.equalsIgnoreCase("ONG")){
+                            if (Integer.parseInt(codigoUsuario)<4){
                                 %>
                                 <li>
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i>ADMINISTRADOR<span class="fa arrow"></span></a>
@@ -193,7 +187,7 @@
             <div class="row">
                  <!--  page header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Lista de Adopción</h1>
+                    <h1 class="page-header">Comentarios</h1>
                 </div>
                  <!-- end  page header -->
             </div>
@@ -202,52 +196,42 @@
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Lista de Perros en Adopción
+                            <%int codDen  = Integer.parseInt(request.getParameter("cod_den"));%>
+                            <a href="detalleMaltrato.jsp?cod_den=<%=codDen%>">
+                                <img src="assets/images/retornar.png" width="25px" alt=""/>
+                            </a>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <form name="listaxONG" method="POST">
+                                <%DAO.DAOCOMENTARIO obj=new DAO.DAOCOMENTARIO();%>
+                                  
+                                <form name="frmlistaDenuncia" method="POST" action="comentario">
+                                <table class="table table-striped table-bordered table-hover">
                                    
-                                        <div class="form-group">
-                                              <label>Buscar por :</label>      
-                                        <select class="form-control" style="width:150px" name="cboTenencia" onchange= "valida()">
-                                                <option value="#"  >:: Seleccionar ::</option>
-                                                <option value="Ong">ONG</option>
-                                                <option value="Usuario">Usuario</option>
-                                                <option value="Ambos">Ambos</option>
-                                        </select>
-                                        </div> 
-                                    
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                     <thead>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Descripción</th>
-                                        </tr>
-                                     </thead>
-                                     
-                                     <tbody>
-                                         <% String descrip_adop,tenencia;
-                                            tenencia = request.getParameter("valor");
-                                            DAO.DAOADOPCION  obj=new DAO.DAOADOPCION();
-                                            for(DTO.DTOMASCOTA x:obj.buscar_x_ONG_User(tenencia)){
-                                            for(DTO.DTODARADOPCION y:obj.readImgAll(x.getCod_mas())){
-                                            if(x.getDescrip_mas().length() <= 147){ 
-                                                descrip_adop = x.getDescrip_mas().substring(0,x.getDescrip_mas().length());}
-                                            else{
-                                                descrip_adop = x.getDescrip_mas().substring(0,x.getDescrip_mas().length()/2)+"...";}%>
-                                       
-                                          <tr class="odd gradeX" onClick="CrearEnlace('detalleAdopcion.jsp?cod_mas=<%=x.getCod_mas()%>')"> 
-                                           
-                                              <td><h3><%=x.getNom_mas()%></h3><center><img src="<%=y.getFoto()%>" width="180" height="154"></center></td>
-                                
-                                              <td width="500"><br><br><%=descrip_adop%></td>
-                                              
-                                          </tr><%}}%>  
+                                    <td><center>
+                                    <textarea class="form-control" name="comentario" placeholder="Escribir comentario" rows="5" cols="25" maxlength="330" style="width: 500px"></textarea><br>
+                                    <button type="submit" class="btn btn-primary">Comentar</button>
+                                    <input type="hidden" name="codigo" value="<%=codDen%>">
+                                    <input type="hidden" name="cod_user" value="<%=codigoUsuario%>">
+                                    </center></td>
+                                </table>
+                                </form>
+                                 
+                                <form name="frmlistaDenuncia" method="POST">   
+                                <table class="table table-striped table-bordered table-hover">
+                                    <tbody>
+                                        <tr class="odd gradeX">
+                                        <%for(DTO.DTOCOMENTARIO x:obj.buscaComentario(codDen)){%>
+                                          <input type="hidden" name="cod_denun" value="<%=codDen%>">
+                                          <td width="200"><h3><b><%=x.getUsuario()%></b></h3></td>
+                                          </tr>  
+                                          <tr class="odd gradeX">
+                                          <td><%=x.getComentario()%></td>
+                                          </tr><%}%> 
                                      </tbody>
                                 </table>
                              </form>
-                            </div>
+                            </div> 
                         </div>
                     </div>
                     <!--End Advanced Tables -->
@@ -267,15 +251,7 @@
         $(document).ready(function () {
             $('#dataTables-example').dataTable();
         });
-        
-         function valida(){ 
-            valor=document.listaxONG.cboTenencia.value; 
-            if(valor==='Ong'){
-             location.href = 'listaxONG.jsp?valor=Ong';}
-            if (valor ==='Usuario'){
-             location.href = 'listaxUsuario.jsp?valor=Usuario';}
-            if (valor ==='Ambos'){
-            location.href  = 'listaAdopcion.jsp';}}
     </script>
+
 </body>
 </html>

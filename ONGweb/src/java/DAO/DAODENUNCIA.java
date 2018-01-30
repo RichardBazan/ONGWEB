@@ -12,40 +12,45 @@ import java.util.logging.Logger;
 
 public class DAODENUNCIA {
      
- public void denunciaAdd(DTODENUNCIA d) throws SQLException  {
+ public int denunciaAdd(DTODENUNCIA d) throws SQLException  {
         CallableStatement cst;
+        int res = 0 ;
         try { 
-            cst = Conexion.getConexion().prepareCall("{call sp_inserta_Denuncia(?,?,?,?,?)}");
+            cst = Conexion.getConexion().prepareCall("{call sp_inserta_Denuncia(?,?,?,?,?,?)}");
             
             cst.setString(1, d.getTitulo_den());
             cst.setString(2, d.getDir_den() );
             cst.setString(3, d.getTel_cont() );
             cst.setString(4, d.getDescrip_den());
             cst.setInt(5 ,d.getCod_raza());
+            cst.setInt(6 ,d.getCodigo());
             
-            cst.executeQuery();
+            res = cst.executeUpdate();
 
          }catch (SQLException ex) {
             Logger.getLogger(DAODENUNCIA.class.getName()).log(Level.SEVERE, null, ex);
          }finally{
           Conexion.getConexion().close();
          }
+        return res;
  }
  
-  public void denunciaFotoAdd(String foto_den) throws SQLException  {
+  public int denunciaFotoAdd(String foto_den) throws SQLException  {
         CallableStatement cst;
+        int res = 0;
         try { 
             cst = Conexion.getConexion().prepareCall("{call sp_FotoDenuncia(?)}");
             
             cst.setString(1, foto_den);
             
-            cst.executeQuery();
+            res = cst.executeUpdate();
 
          }catch (SQLException ex) {
             Logger.getLogger(DAODENUNCIA.class.getName()).log(Level.SEVERE, null, ex);
          }finally{
           Conexion.getConexion().close();
          }
+         return res;
  }
  
  public List<DTODENUNCIA> readAll() throws SQLException {
@@ -167,7 +172,7 @@ public class DAODENUNCIA {
          ResultSet res;
         
          try {
-            cst = Conexion.getConexion().prepareCall("select cod_den,titulo_den,dir_den,tel_cont,CAST(DAY(fecha_reg) as varchar) + '-' + CAST(MONTH(fecha_reg) as varchar) + '-' + CAST(YEAR(fecha_reg) as varchar) as fecha_reg ,estado_den,r.nom_raza,u.usuario from Denuncia d inner join Usuario u on u.cod_usu = d.cod_den  inner join Raza r on r.cod_raza = d.cod_raza");
+            cst = Conexion.getConexion().prepareCall("select cod_den,titulo_den,dir_den,tel_cont,CAST(DAY(fecha_reg) as varchar) + '-' + CAST(MONTH(fecha_reg) as varchar) + '-' + CAST(YEAR(fecha_reg) as varchar) as fecha_reg ,estado_den,r.nom_raza ,u.usuario from Denuncia d inner join Usuario u on u.cod_usu = d.cod_usu inner join Raza r on r.cod_raza = d.cod_raza");
             res = cst.executeQuery();
             
             while(res.next()){
@@ -202,6 +207,17 @@ public class DAODENUNCIA {
         try {
             CallableStatement cst = Conexion.getConexion().prepareCall("{call cantidadDenunciasRegistradaPor(?)}");
             cst.setInt(1, codigoUsuario);
+            rs = cst.executeQuery();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        return rs;
+    }
+           
+           public static ResultSet cantidadDenunciasRegistrada(){
+        ResultSet rs = null;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call cantidadDenunciasRegistrada()}");
             rs = cst.executeQuery();
         } catch (Exception e) {
             System.err.println(e.toString());

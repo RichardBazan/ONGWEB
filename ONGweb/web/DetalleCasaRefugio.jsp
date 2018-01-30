@@ -25,7 +25,7 @@
 </head>
 
 <%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",nombreCasa="",direccionCasa="",codigoUsuario="",apellidoPat="",apellidoMat="",pertenenciaUsuario="";
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",nombreCasa="",direccionCasa="",codigoUsuario="",apellidoPat="",apellidoMat="",pertenenciaUsuario="",fotoUsuario="";
      String telefonoCasa="",descripcionCasa="",fechaRegistroCasa="";
      int codigoCRseleccionada;
      ArrayList<String> fotos = new ArrayList();
@@ -40,6 +40,7 @@
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
          pertenenciaUsuario=datosUsuario[9];
+         fotoUsuario=datosUsuario[10];
      }
 
     codigoCRseleccionada = Integer.parseInt(request.getParameter("codigoCR"));
@@ -84,8 +85,8 @@
                         <i class="fa fa-user fa-3x"></i>
                     </a>
                     <!-- dropdown user-->
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
+                     <ul class="dropdown-menu dropdown-user">
+                        <li><a href="inicio.jsp"><i class="fa fa-user fa-fw"></i>User Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="SERLOGOUT"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
@@ -110,7 +111,7 @@
                         <!-- user image section-->
                         <div class="user-section">
                             <div class="user-section-inner">
-                                <img src="assets/img/user.jpg" alt="">
+                                <img src="<%=fotoUsuario%>" alt="">
                             </div>
                             <div class="user-info">
                                 <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
@@ -187,6 +188,12 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="AdminRegistrarUsuario.jsp">Registro de Colaboradores</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -255,13 +262,13 @@
                                                       if (contimgs==0){
                                                           %>
                                                 <div class="item active">
-                                                    <img src="assets/images/<%=x%>" alt="">
+                                                    <img src="<%=x%>" width="400" height="400" alt="">
                                                 </div>           
                                                           <%
                                                       }else{
                                                           %>
                                                 <div class="item ">
-                                                    <img src="assets/images/<%=x%>" alt="">
+                                                    <img src="<%=x%>" width="400" height="400" alt="">
                                                 </div>           
                                                           <%
                                                       }  

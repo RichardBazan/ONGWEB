@@ -1,17 +1,29 @@
 package CONTROLADOR;
 
+import DAO.DAOUSUARIO;
+import DTO.DTOUSUARIO;
 import java.io.IOException;
+import java.util.Calendar;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import DTO.DTOUSUARIO;
-import DAO.DAOUSUARIO;
-import java.util.Calendar;
 import javax.servlet.http.HttpSession;
 
+
+@WebServlet(name = "SerLoginRegistrarse", urlPatterns = {"/SerLoginRegistrarse"})
 public class SerLoginRegistrarse extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -40,7 +52,7 @@ public class SerLoginRegistrarse extends HttpServlet {
                 }
                 String pag = "./inicio.jsp";
                 response.sendRedirect(pag);
-                String[] arregloDatos = {usuarioencontrado.getNombre(),usuarioencontrado.getApellido_pat().substring(0,1),usuarioencontrado.getUsuario(),usuarioencontrado.getCodigo().toString(),usuarioencontrado.getApellido_pat(),usuarioencontrado.getApellido_mat(),usuarioencontrado.getFechaNacimiento(),usuarioencontrado.getDireccion(),usuarioencontrado.getTelefono(),usuarioencontrado.getPertenencia()};                
+                String[] arregloDatos = {usuarioencontrado.getNombre(),usuarioencontrado.getApellido_pat().substring(0,1),usuarioencontrado.getUsuario(),usuarioencontrado.getCodigo().toString(),usuarioencontrado.getApellido_pat(),usuarioencontrado.getApellido_mat(),usuarioencontrado.getFechaNacimiento(),usuarioencontrado.getDireccion(),usuarioencontrado.getTelefono(),usuarioencontrado.getPertenencia(),usuarioencontrado.getFoto()};                
                 ses.setAttribute("datosUsuario",arregloDatos);
                 ses.setAttribute("codigoUsuario",usuarioencontrado.getCodigo());
             }else{
@@ -91,8 +103,7 @@ public class SerLoginRegistrarse extends HttpServlet {
         } catch (NullPointerException e) {
             System.out.println(e.toString());
         }
-        
-        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

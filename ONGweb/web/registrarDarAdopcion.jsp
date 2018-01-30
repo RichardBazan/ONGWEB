@@ -27,7 +27,7 @@
 </head>
 
 <%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",pertenenciaUsuario="";
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",pertenenciaUsuario="",fotoUsuario="";
    %>
 
 <%
@@ -39,10 +39,30 @@
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
          pertenenciaUsuario=datosUsuario[9];
+         fotoUsuario=datosUsuario[10];
      }
+    
+      if(ses.getAttribute("men")!=null){
+          String msje = ses.getAttribute("men").toString();
+          
+          if (msje.substring(0,1).equalsIgnoreCase("N")){
+          %>
+            <body onload="alertanot('<%=msje%>')">
+                <%
+        }else{
+            %>
+            <body onload="alertaok('<%=msje%>')">
+                <%
+        }
+    }else{
+        %>
+        <body>
+            <%
+      }
+            ses.setAttribute("men",null);
 %>
-
 <body>
+    
     <!--  wrapper -->
     <div id="wrapper">
         <!-- navbar top -->
@@ -69,7 +89,7 @@
                     </a>
                     <!-- dropdown user-->
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
+                        <li><a href="inicio.jsp"><i class="fa fa-user fa-fw"></i>User Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="SERLOGOUT"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
@@ -94,7 +114,7 @@
                         <!-- user image section-->
                         <div class="user-section">
                             <div class="user-section-inner">
-                                <img src="assets/img/user.jpg" alt="">
+                                <img src="<%=fotoUsuario%>" alt="">
                             </div>
                             <div class="user-info">
                                 <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
@@ -171,6 +191,12 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="AdminRegistrarUsuario.jsp">Registro de Colaboradores</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -205,20 +231,19 @@
                             <div class="row">
                                 <div class="col-lg-6" >
                                   
-                                    <form role="form" name="frmDarAdopcion" method="POST" action="darAdopcion">
-                            
+                                    <form role="form" name="frmDarAdopcion" id="frmDarAdopcion" method="POST" action="darAdopcion">
+                                        <input type="hidden" name="cod_usu" value="<%=codigoUsuario%>"/>
                             <div class="form-group">
                                             <label>Nombre</label>
-                                            <input type="text" name="name" class="form-control" placeholder="Ingrese nombre" required>
+                                            <input type="text" name="name"  id="name" class="form-control" placeholder="Ingrese nombre" onkeypress="return soloLetras(event)" onblur="limpia()" required>
                             </div>
                             
                                   
                                        
                             <div class="form-group">
                                         <label>Raza</label>        
-                                            <select class="form-control" name="cboBR" required>
-                                                <option value="#" disabled selected>:: Seleccionar ::</option>
-                                                
+                                        <select class="form-control" name="cboBR" id="cboBR" required>
+                                                <option value="#" selected disabled>:: Seleccionar ::</option>
                                                   <%DAO.DAORAZA obj=new DAO.DAORAZA();
                                                   for(DTO.DTORAZA x:obj.ListRaza()){%>  
                                                 <option value="<%=x.getCod_raza()%>"><%=x.getNom_raza()%></option><%}%>   
@@ -227,7 +252,7 @@
                                        
                             <div class="form-group">
                                 <label>Sexo</label>
-                                            <select  class="form-control" name="cboBS" required>
+                                <select  class="form-control" name="cboBS" id="cboBS" required>
                                                 <option value="#" disabled selected>:: Seleccionar ::</option>
                                                     <option value="Hembra">Hembra</option>
                                                     <option value="Macho">Macho </option>
@@ -236,12 +261,12 @@
                                  
                             <div class="form-group">
                                             <label>Edad</label>
-                                            <input type="text" name="edad" class="form-control" placeholder="Ingrese edad" required>
+                                            <input type="text" name="edad" id="edad" class="form-control" placeholder="Ingrese edad" required>
                             </div>
                          
                             <div class="form-group">
                                             <label>Descripción</label>
-                                            <textarea name="descripcion" class="form-control" placeholder="Escriba la descripción aqui!" rows="5" cols="25" maxlength="330" required></textarea>
+                                            <textarea name="descripcion" id="descripcion" class="form-control" placeholder="Escriba la descripción aqui!" rows="5" cols="25" maxlength="330" onkeypress="return soloLetrasConSignos(event)"  required></textarea>
                                             <p>Máximo 330 caractéres</p>
                             </div>
                             
@@ -257,7 +282,7 @@
                             </div>
                             
                             <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Registrar</button>
+                                <button type="button" class="btn btn-primary" onclick="valida()">Registrar</button>
                                             &nbsp;
                                             <button type="reset"  class="btn btn-primary">Cancelar</button>
                             </div>  
@@ -296,6 +321,7 @@
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
     function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
@@ -305,21 +331,25 @@
     for (var i = 0, f; f = files[i]; i++) {
         
         if(files.length == 0){
-            alert('Por lo menos debe haber 1 foto');
+            swal("Por lo menos debe haber 1 foto","", "warning");
+            limpiar();
             return;
         }
         if(files.length > 3){
-            alert('Solo se permite ingresar hasta 3 fotos');
+            swal("Como máximo 3 fotos","", "error");
+            limpiar();
             return;
         }
 
       if (!window.FileReader) {
-        alert('El navegador no soporta la lectura de archivos');
+        swal("La página no soporta la lectura de archivos","", "error");
+         limpiar();
         return;
         }
       // Only process image files.
       if (!f.type.match('image.*')) {
-        alert('El archivo a adjuntar no es una imagen');
+        swal("El archivo a adjuntar no es una imagen","","error");
+          limpiar();
         continue;
       }
 
@@ -362,10 +392,131 @@
       // Read in the image file as a data URL.
       reader.readAsDataURL(f);    
          
-    }
-              
+    }         
   }
   document.getElementById('files').addEventListener('change', handleFileSelect, false);
+  
+    function alerta(msje){
+        swal(msje);
+    }
+    
+    function alertaok(msje){
+        swal("¡BIEN HECHO!",msje,"success");
+    }
+    
+    function alertanot(msje){
+        swal("¡ERROR!",msje,"error");
+    }
+    
+    function valida(){
+       var raza = document.getElementById("cboBR").value;
+       var sexo = document.getElementById("cboBS").value;
+       var nombre = document.getElementById("name").value;
+       var edad = document.getElementById("edad").value;
+       var descripcion = document.getElementById("descripcion").value;
+       var foto = document.getElementById("files").value;
+       
+       if(foto.length ==0 || descripcion=="" || edad=="" || sexo=="#" || raza == "#" || nombre==""){
+       
+       if(foto.length ==0){
+           swal("Falta 1 foto como mínimo","", "warning");
+       }
+      
+       if(descripcion==""){
+           swal("Falta descripción de la mascota","", "warning");
+       
+       }
+       
+       if(edad==""){
+           swal("Falta edad de la mascota","", "warning");
+       }
+       
+        if(sexo=="#"){
+          swal("Falta seleccionar sexo","", "warning");
+       }
+       
+       if(raza == "#"){
+          swal("Falta seleccionar raza","", "warning");
+       }
+       
+       if(nombre==""){
+           swal("Falta nombre de la mascota","", "warning");
+       }
+   }else{
+       document.getElementById("frmDarAdopcion").submit();
+   }        
+  }
+  
+function justNumbers(e){
+        var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
+        return true;
+         
+        return /\d/.test(String.fromCharCode(keynum));
+        }
+
+function soloLetrasConSignos(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = 'áéíóúabcdefghijklmnñopqrstuvwxyz.;,:" ';
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+    
+    
+  function soloLetras(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = 'áéíóúabcdefghijklmnñopqrstuvwxyz. ';
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+
+    function limpia(){
+        var val = document.getElementById('name').value;
+        var tam = val.length;
+        for(i = 0; i < tam; i++) {
+                if(!isNaN(val[i]))
+                document.getElementById('name').value = '';
+    }
+    }
+    
+    function limpia2() {
+        var val = document.getElementById('descripcion').value;
+        var tam = val.length;
+        for(i = 0; i < tam; i++) {
+            if(!isNaN(val[i]))
+                document.getElementById('descripcion').value = '';
+    }
+}
+    
+     function limpiar(){
+        input=document.getElementById("files");
+        input.value = ''}
+
+
 </script>
 </body>
 </html>

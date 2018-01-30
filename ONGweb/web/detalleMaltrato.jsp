@@ -24,7 +24,7 @@
 </head>
 
 <%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",pertenenciaUsuario="";
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",pertenenciaUsuario="",fotoUsuario="";
    %>
 
 <%
@@ -36,6 +36,7 @@
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
          pertenenciaUsuario=datosUsuario[9];
+         fotoUsuario=datosUsuario[10];
      }
 %>
 
@@ -66,7 +67,7 @@
                     </a>
                     <!-- dropdown user-->
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
+                        <li><a href="inicio.jsp"><i class="fa fa-user fa-fw"></i>User Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="SERLOGOUT"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
@@ -91,7 +92,7 @@
                         <!-- user image section-->
                         <div class="user-section">
                             <div class="user-section-inner">
-                                <img src="assets/img/user.jpg" alt="">
+                                <img src="<%=fotoUsuario%>" alt="">
                             </div>
                             <div class="user-info">
                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
@@ -168,6 +169,12 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="AdminRegistrarUsuario.jsp">Registro de Colaboradores</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -224,9 +231,13 @@
                                             <td><center>Raza</center></td>
                                             <td colspan="2"><center><%=x.getNom_raza()%></center></td>
                                         </tr>
-                                    </tbody>
-                        </table>      
-                                         </div>
+                                       </tbody>
+                                 </table>   
+                                        
+                                        <a href="comentariosDenuncia_Detalle.jsp?cod_den=<%=cod_d%>">
+                                             <button type="button" class="btn btn-primary">Ver comentarios</button></a>
+                                             
+                                        </div>
                                         <div class="col-lg-6">
                                             <br>
                                             <br>

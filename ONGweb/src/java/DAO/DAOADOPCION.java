@@ -12,56 +12,64 @@ import java.util.logging.Logger;
 
 public class DAOADOPCION {
 
- public void darAdopcionAdd(DTODARADOPCION a) throws SQLException  {
+ public int darAdopcionAdd(DTODARADOPCION a) throws SQLException  {
         CallableStatement cst;
+        int res=0;
         try { 
-            cst = Conexion.getConexion().prepareCall("{call sp_inserta_DarAdopcion(?,?,?,?,?)}");
+            cst = Conexion.getConexion().prepareCall("{call sp_inserta_DarAdopcion(?,?,?,?,?,?)}");
             
             cst.setString(1, a.getNom_mas());
             cst.setString(2, a.getSexo_mas());
             cst.setString(3, a.getEdad_mas());
             cst.setString(4, a.getDescrip_mas());
             cst.setInt(5,a.getCod_raza());
+            cst.setInt(6,a.getCodigo());
             
-            cst.executeQuery();
+            res = cst.executeUpdate();
 
          }catch (SQLException ex) {
             Logger.getLogger(DAOADOPCION.class.getName()).log(Level.SEVERE, null, ex);
          }finally{
           Conexion.getConexion().close();
          }
+        return res;
      }
  
-  public void darAdopcionFotoAdd(DTODARADOPCION a) throws SQLException  {
+  public int darAdopcionFotoAdd(DTODARADOPCION a) throws SQLException  {
         CallableStatement cst;
+        int res=0;
         try { 
             cst = Conexion.getConexion().prepareCall("{call sp_FotoAdopcion(?)}");
             
             cst.setString(1, a.getFoto());
             
-            cst.executeQuery();
+           res = cst.executeUpdate();
 
          }catch (SQLException ex) {
             Logger.getLogger(DAOADOPCION.class.getName()).log(Level.SEVERE, null, ex);
          }finally{
           Conexion.getConexion().close();
          }
+        return  res;
      }
  
  
-public void adopcionAdd(int cod_mas) throws SQLException  {
+public int adopcionAdd(int cod_mas, int cod_usu) throws SQLException  {
         CallableStatement cst;
+        int res = 0;
         try { 
-            cst = Conexion.getConexion().prepareCall("{call sp_registra_Adopcion(?)}");
+            cst = Conexion.getConexion().prepareCall("{call sp_registra_Adopcion(?,?)}");
             
             cst.setInt(1, cod_mas);
-            cst.executeQuery();
+            cst.setInt(2, cod_usu);
+            res = cst.executeUpdate();
 
          }catch (SQLException ex) {
             Logger.getLogger(DAOADOPCION.class.getName()).log(Level.SEVERE, null, ex);
          }finally{
           Conexion.getConexion().close();
          }
+        return res;
      } 
 
   public List<DTOMASCOTA> buscar_x_ONG_User(String tenencia) throws SQLException{
@@ -204,7 +212,7 @@ public List<DTODARADOPCION> readAllAdoptados() throws SQLException {
          ResultSet res;
         
          try {
-            cst = Conexion.getConexion().prepareCall("select  cod_adop,fecha_solic,CAST(DAY(fecha_solic) as varchar) + '-' + CAST(MONTH(fecha_solic) as varchar) + '-' + CAST(YEAR(fecha_solic) as varchar) as fecha_solic, estado_adop,u.usuario ,m.nom_mas from Adopcion a inner join Usuario u on u.cod_usu = a.cod_adop inner join Mascota m on m.cod_mas = a.cod_mas");
+            cst = Conexion.getConexion().prepareCall("select  cod_adop,CAST(DAY(fecha_solic) as varchar) + '-' + CAST(MONTH(fecha_solic) as varchar) + '-' + CAST(YEAR(fecha_solic) as varchar) as fecha_solic, estado_adop,u.usuario ,m.nom_mas from Adopcion a inner join Usuario u on u.cod_usu = a.cod_adop inner join Mascota m on m.cod_mas = a.cod_mas");
             res = cst.executeQuery();
             
             while(res.next()){
@@ -221,7 +229,7 @@ public List<DTODARADOPCION> readAllAdoptados() throws SQLException {
     public void actualizaEstadoAdoptado(int codigo, String estado) throws SQLException  {
         CallableStatement cst;
         try { 
-            cst = Conexion.getConexion().prepareCall("{call sp_actualiza_estado_adopcion(?,?)}");
+            cst = Conexion.getConexion().prepareCall("{call sp_actualiza_estado_donacion(?,?)}");
             
             cst.setInt(1, codigo);
             cst.setString(2, estado);
@@ -252,6 +260,28 @@ public List<DTODARADOPCION> readAllAdoptados() throws SQLException {
         try {
             CallableStatement cst = Conexion.getConexion().prepareCall("{call cantidadPerrosAdoptadosPor(?)}");
             cst.setInt(1, codigoUsuario);
+            rs = cst.executeQuery();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        return rs;
+    }
+    
+    public static ResultSet cantidadPerrosDadosenAdopcion(){
+        ResultSet rs = null;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call cantidadPerrosDadosenAdopcion()}");
+            rs = cst.executeQuery();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        return rs;
+    }
+    
+    public static ResultSet cantidadPerrosAdoptados(){
+        ResultSet rs = null;
+        try {
+            CallableStatement cst = Conexion.getConexion().prepareCall("{call cantidadPerrosAdoptados()}");
             rs = cst.executeQuery();
         } catch (Exception e) {
             System.err.println(e.toString());

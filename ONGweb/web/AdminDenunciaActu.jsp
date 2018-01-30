@@ -15,13 +15,18 @@
     <!-- Page-Level CSS -->
     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
        <script langiage="javascript" type="text/javascript">
-            function validar_popup() {
-                var msj = 'Esta de seguro de realizar dicha acción?';
-         if(confirm(msj)==true){
+             function validar_popup() {
+                var valor = document.getElementById("cboEstadoDenuncia").value;
+                
+             if(valor == "#"){
+                  swal("Falta seleccionar estado!","Eliga un estado por favor", "warning");
+             }else{
+                  
              document.frmActuDenuncia.submit();
-             window.opener.location.reload();        
-         }
-     }
+             window.opener.location.reload(); 
+             swal("¡BIEN HECHO!","Ha sido actualizado el estado correctamente","success");                    
+                }
+            }
      
      function cerrar_popup(){
          close();
@@ -56,7 +61,7 @@
                                             <td>Estado Actual</td><td><b><%=request.getParameter("estado_den")%></b></td><tr></tr>
                                             <td>Nuevo Estado</td> 
                                             <td>
-                                                     <select class="form-control" name="cboEstadoDenuncia">
+                                                <select class="form-control" name="cboEstadoDenuncia" id="cboEstadoDenuncia">
                                                         <option value="#" disabled selected>:: Seleccionar ::</option>
                                                         <option value="En evaluacion">En evaluacion</option>
                                                         <option value="En tratamiento">En tratamiento</option>
@@ -86,6 +91,7 @@
     <!-- Page-Level Plugin Scripts-->
     <script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#dataTables-example').dataTable();

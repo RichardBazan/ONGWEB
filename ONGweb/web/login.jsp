@@ -88,11 +88,14 @@
 
                     <div class="col-sm-6 col-xs-12 text-right">
 
-                        <ul class="list-unstyled list-inline header-social">
+                         <ul class="list-unstyled list-inline header-social">
 
+                            <li> <a href="login.jsp"> <i class="fa fa-user"></i> </a> </li>
                             <li> <a href="#"> <i class="fa fa-facebook"></i> </a> </li>
+                            <!--
                             <li> <a href="#"> <i class="fa fa-twitter"></i>  </a> </li>
                             <li> <a href="#"> <i class="fa fa-youtube"></i>  </a> </li>
+                            -->
                        </ul> <!-- /.header-social  -->
                       
                     </div>
@@ -403,7 +406,7 @@
 
                     </div>
 
-
+<!--
                     <div class="col-md-4">
 
                         <div class="footer-col">
@@ -452,6 +455,8 @@
                         </div>
 
                     </div>
+                    
+                    -->
                     <div class="clearfix"></div>
 
 

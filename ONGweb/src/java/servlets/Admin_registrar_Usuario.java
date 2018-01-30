@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
+import DAO.DAOUSUARIO;
+import DTO.DTOUSUARIO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -16,14 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author bruno
  */
-@WebServlet(name = "adopcion_mas", urlPatterns = {"/adopcion_mas"})
-public class adopcion_mas extends HttpServlet {
+@WebServlet(name = "Admin_registrar_Usuario", urlPatterns = {"/Admin_registrar_Usuario"})
+public class Admin_registrar_Usuario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,26 +34,43 @@ public class adopcion_mas extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-         DAO.DAOADOPCION    DAOADOP=new DAO.DAOADOPCION();
-       
-         String pag ="listaAdopcion.jsp";
-       
-        try {   
-                int res = 0;
-                int cod_mas = Integer.parseInt(request.getParameter("codigo_mascota"));
-                int cod_usu = Integer.parseInt(request.getParameter("cod_usuario"));
+        try {
+            String nombre = request.getParameter("txtnombres_usu");
+            String apellido_pat = request.getParameter("txtapellidopat_usu");
+            String apellido_mat = request.getParameter("txtapellidomat_usu");
+            String fechaNacimiento = request.getParameter("datefechanacimiento_usu");
+            String direccion= request.getParameter("txtdireccion_usu");
+            String telefono = request.getParameter("teltelefono_usu");
+            String usuario = request.getParameter("txtusuario_usu");
+            String contraseña = request.getParameter("passwordcontraseña1_usu");
+            String contraseñaencript = DAOUSUARIO.encriptarContraseña(contraseña);
+            String foto = request.getParameter("URL_1");
+            
+            HttpSession ses = request.getSession();
+           
+            DTOUSUARIO dtousuario = new DTOUSUARIO();
+            dtousuario.setNombre(nombre);
+            dtousuario.setApellido_pat(apellido_pat);
+            dtousuario.setApellido_mat(apellido_mat);
+            dtousuario.setFechaNacimiento(fechaNacimiento);
+            dtousuario.setDireccion(direccion);
+            dtousuario.setTelefono(telefono);
+            dtousuario.setUsuario(usuario);
+            dtousuario.setContraseña(contraseñaencript);
+            dtousuario.setFoto(foto);
+            
+            int filasafectadas = DAOUSUARIO.agregarUsuario(dtousuario);
+            
+            if(filasafectadas==0){
+                 ses.setAttribute("mensaje","ALGO OCURRIÓ FALLIDO. INTÉNTELO NUEVAMENTE...");
+            }else{
+                ses.setAttribute("mensaje","REGISTRADO CORRECTAMENTE!.");
+                 String pag = "AdminRegistrarUsuario.jsp";
+                 response.sendRedirect(pag);
                 
-                res = DAOADOP.adopcionAdd(cod_mas,cod_usu);
-                HttpSession ses = request.getSession();
-                
-                if(res == 0){
-                   ses.setAttribute("men", ("No se registro con exito...Intenlo nuevamente").toUpperCase());
-                }else{
-                   ses.setAttribute("men", ("Registro con exito!").toUpperCase()); 
-                   response.sendRedirect(pag);
-                } 
-        } catch (SQLException ex) {
-            Logger.getLogger(adopcion_mas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IOException e) {
+            Logger.getLogger(Admin_registrar_Usuario.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 

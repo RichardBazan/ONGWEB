@@ -34,13 +34,14 @@ public class DAOCOMENTARIO {
          return comentario;
      }
      
-     public void comentarioAdd(String comentario,int cod_den) throws SQLException  {
+     public void comentarioAdd(String comentario,int cod_den,int cod_usu) throws SQLException  {
         CallableStatement cst;
         try { 
-            cst = Conexion.getConexion().prepareCall("{call sp_inserta_comentario(?,?)}");
+            cst = Conexion.getConexion().prepareCall("{call sp_inserta_comentario(?,?,?)}");
             
             cst.setString(1, comentario);
             cst.setInt(2, cod_den);
+            cst.setInt(3, cod_usu);
             
             cst.executeUpdate();
 

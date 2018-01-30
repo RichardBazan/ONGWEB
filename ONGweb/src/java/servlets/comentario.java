@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,8 +38,9 @@ public class comentario extends HttpServlet {
         try {
                int cod_den = Integer.parseInt(request.getParameter("codigo"));
                String coment = request.getParameter("comentario");
-
-               comentario.comentarioAdd(coment, cod_den);
+               int codusr = Integer.parseInt(request.getParameter("cod_user"));
+               
+               comentario.comentarioAdd(coment, cod_den,codusr);
                String pag ="comentariosDenuncia.jsp?cod_den="+cod_den;
                response.sendRedirect(pag);
                

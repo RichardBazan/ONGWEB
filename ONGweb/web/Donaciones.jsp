@@ -16,7 +16,7 @@
 </head>
 
 <%!
-     String codigoUsuario="",nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",nombreCasa="",pertenenciaUsuario="";
+     String codigoUsuario="",nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",nombreCasa="",pertenenciaUsuario="",fotoUsuario="";
      int codigoCRseleccionada,codigoCasa;
 %>
 
@@ -29,6 +29,7 @@
          usernameUsuario = datosUsuario[2];
          codigoUsuario= datosUsuario[3];
          pertenenciaUsuario=datosUsuario[9];
+         fotoUsuario=datosUsuario[10];
      }
 
     codigoCRseleccionada = Integer.parseInt(request.getParameter("codigoCR"));
@@ -83,7 +84,7 @@
                     </a>
                     <!-- dropdown user-->
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
+                        <li><a href="inicio.jsp"><i class="fa fa-user fa-fw"></i>User Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="SERLOGOUT"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
@@ -108,7 +109,7 @@
                         <!-- user image section-->
                         <div class="user-section">
                             <div class="user-section-inner">
-                                <img src="assets/img/user.jpg" alt="">
+                                <img src="<%=fotoUsuario%>" alt="">
                             </div>
                             <div class="user-info">
                                 <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
@@ -185,6 +186,12 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="AdminRegistrarUsuario.jsp">Registro de Colaboradores</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <%
@@ -240,7 +247,7 @@
                                             &nbsp;&nbsp;
                                             CANTIDAD: <input type="number" min="1" name="txtcantidad" id="txtcantidad" value="1">
                                             &nbsp;&nbsp;
-                                            <a><img src="assets/images/botonAgregar.png" height="40" width="50" onclick="agregarFilaTablaTemporal();"></a>
+                                            <a style="cursor: pointer;"><img src="assets/images/botonAgregar.png" height="40" width="50" onclick="agregarFilaTablaTemporal()"></a>
                                         </div>
                                             <div class="col-lg-3">
                                                 
@@ -313,9 +320,37 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
     <script type="text/javascript">
+        function analizarFilaNueva(){
+            
+        var tablaDonacionTemp = document.getElementById("tablaTemporal");
+            var tdsTabla2 = tablaDonacionTemp.getElementsByTagName("td");
+            for (var i=1; i<tablaDonacionTemp.rows.length; i++){
+                var dato = document.getElementById("txtcodigoproducto"+i.toString()).value;
+                var cantidadDato = document.getElementById("txtcantidad"+i.toString()).value;
+                var cbproductos = document.getElementById("cbproductos"); 
+                var codigoproducto = cbproductos.options[cbproductos.selectedIndex].value;
+                if (dato===codigoproducto){
+                /*
+                 alert(dato);
+                 alert(cantidadDato);
+                 document.getElementById("txtcantidad").value = Number(document.getElementById("txtcantidad").value)+ Number(cantidadDato);
+                 document.getElementById("txtcantidad"+i.toString()).setAttribute("value",Number(document.getElementById("txtcantidad"+i.toString()).value)+ Number(cantidadDato));
+                */
+               
+                document.getElementById("txtcantidad").value = Number(document.getElementById("txtcantidad").value)+ Number(cantidadDato);
+                eliminarFilaTablaProductos(i);                
+                }
+            }
+        }
+        
         function agregarFilaTablaTemporal() {
               var tabla = document.getElementById("tablaTemporal");
               var aux = tabla.rows.length;
+              
+              if(aux>1){
+                  analizarFilaNueva();
+              }
+              aux = tabla.rows.length;
               var formDonaciones = document.getElementById("formDonacion");
               var fila = tabla.insertRow(aux);
               var columna1 = fila.insertCell(0);
@@ -355,6 +390,7 @@
               //columna4.appendChild(txtdescripcion);
               formDonaciones.appendChild(txtcodigoproducto);
               formDonaciones.appendChild(txtcantidad);
+              document.getElementById("txtcantidad").value=1;
               }
                  
               function eliminarFilaTablaProductos(indice){

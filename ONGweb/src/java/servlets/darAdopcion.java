@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,15 +44,18 @@ public class darAdopcion extends HttpServlet {
           String pag ="registrarDarAdopcion.jsp";
        
         try {   
+            int res = 0;
+        
                 DTOADOP.setNom_mas(request.getParameter("name"));
                 DTOADOP.setCod_raza(Integer.parseInt(request.getParameter("cboBR")));            
                 DTOADOP.setSexo_mas(request.getParameter("cboBS"));
                 DTOADOP.setEdad_mas(request.getParameter("edad"));            
-                DTOADOP.setDescrip_mas(request.getParameter("descripcion")); 
-               
-                DAOADOP.darAdopcionAdd(DTOADOP);
+                DTOADOP.setDescrip_mas(request.getParameter("descripcion"));
+                DTOADOP.setCodigo(Integer.parseInt(request.getParameter("cod_usu")));
                 
-                JOptionPane.showMessageDialog(null, "DATO REGISTRADO");
+                HttpSession ses = request.getSession();
+                
+                res = DAOADOP.darAdopcionAdd(DTOADOP);
                 
                 String f1 = request.getParameter("URL1");
                 String f2 = request.getParameter("URL2");
@@ -61,30 +65,31 @@ public class darAdopcion extends HttpServlet {
                 
                 if(!f1.equals("undefined")){ 
                      DTOADOP1.setFoto(f1);
-                     DAOADOP.darAdopcionFotoAdd(DTOADOP1);}
+                     res = DAOADOP.darAdopcionFotoAdd(DTOADOP1);}
                 
                 if(!f2.equals("undefined")){
                      DTOADOP2.setFoto(f2);
-                     DAOADOP.darAdopcionFotoAdd(DTOADOP2);}
+                     res = DAOADOP.darAdopcionFotoAdd(DTOADOP2);}
                 
                 if(!f3.equals("undefined")){
                      DTOADOP3.setFoto(f3);
-                     DAOADOP.darAdopcionFotoAdd(DTOADOP3);}
+                     res = DAOADOP.darAdopcionFotoAdd(DTOADOP3);}
                 
                 if(!f4.equals("undefined")){
                     
                      DTOADOP4.setFoto(f4);
-                     DAOADOP.darAdopcionFotoAdd(DTOADOP4);}         
-              
-                JOptionPane.showMessageDialog(null, "FOTO(S) REGISTRADO(S)");
+                     res = DAOADOP.darAdopcionFotoAdd(DTOADOP4);}         
+
+                if(res==0){
+                    ses.setAttribute("men",("No se registro con exito...Intentelo de nuevo!").toUpperCase());
+                }else{
+                ses.setAttribute("men",("Se registro con exito!").toUpperCase());    
                 response.sendRedirect(pag);
-                
+                }        
         } catch (SQLException ex) {
             Logger.getLogger(darAdopcion.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

@@ -16,12 +16,17 @@
     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
        <script langiage="javascript" type="text/javascript">
             function validar_popup() {
-                var msj = 'Esta de seguro de realizar dicha acción?';
-         if(confirm(msj)==true){
+                var valor = document.getElementById("cboEstadoCasaRefugio").value;
+                
+             if(valor == "#"){
+                  swal("Falta seleccionar estado!","Eliga un estado por favor", "warning");
+             }else{
+                  
              document.frmActuCasaRefugio.submit();
-             window.opener.location.reload();        
-         }
-     }
+             window.opener.location.reload(); 
+             swal("¡BIEN HECHO!","Ha sido actualizado el estado correctamente","success");                    
+                }
+            }
      
      function cerrar_popup(){
          close();
@@ -56,7 +61,7 @@
                                             <td>Estado Actual</td><td><b><%=request.getParameter("estado_casa")%></b></td><tr></tr>
                                             <td>Nuevo Estado</td> 
                                             <td>
-                                                     <select class="form-control" name="cboEstadoCasaRefugio">
+                                                <select class="form-control" name="cboEstadoCasaRefugio" id="cboEstadoCasaRefugio">
                                                         <option value="#" disabled selected>:: Seleccionar ::</option>
                                                         <option value="En evaluacion">En evaluacion</option>
                                                         <option value="Confirmada">Confirmada</option>
@@ -86,6 +91,7 @@
     <!-- Page-Level Plugin Scripts-->
     <script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#dataTables-example').dataTable();
