@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
+import DAO.DAOVALIDA;
 
 /**
  *
@@ -44,13 +44,30 @@ public class darAdopcion extends HttpServlet {
           String pag ="registrarDarAdopcion.jsp";
        
         try {   
+            DAOVALIDA valid=new DAOVALIDA();
             int res = 0;
-        
-                DTOADOP.setNom_mas(request.getParameter("name"));
+                int ed1 = Integer.parseInt(request.getParameter("edad1"));
+                int ed2 = Integer.parseInt(request.getParameter("edad2"));
+                String edad = null;
+                String año,mes;
+                if(ed1 > 1){
+                    año = " años y ";
+                }else{
+                    año = " año y ";
+                }
+                if(ed2 > 1){
+                    mes = " meses";
+                }else{
+                    mes = " mes";
+                }
+                
+                edad = String.valueOf(ed1)+ año + String.valueOf(ed2) + mes;
+                
+                DTOADOP.setNom_mas(valid.primeraLetraMayuscula(request.getParameter("name").substring(0,1))+request.getParameter("name").substring(1,request.getParameter("name").length()));
                 DTOADOP.setCod_raza(Integer.parseInt(request.getParameter("cboBR")));            
                 DTOADOP.setSexo_mas(request.getParameter("cboBS"));
-                DTOADOP.setEdad_mas(request.getParameter("edad"));            
-                DTOADOP.setDescrip_mas(request.getParameter("descripcion"));
+                DTOADOP.setEdad_mas(edad);            
+                DTOADOP.setDescrip_mas(valid.primeraLetraMayuscula(request.getParameter("descripcion").substring(0,1))+request.getParameter("descripcion").substring(1,request.getParameter("descripcion").length()));
                 DTOADOP.setCodigo(Integer.parseInt(request.getParameter("cod_usu")));
                 
                 HttpSession ses = request.getSession();
@@ -63,19 +80,19 @@ public class darAdopcion extends HttpServlet {
                 String f4 = request.getParameter("URL4");   
 
                 
-                if(!f1.equals("undefined")){ 
+                if(!f1.equals("")){ 
                      DTOADOP1.setFoto(f1);
                      res = DAOADOP.darAdopcionFotoAdd(DTOADOP1);}
                 
-                if(!f2.equals("undefined")){
+                if(!f2.equals("")){
                      DTOADOP2.setFoto(f2);
                      res = DAOADOP.darAdopcionFotoAdd(DTOADOP2);}
                 
-                if(!f3.equals("undefined")){
+                if(!f3.equals("")){
                      DTOADOP3.setFoto(f3);
                      res = DAOADOP.darAdopcionFotoAdd(DTOADOP3);}
                 
-                if(!f4.equals("undefined")){
+                if(!f4.equals("")){
                     
                      DTOADOP4.setFoto(f4);
                      res = DAOADOP.darAdopcionFotoAdd(DTOADOP4);}         
@@ -83,7 +100,7 @@ public class darAdopcion extends HttpServlet {
                 if(res==0){
                     ses.setAttribute("men",("No se registro con exito...Intentelo de nuevo!").toUpperCase());
                 }else{
-                ses.setAttribute("men",("Se registro con exito!").toUpperCase());    
+                ses.setAttribute("men",("Su mascota ha sido registrado correctamente. Gracias por confiar en nosotros!").toUpperCase());    
                 response.sendRedirect(pag);
                 }        
         } catch (SQLException ex) {

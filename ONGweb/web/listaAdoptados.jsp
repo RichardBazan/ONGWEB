@@ -41,9 +41,9 @@
 
 <body>
     <!--  wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" style="background: #115C9B">
         <!-- navbar top -->
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar" style="background: #115C9B">
             <!-- navbar-header -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -52,9 +52,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">
-                    <img src="assets/img/logo.png" alt="" />
-                </a>
+               &nbsp;&nbsp;<a href="inicio.jsp"><img src="assets/images/logooficial2.png" width="180" height="60" alt=""></a>
             </div>
             <!-- end navbar-header -->
             <!-- navbar-top-links -->
@@ -85,18 +83,18 @@
             <!-- sidebar-collapse -->
             <div class="sidebar-collapse">
                 <!-- side-menu -->
-                <ul class="nav" id="side-menu">
+                <ul class="nav" id="side-menu" style="background: #1F76BD">
                     <li>
                         <!-- user image section-->
-                        <div class="user-section">
+                        <div class="user-section" style="background: #115C9B">
                             <div class="user-section-inner">
                                 <img src="<%=fotoUsuario%>" alt="">
                             </div>
                             <div class="user-info">
-                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
-                                <div style="font-size: 14px; text-align: center;">( <i><%=usernameUsuario%></i> )</div>
+                                <div style="color: #ffffff"><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
+                                <div style="font-size: 14px; text-align: center;color: #ffffff">( <i><%=usernameUsuario%></i> )</div>
                                 <div class="user-text-online">
-                                    <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
+                                    <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;En línea
                                 </div>
                             </div>
                         </div>
@@ -192,7 +190,7 @@
             <div class="row">
                  <!--  page header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Lista de Adopción</h1>
+                    <h1 class="page-header">Lista de Adoptados</h1>
                 </div>
                  <!-- end  page header -->
             </div>
@@ -201,7 +199,7 @@
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Lista de Perros en Adopción
+                             Lista de Perros Adoptados
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -235,11 +233,11 @@
                                             else{
                                                 descrip_adop = x.getDescrip_mas().substring(0,150)+"...";}%>
                                        
-                                             <tr class="odd gradeX" onClick="CrearEnlace('detalleAdoptado.jsp?cod_mas=<%=x.getCod_dar_adop()%>')" title="Ver más&hellip;"> 
+                                             <tr class="odd gradeX"> 
                                            
                                              <td><h4><b><center> <%=x.getNom_mas().toUpperCase()%></center></b></h4><center><img src="<%=y.getFoto()%>" width="250" height="200"></center></td>
                                 
-                                             <td width="500"><br><br><br><br><%=descrip_adop%></td>
+                                             <td width="500" onClick="CrearEnlace('detalleAdoptado.jsp?cod_mas=<%=x.getCod_dar_adop()%>')" title="Ver más&hellip;"><br><br><br><br><%=descrip_adop%></td>
                                               
                                              </tr><%}}%>  
                                      </tbody>
@@ -252,6 +250,7 @@
                 </div>
             </div>
         </div>
+    </div>
     <!-- Core Scripts - Include with every page -->
     <script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>

@@ -4,7 +4,7 @@ public class DTOUSUARIO{
 
     private Integer codigo;
     private String nombre,apellidos,apellido_pat,apellido_mat,fechaNacimiento,direccion,telefono,usuario,contraseña,foto,pertenencia;
-
+    
     public DTOUSUARIO() {
     }
 
@@ -32,20 +32,18 @@ public class DTOUSUARIO{
         this.pertenencia = pertenencia;
     }
 
-    public DTOUSUARIO(String nombre,  String apellidos, String fechaNacimiento, String direccion, String telefono, String usuario, String pertenencia, String foto) {
+    public DTOUSUARIO(String nombre, String apellido_pat, String apellido_mat, String fechaNacimiento, String direccion, String telefono, String usuario, String pertenencia, String foto) {
         this.nombre = nombre;
-        this.apellidos = apellidos;
+        this.apellido_pat = apellido_pat;
+        this.apellido_mat = apellido_mat;
         this.fechaNacimiento = fechaNacimiento;
         this.direccion = direccion;
         this.telefono = telefono;
         this.usuario = usuario;
         this.pertenencia = pertenencia;
         this.foto = foto;
-        
     }
 
-    
-    
     public Integer getCodigo() {
         return codigo;
     }
@@ -60,6 +58,14 @@ public class DTOUSUARIO{
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getApellido_pat() {
@@ -133,15 +139,6 @@ public class DTOUSUARIO{
     public void setPertenencia(String pertenencia) {
         this.pertenencia = pertenencia;
     }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
     
     
 }

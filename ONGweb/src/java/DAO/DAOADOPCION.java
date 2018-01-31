@@ -212,7 +212,7 @@ public List<DTODARADOPCION> readAllAdoptados() throws SQLException {
          ResultSet res;
         
          try {
-            cst = Conexion.getConexion().prepareCall("select  cod_adop,CAST(DAY(fecha_solic) as varchar) + '-' + CAST(MONTH(fecha_solic) as varchar) + '-' + CAST(YEAR(fecha_solic) as varchar) as fecha_solic, estado_adop,u.usuario ,m.nom_mas from Adopcion a inner join Usuario u on u.cod_usu = a.cod_adop inner join Mascota m on m.cod_mas = a.cod_mas");
+            cst = Conexion.getConexion().prepareCall("select cod_adop,CAST(DAY(fecha_solic) as varchar) + '-' + CAST(MONTH(fecha_solic) as varchar) + '-' + CAST(YEAR(fecha_solic) as varchar) as fecha_solic, estado_adop,u.usuario,m.nom_mas from Adopcion a inner join Usuario u on u.cod_usu = a.cod_usu inner join Mascota m on m.cod_mas = a.cod_mas");
             res = cst.executeQuery();
             
             while(res.next()){
@@ -226,14 +226,14 @@ public List<DTODARADOPCION> readAllAdoptados() throws SQLException {
          return adoptados;
      }
    
-    public void actualizaEstadoAdoptado(int codigo, String estado) throws SQLException  {
+    public void actualizaEstadoAdoptado(int codigo, String estado, int codmascota) throws SQLException  {
         CallableStatement cst;
         try { 
-            cst = Conexion.getConexion().prepareCall("{call sp_actualiza_estado_donacion(?,?)}");
+            cst = Conexion.getConexion().prepareCall("{call sp_actualiza_estado_adopcion(?,?,?)}");
             
             cst.setInt(1, codigo);
             cst.setString(2, estado);
-            
+            cst.setInt(3, codmascota);
             cst.executeQuery();
 
          }catch (SQLException ex) {

@@ -30,7 +30,10 @@
 	
 		<!-- remove this if you use Modernizr -->
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
-    <!-- /PARA INPUT FILE -->     
+    <!-- /PARA INPUT FILE -->  
+    <style>.contenedor {position: relative;height: 125px;width: 220px;margin: 50px 20px;float: left;margin: 10px 5px 0 0;}
+                       .contenedor img {position: absolute;left: 0;transition: opacity 0.5s ease-in-out;}
+                       .contenedor img.top:hover {opacity: 0.50;}</style>  
 
     </head>
     
@@ -40,7 +43,7 @@
      //JOptionPane.showMessageDialog(null,ses.getAttribute("resultadoRegistro"));
      if (ses.getAttribute("resultadoRegistro")!=null){
          String msje = ses.getAttribute("resultadoRegistro").toString();
-         if (msje.substring(0,1).equalsIgnoreCase("R")){
+         if (msje.substring(0,1).equalsIgnoreCase("S")){
              %>
              <body onload="alertaok('<%=msje%>')">
                  <%
@@ -124,7 +127,7 @@
                   -->
                   
                   <!-- LOGO -->
-                  <a class="navbar-brand" href="index.html"><img src="assets/images/sadaka-logo.png" alt=""></a>
+                  <a href="index.html"><img src="assets/images/logooficial.png" width="150" height="60" alt=""></a>
                   
                 </div>
 
@@ -235,10 +238,10 @@
 
 					<h2 class="title-style-2"> REGISTRARSE <span class="title-under"></span></h2>
 					<p>
-						<b>Sadaka</b> necesita personas que amen y quieran ayudar a perros que lo necesiten, sé parte de nuestro equipo registrándote .
+						<b>Dog Lovers</b> necesita personas que amen y quieran ayudar a perros que lo necesiten, sé parte de nuestro equipo registrándote .
 					</p>
 
-                                        <form action="SerLoginRegistrarse?opc=2" method="post" id="formRegistrarse" name="formRegistrarse">
+                                        <form action="SerLoginRegistrarse?opc=2" method="post" id="formRegistrarse" name="formRegistrarse"id="formRegistrarse">
                                         
                                             <div class="row">
 							<div class="form-group col-md-11">
@@ -299,13 +302,14 @@
                                             <div class="row">
                                             <div class="form-group col-md-11">
                                                          <!-- PARA INPUT FILE -->             
-                                            <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
-                                            <label for="file-5"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge una foto&hellip;</span></label>
+                                            <input type="file" name="files[]" id="files" class="inputfile inputfile-4" data-multiple-caption="{count} Fotos seleccionadas"/>
+                                            <label for="files"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Seleccionar imagen&hellip;</span></label>
                                             <!-- PARA INPUT FILE -->
+                                            <input type="hidden" name="URL_1" id="URL_1" size="100" value="">
+                                            <input type= "hidden" id="delete" name="delete" size="100"  value ="imgdelete">          
+                                            <output id="list"></output>
 	                        </div>
-                            </div>   
-                                           
-                                            
+                            </div>         
                   <!--                                            
                         <div class="form-group alerts">
                         
@@ -476,12 +480,7 @@
             </div>
         </div>
         
-    </footer>
-
-
-
-
-       
+    </footer>  
         
         <!-- jQuery -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -515,39 +514,160 @@
     <!-- /PARA INPUT FILE -->
     
     <script type="text/javascript">
-    function comprobarCampos(){
-        nombre = document.getElementById("txtnombres");
-        apellidopat=document.getElementById("txtapellidopat");
-        apellidomat=document.getElementById("txtapellidomat");
-        fechanac=document.getElementById("datefechanacimiento");
-        direccion=document.getElementById("txtdireccion");
-        telefono=document.getElementById("teltelefono");
-        usuario=document.getElementById("txtusuario");
+    function handleFileSelect(evt) { 
+    var files = evt.target.files; // FileList object
+    
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {        
+         //document.getElementById("contador").value = files.length;
         
-        if(apellidopat.value.length===0 || apellidomat.value.length===0 || fechanac.value.length===0 || direccion.value.length===0 || telefono.value.length===0 || usuario.value.length===0){
-           alertanot("COMPLETE TODOS LOS CAMPOS. TODOS SON NECESARIOS.");
+        if(files.length == 0){
+            swal("Por lo menos debe haber 1 foto","", "warning");
+            limpiar();
+            return;
+        }
+        if(files.length > 1){
+            swal("Como máximo 1 fotos","", "error");
+            return;
+        }
+
+      if (!window.FileReader) {
+        swal("La página no soporta la lectura de archivos","", "error");
+         limpiar();
+        return;
+        }
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+        swal("El archivo a adjuntar no es una imagen","","error");
+          limpiar();
+        continue;
+      }
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var span = document.createElement('span');
+          span.innerHTML = ['<div class="contenedor"><img src="assets/img/delete.png" title = "Eliminar" height= "125" width="220" id="imgdelete"/>\n\
+                            <a><img class="top" src="', e.target.result,'" id="', e.target.result, '" title="', escape(theFile.name), '" height= "125" width="220" name="imagen" /></a></div>'].join('');
+          document.getElementById('list').insertBefore(span, null);      
+         
+                    if(!f){
+                                                  
+                         if(document.getElementById('URL_1').value.length === 0){
+                                 document.formRegistrarse.URL_1.value = e.target.result;
+                                 document.getElementById("files").disabled = true;
+                                 
+                                 }
+                             }    
+                  
+        $(document).ready(function(){
+	$("img[name=imagen]").click(function () {
+	//alert("has hecho click en la imagen");       
+        var img1 = document.formRegistrarse.URL_1.value;
+                  if(!f){
+                         //Eliminando value de los input text
+                            if(img1[0].length > 0){
+                                document.getElementById("files").disabled = false;
+                                eliminaFotos(img1);
+                                document.formRegistrarse.URL_1.value = "";
+                                eliminaFotoDelete()[0];                                	
+                                limpia();
+                                $("img").remove(e.target.result);
+                               } 
+                        } 
+	});
+        });
+        
+        
+        };
+      })(f);
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f); 
+    }
+}         
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);   
+    
+    function comprobarCampos(){
+        var nombre = document.getElementById("txtnombres").value;
+        var apellidopat=document.getElementById("txtapellidopat").value;
+        var apellidomat=document.getElementById("txtapellidomat").value;
+        var fechanac=document.getElementById("datefechanacimiento").value;
+        var direccion=document.getElementById("txtdireccion").value;
+        var telefono=document.getElementById("teltelefono").value;
+        var usuario=document.getElementById("txtusuario").value;
+        var pwd1 = document.getElementById("passwordcontraseña1").value;
+        var pwd2 = document.getElementById("passwordcontraseña2").value;
+        var foto = document.getElementById("files").value;
+        
+        if(foto.length == 0 || apellidopat == "" || apellidomat == "" || fechanac.length == 0 || direccion == "" || telefono == "" || usuario == "" || pwd1 == "" || pwd2 == ""){
+         if(foto.length == 0){
+             swal("Falta seleccionar foto","SELECCIONE UNA IMAGEN.", "warning"); 
+         }
+         
+         if(pwd2 == ""){
+             swal("Falta ingresar contraseña de confirmación","", "warning"); 
+         }
+            
+         if(pwd1 == ""){
+             swal("Falta ingresar contraseña","", "warning"); 
+         }
+            
+            if(usuario == ""){
+           swal("Falta ingresar su nombre de usuario","", "warning");
+         }
+            
+            if(telefono == ""){
+           swal("Falta ingresar teléfono","", "warning");
+         }else{
+            if(telefono.length<9 || telefono.length>9){
+            swal("El número de contacto debe tener 9 digitos","INGRESE CORRECTAMENTE EL NÚMERO DE CONTACTO." ,"error");
+            telefono.focus();
+            return (false);
+         }}
+       
+         if(direccion==""){
+           swal("Falta ingresar dirección","", "warning");
+       
+         }
+       
+         if(fechanac.length == 0){
+           swal("Falta fecha de nacimiento","", "warning");
+         }
+       
+         if(apellidomat==""){
+          swal("Falta ingresar apellido materno","", "warning");
+         }
+       
+         if(apellidopat == ""){
+          swal("Falta ingresar apellido paterno","", "warning");
+          }
+       
+         if(nombre == ""){
+           swal("Falta ingresar sus nombres","", "warning");
            nombre.focus();
            return (false);
-        }
-        if(telefono.value.length<9 || telefono.value.length>9){
-           alertanot("EL NÚMERO DE CONTACTO DEBE TENER 9 DIGITOS COMO EN EL EJM.");
-           telefono.focus();
-           return (false);
-        }
-        comprobarClave();
+           
+         }
+     }else{
+         comprobarClave();  
+     }
     }
      
-    function comprobarClave(){ 
+     function comprobarClave(){ 
    	clave1 = document.getElementById("passwordcontraseña1");
    	clave2 = document.getElementById("passwordcontraseña2");
         botonregistrar = document.getElementById("btnRegistrar");
         formularioregistrarse = document.getElementById("formRegistrarse");
         if (clave1.value.length<6){
-        alertanot("LA CONTRASEÑA DEBE CONTENER AL MENOS 6 DÍGITOS.");
+        swal("La contraseña debe contener al menos 6 dígitos","INGRESE CONTRASEÑA CORRECTAMENTE.","error");
         return (false);
         }
    	if (clave1.value !== clave2.value){ 
-      	alertanot("LAS CONTRASEÑAS NO COINCIDEN.");
+      	swal("Las contraseñas no coinciden","INGRESE CONTRASEÑAS CORRECTAMENTE","error");
         clave1.focus();
         return (false);
         }
@@ -560,12 +680,12 @@
         swal(msje);
     }
     
-    function alertaok(msje){
-        swal("¡BIEN HECHO!",msje,"success");
+    function alertanot(msje){
+       swal("¡Usuario o contraseña incorrecto!",msje,"error"); 
     }
     
-    function alertanot(msje){
-        swal("¡ERROR!",msje,"error");
+    function alertaok(msje){
+        swal("¡Usuario registrado correctamente!",msje,"success");
     }
     
     function valida(e){
@@ -579,6 +699,20 @@
     tecla_final = String.fromCharCode(tecla);
     return patron.test(tecla_final);
     }
+    
+             function eliminaFotos(id){       
+	imagen = document.getElementById(id);
+        document.getElementById(id).setAttribute('name',null);
+		padre = imagen.parentNode;
+		padre.removeChild(imagen);
+            } 
+     
+    function eliminaFotoDelete(){
+	imagen2 = document.getElementById(document.getElementById("delete").value);
+        document.getElementById(document.getElementById("delete").value).setAttribute('name',null);
+		padre2 = imagen2.parentNode;
+		padre2.removeChild(imagen2);
+         } 
     </script> 
     </body>
 </html>

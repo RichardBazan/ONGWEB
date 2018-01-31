@@ -21,7 +21,6 @@
              if(valor == "#"){
                   swal("Falta seleccionar estado!","Eliga un estado por favor", "warning");
              }else{
-                  
              document.frmActuAdoptado.submit();
              window.opener.location.reload(); 
              swal("¡BIEN HECHO!","Ha sido actualizado el estado correctamente","success");                    
@@ -70,6 +69,7 @@
                                                      </select>
                                              </td><tr></tr> 
                                             <input type="hidden" name="codigo_adop" value="<%=request.getParameter("cod")%>">
+                                            <input type="hidden" name="codigo_mascota" value="<%=request.getParameter("codmascota")%>">
                                             
                                             <td colspan="2"><center>
                                                 <input type="button" class="btn btn-primary" onclick="validar_popup()" id="Actualizar" value="Actualizar">

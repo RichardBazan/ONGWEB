@@ -35,10 +35,11 @@ public class actualiza_estAdoptado extends HttpServlet {
            try {
             int codigo = Integer.parseInt(request.getParameter("codigo_adop"));
             String estado = request.getParameter("cboEstadoAdoptado");
+            int codmascota = Integer.parseInt(request.getParameter("codigo_mascota"));
             String pag ="AdminAdoptadosActu.jsp?cod="+codigo+"&estado="+estado;
             
             DAO.DAOADOPCION  obj=new DAO.DAOADOPCION();
-            obj.actualizaEstadoAdoptado(codigo, estado);
+            obj.actualizaEstadoAdoptado(codigo, estado, codmascota);
             response.sendRedirect(pag);
             
         } catch (NumberFormatException | SQLException ex) {

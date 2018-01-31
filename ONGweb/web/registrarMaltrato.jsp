@@ -18,7 +18,9 @@
 		<!-- remove this if you use Modernizr -->
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
     <!-- /PARA INPUT FILE -->     
-                  <style>.thumb {width: 450px; border: 1px solid #000;margin: 10px 5px 0 0;}</style>
+                <style>.contenedor {position: relative;height: 125px;width: 220px;margin: 50px 20px;float: left;margin: 10px 5px 0 0;}
+                       .contenedor img {position: absolute;left: 0;transition: opacity 0.5s ease-in-out;}
+                       .contenedor img.top:hover {opacity: 0.50;}</style>     
 </head>
 
 <%!
@@ -60,9 +62,9 @@ if(ses.getAttribute("men")!=null){
 
 <body>
     <!--  wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" style="background: #115C9B">
         <!-- navbar top -->
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar" style="background: #115C9B">
             <!-- navbar-header -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -71,9 +73,7 @@ if(ses.getAttribute("men")!=null){
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">
-                    <img src="assets/img/logo.png" alt="" />
-                </a>
+                &nbsp;&nbsp;<a href="inicio.jsp"><img src="assets/images/logooficial2.png" width="180" height="60" alt=""></a>
             </div>
             <!-- end navbar-header -->
             <!-- navbar-top-links -->
@@ -105,18 +105,18 @@ if(ses.getAttribute("men")!=null){
             <!-- sidebar-collapse -->
             <div class="sidebar-collapse">
                 <!-- side-menu -->
-                <ul class="nav" id="side-menu">
+                <ul class="nav" id="side-menu" style="background: #1F76BD">
                     <li>
                         <!-- user image section-->
-                        <div class="user-section">
+                        <div class="user-section" style="background: #115C9B">
                             <div class="user-section-inner">
                                 <img src="<%=fotoUsuario%>" alt="">
                             </div>
                             <div class="user-info">
-                                <div><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
-                                <div style="font-size: 14px; text-align: center;">( <i><%=usernameUsuario%></i> )</div>
+                                <div style="color: #ffffff"><%=nombreUsuario%> <strong><%=primeraLetraApellidoPat%>.</strong></div>
+                                <div style="font-size: 14px; text-align: center;color: #ffffff">( <i><%=usernameUsuario%></i> )</div>
                                 <div class="user-text-online">
-                                    <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
+                                    <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;En línea
                                 </div>
                             </div>
                         </div>
@@ -237,7 +237,7 @@ if(ses.getAttribute("men")!=null){
                                         <label>Raza</label>
                                           
                                         <select class="form-control" name="cboR" id="cboR" required>
-                                            <option value="#" selected disabled>:: Seleccionar ::</option>
+                                            <option value="#" selected disabled>Seleccionar</option>
                                                  <%DAO.DAORAZA obj=new DAO.DAORAZA();
                                                   for(DTO.DTORAZA x:obj.ListRaza()){%>  
                                                 <option value="<%=x.getCod_raza()%>"><%=x.getNom_raza()%></option><%}%>
@@ -246,7 +246,7 @@ if(ses.getAttribute("men")!=null){
                                             
                             <div class="form-group">
                                             <label>Dirección de acontecimiento</label>
-                                            <input type="text" name="direccion" id="direccion" class="form-control" placeholder="Ingrese dirección" required>
+                                            <input type="text" name="direccion" id="direccion" class="form-control" placeholder="Ingrese dirección de acontecimiento" required>
                             </div>     
                             
                             <div class="form-group">
@@ -256,14 +256,18 @@ if(ses.getAttribute("men")!=null){
                                         
                             <div class="form-group">
                                             <label>Descripción</label>
-                                            <textarea placeholder="Escriba la descripción aqui!" rows="5" cols="25" class="form-control" name="descripcion" id="descripcion" required></textarea>
+                                            <textarea placeholder="Escriba la descripción aqui!" rows="5" cols="25" class="form-control" name="descripcion" id="descripcion" onkeypress="return soloLetrasConSignos(event)" required></textarea>
                                             <p>Máximo 250 caractéres</p>
                             </div>
                      
                             <div class="form-group">
+                                            <label>Foto/Imagen de referencia</label>
+                                        </div>                   
+                                            
+                            <div class="form-group">
                                             <!-- PARA INPUT FILE -->
-                                            <input type="file" name="files[]" id="files" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple/>
-                                            <label for="files"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span></label>
+                                            <input type="file" name="files[]" id="files" class="inputfile inputfile-4" data-multiple-caption="{count} Fotos seleccionadas" multiple/>
+                                            <label for="files"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Seleccionar imagen&hellip;</span></label>
                                             <!-- PARA INPUT FILE -->
                             </div>
                  
@@ -274,10 +278,11 @@ if(ses.getAttribute("men")!=null){
                             </div>
                             
                             <div class="form-group">      
-                                <input type="hidden" id="URL_1" name="URL_1" size="100"  value ="">
-                                <input type="hidden" id="URL_2" name="URL_2" size="100"  value ="">
-                                <input type="hidden" id="URL_3" name="URL_3" size="100"  value ="">
-                                <input type="hidden" id="URL_4" name="URL_4" size="100"  value ="">
+                                <input type="hidden" id="URL_1" name="URL_1"   size="100"  value ="">
+                                <input type="hidden" id="URL_2" name="URL_2"   size="100"  value ="">
+                                <input type="hidden" id="URL_3" name="URL_3"   size="100"  value ="">
+                                <input type="hidden" id="URL_4" name="URL_4"   size="100"  value ="">
+                                <input type="hidden" id="delete" name="delete" size="100"  value ="imgdelete">
                             </div>
                                             
                     </form>
@@ -320,27 +325,32 @@ if(ses.getAttribute("men")!=null){
   }
 </style>
 <script>
-  function handleFileSelect(evt) {
+   function handleFileSelect(evt) { 
     var files = evt.target.files; // FileList object
-     var resultado = [];
+    
     // Loop through the FileList and render image files as thumbnails.
- 
-    for (var i = 0, f; f = files[i]; i++) {
+    for (var i = 0, f; f = files[i]; i++) {        
+         //document.getElementById("contador").value = files.length;
         
-        if (files.length > 3) {
+        if(files.length == 0){
+            swal("Por lo menos debe haber 1 foto","", "warning");
+            limpiar();
+            return;
+        }
+        if(files.length > 3){
             swal("Como máximo 3 fotos","", "error");
             limpiar();
             return;
-            }
+        }
 
       if (!window.FileReader) {
-         swal("La página no soporta la lectura de archivos","", "error");
+        swal("La página no soporta la lectura de archivos","", "error");
          limpiar();
-         return;
+        return;
         }
       // Only process image files.
       if (!f.type.match('image.*')) {
-          swal("El archivo a adjuntar no es una imagen","","error");
+        swal("El archivo a adjuntar no es una imagen","","error");
           limpiar();
         continue;
       }
@@ -352,52 +362,74 @@ if(ses.getAttribute("men")!=null){
         return function(e) {
           // Render thumbnail.
           var span = document.createElement('span');
-          
-          resultado.push(e.target.result);
-          for(var y = 0 ; y < resultado.length; y++){
-          
-          span.innerHTML = ['<img class="thumb" style="height: 250px" src="', resultado[y],'" title="', escape(theFile.name), '"/>'].join('');
-          document.getElementById('list').insertBefore(span, null);
        
-         }
-                     if(resultado[0] != null){
+          span.innerHTML = ['<div class="contenedor"><img src="assets/img/delete.png" title = "Eliminar" height= "125" width="220" id="imgdelete"/>\n\
+                            <a><img class="top" src="', e.target.result,'" id="', e.target.result, '" title="', escape(theFile.name), '" height= "125" width="220" name="imagen"/></a></div>'].join('');
+          document.getElementById('list').insertBefore(span, null);      
+         
+                    if(!f){
+                                                  
+                         if(document.getElementById('URL_1').value.length === 0){
+                             document.frmregistraDenuncia.URL_1.value = e.target.result;
+                           
+                         }else{                          
+                            if(document.getElementById('URL_2').value.length === 0){
+                             document.frmregistraDenuncia.URL_2.value = e.target.result;
+                          
+                         }else{
+                             if(document.getElementById('URL_3').value.length === 0){
+                             document.frmregistraDenuncia.URL_3.value = e.target.result;
+                          }}} 
+                  
+                         if(document.getElementById('URL_1').value.length > 0 && document.getElementById('URL_2').value.length > 0 && document.getElementById('URL_3').value.length > 0 ){
+                              document.getElementById("files").disabled = true;
+                         }else{
+                               document.getElementById("files").disabled = false;
+                         }
+                      }               
+                      
+                      
+        $(document).ready(function(){
+	$("img[name=imagen]").click(function () {
+	//alert("has hecho click en la imagen");     
+        var img1 = document.getElementById("URL_1").value;
+        var img2 = document.getElementById("URL_2").value;
+        var img3 = document.getElementById("URL_3").value;
+        var imagenes = [img1,img2,img3];  
+        
+                  if(!f){
+                         //Eliminando value de los input text
+                             if(imagenes[0].length > 0){
+                                eliminaFotos(imagenes[0]);
+                                document.frmregistraDenuncia.URL_1.value = "";
+                                eliminaFotoDelete()[0]; 
+                             }
+                             
+                             if(imagenes[1].length > 0){
+                                eliminaFotos(imagenes[1]);
+                                document.frmregistraDenuncia.URL_2.value = "";
+                                eliminaFotoDelete()[1]; 
+                               }   
                          
-                         if(document.getElementById('URL_1').value.length == 0){
-                             //alert('URL1 campo vacio');
-                             document.frmregistraDenuncia.URL_1.value = resultado[0];
-                             
-                         }else{
-                             //alert('URL1 campo lleno');
-                          
-                            if(document.getElementById('URL_2').value.length == 0){
-                             //alert('URL2 campo vacio');
-                             document.frmregistraDenuncia.URL_2.value = resultado[1];
-                          
-                         }else{
-                             //alert('URL2 campo lleno');
-                             
-                             if(document.getElementById('URL_3').value.length == 0){
-                             //alert('URL3 campo vacio');
-                             document.frmregistraDenuncia.URL_3.value = resultado[2];
-                             
-                          }else{
-                             //alert('URL3 campo lleno');
-                             document.frmregistraDenuncia.URL_4.value = resultado[3];
-                            } 
-                           }
-                         }  
-                      }    
-              /*  alert(resultado[0]);
-                  alert(resultado[1]);
-                  alert(resultado[2]);
-                  alert(resultado[3]);
-              */               
+                            if(imagenes[2].length > 0){
+                                eliminaFotos(imagenes[2]);
+                                document.frmregistraDenuncia.URL_3.value = "";
+                                eliminaFotoDelete()[2];
+                               }
+                        } 
+                             /*var con = files.length;
+                             alert(contador(con));*/
+	});
+        });
+        
+        
         };
       })(f);
       // Read in the image file as a data URL.
-      reader.readAsDataURL(f);    
+      reader.readAsDataURL(f); 
     }
-  }
+}         
+
   document.getElementById('files').addEventListener('change', handleFileSelect, false);
   
   function alerta(msje){
@@ -405,7 +437,7 @@ if(ses.getAttribute("men")!=null){
     }
     
     function alertaok(msje){
-        swal("¡BIEN HECHO!",msje,"success");
+        swal("¡Registro de Denuncia Correctamente!",msje,"success");
     }
     
     function alertanot(msje){
@@ -442,8 +474,9 @@ if(ses.getAttribute("men")!=null){
        }
       }else{
           if(telefono.length < 9 ){
-          swal("El teléfono debe tener 9 digitos","", "warning");
+          swal("El número de contacto debe tener 9 digitos","INGRESE CORRECTAMENTE EL NÚMERO DE CONTACTO." ,"error");
           telefono.focus(); 
+          return (false);
        }
        document.getElementById("frmregistraDenuncia").submit();
       }
@@ -524,7 +557,19 @@ if(ses.getAttribute("men")!=null){
         input=document.getElementById("files");
         input.value = ''}
     
-  
+        function eliminaFotos(id){       
+	imagen = document.getElementById(id);
+        document.getElementById(id).setAttribute('name',null);
+		padre = imagen.parentNode;
+		padre.removeChild(imagen);
+    } 
+     
+    function eliminaFotoDelete(){
+	imagen2 = document.getElementById(document.getElementById("delete").value);
+        document.getElementById(document.getElementById("delete").value).setAttribute('name',null);
+		padre2 = imagen2.parentNode;
+		padre2.removeChild(imagen2);
+    } 
 </script>
 </html>
 
