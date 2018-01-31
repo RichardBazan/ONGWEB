@@ -274,6 +274,14 @@
                                             <input type="hidden" id="URL_4" name="URL_4" size="100"  value ="">
                                             <input type="hidden" id="delete" name="delete" size="100"  value ="imgdelete">
                                         </div>
+                                        
+                                        <div class="form-group">      
+                                            <input type="hidden" id="URL_1" name="URL_1" size="100"  value ="">
+                                            <input type="hidden" id="URL_2" name="URL_2" size="100"  value ="">
+                                            <input type="hidden" id="URL_3" name="URL_3" size="100"  value ="">
+                                            <input type="hidden" id="URL_4" name="URL_4" size="100"  value ="">
+                                            <input type="hidden" id="delete" name="delete" size="100"  value ="imgdelete">
+                                        </div>
                                         <div class="form-group">      
                                 <input type="hidden" id="URL_1" name="URL_1" size="100"  value ="">
                                 <input type="hidden" id="URL_2" name="URL_2" size="100"  value ="">
@@ -323,7 +331,112 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
     <script type="text/javascript">
+     function handleFileSelect(evt) { 
+    var files = evt.target.files; // FileList object
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {        
+         //document.getElementById("contador").value = files.length;
+        
+        if(files.length == 0){
+            swal("Por lo menos debe haber 1 foto","", "warning");
+            limpiar();
+            return;
+        }
+        if(files.length > 3){
+            swal("Como máximo 3 fotos","", "error");
+            limpiar();
+            return;
+        }
 
+      if (!window.FileReader) {
+        swal("La página no soporta la lectura de archivos","", "error");
+         limpiar();
+        return;
+        }
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+        swal("El archivo a adjuntar no es una imagen","","error");
+          limpiar();
+        continue;
+      }
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var span = document.createElement('span');
+          span.innerHTML = ['<div class="contenedor"><img src="assets/img/delete.png" title = "Eliminar" height= "125" width="220" id="imgdelete"/>\n\
+                            <a><img class="top" src="', e.target.result,'" id="', e.target.result, '" title="', escape(theFile.name), '" height= "125" width="220" name="imagen"/></a></div>'].join('');
+          document.getElementById('list').insertBefore(span, null);      
+         
+                    if(!f){
+                                                  
+                         if(document.getElementById('URL_1').value.length === 0){
+                             document.frmRegistrarCasaRefugio.URL_1.value = e.target.result;
+                           
+                         }else{                          
+                            if(document.getElementById('URL_2').value.length === 0){
+                             document.frmRegistrarCasaRefugio.URL_2.value = e.target.result;
+                          
+                         }else{
+                             if(document.getElementById('URL_3').value.length === 0){
+                             document.frmRegistrarCasaRefugio.URL_3.value = e.target.result;
+                             
+                          }}}
+                         if(document.getElementById('URL_1').value.length > 0 && document.getElementById('URL_2').value.length > 0 && document.getElementById('URL_3').value.length > 0 ){
+                              document.getElementById("files").disabled = true;
+                         }else{
+                               document.getElementById("files").disabled = false;
+                         }
+                      }               
+                      
+                      
+        $(document).ready(function(){
+	$("img[name=imagen]").click(function () {
+	//alert("has hecho click en la imagen");       
+        var img1 = document.frmRegistrarCasaRefugio.URL_1.value;
+        var img2 = document.frmRegistrarCasaRefugio.URL_2.value;
+        var img3 = document.frmRegistrarCasaRefugio.URL_3.value;
+        var imagenes = [img1,img2,img3];  
+        
+                  if(!f){
+                         //Eliminando value de los input text
+                            if(imagenes[0].length > 0){
+                                eliminaFotos(imagenes[0]);
+                                document.frmRegistrarCasaRefugio.URL_1.value = "";
+                                eliminaFotoDelete()[0];
+                               }  
+                               
+                             if(imagenes[1].length > 0){
+                                eliminaFotos(imagenes[1]);
+                                document.frmRegistrarCasaRefugio.URL_2.value = "";
+                                eliminaFotoDelete()[1];
+                               }   
+                         
+                            if(imagenes[2].length > 0){
+                                eliminaFotos(imagenes[2]);
+                                document.frmRegistrarCasaRefugio.URL_3.value = "";
+                                eliminaFotoDelete()[2];
+                               }
+                        } 
+                             /*var con = files.length;
+                             alert(contador(con));*/
+	});
+        });
+        
+        
+        };
+      })(f);
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f); 
+    }
+}         
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);    
+    
+    
     
     function valida(e){
     tecla = (document.all) ? e.keyCode : e.which;
@@ -405,86 +518,6 @@
             }
         }
         
-        function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
-     var resultado = [];
-    // Loop through the FileList and render image files as thumbnails.
- 
-    for (var i = 0, f; f = files[i]; i++) {
-        
-        if (files.length > 3) {
-            swal("Como máximo 3 fotos","", "error");
-            limpiar();
-            return;
-            }
-
-      if (!window.FileReader) {
-         swal("La página no soporta la lectura de archivos","", "error");
-         limpiar();
-         return;
-        }
-      // Only process image files.
-      if (!f.type.match('image.*')) {
-          swal("El archivo a adjuntar no es una imagen","","error");
-          limpiar();
-        continue;
-      }
-
-      var reader = new FileReader();
-
-      // Closure to capture the file information.
-      reader.onload = (function(theFile) {
-        return function(e) {
-          // Render thumbnail.
-          var span = document.createElement('span');
-          
-          resultado.push(e.target.result);
-          for(var y = 0 ; y < resultado.length; y++){
-          
-          span.innerHTML = ['<img class="thumb" style="height: 250px" src="', resultado[y],'" title="', escape(theFile.name), '"/>'].join('');
-          document.getElementById('list').insertBefore(span, null);
-       
-         }
-                     if(resultado[0] != null){
-                         
-                         if(document.getElementById('URL_1').value.length == 0){
-                             //alert('URL1 campo vacio');
-                             document.frmCR.URL_1.value = resultado[0];
-                             
-                         }else{
-                             //alert('URL1 campo lleno');
-                          
-                            if(document.getElementById('URL_2').value.length == 0){
-                             //alert('URL2 campo vacio');
-                             document.frmCR.URL_2.value = resultado[1];
-                          
-                         }else{
-                             //alert('URL2 campo lleno');
-                             
-                             if(document.getElementById('URL_3').value.length == 0){
-                             //alert('URL3 campo vacio');
-                             document.frmCR.URL_3.value = resultado[2];
-                             
-                          }else{
-                             //alert('URL3 campo lleno');
-                             document.frmCR.URL_4.value = resultado[3];
-                            } 
-                           }
-                         }  
-                      }    
-              /*  alert(resultado[0]);
-                  alert(resultado[1]);
-                  alert(resultado[2]);
-                  alert(resultado[3]);
-              */               
-        };
-      })(f);
-      // Read in the image file as a data URL.
-      reader.readAsDataURL(f);    
-    }
-  }
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
-
          function eliminaFotos(id){       
 	imagen = document.getElementById(id);
         document.getElementById(id).setAttribute('name',null);
