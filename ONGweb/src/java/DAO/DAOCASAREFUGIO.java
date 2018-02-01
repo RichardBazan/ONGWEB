@@ -126,7 +126,7 @@ public class DAOCASAREFUGIO {
          ResultSet res;
         
          try {
-            cst = Conexion.getConexion().prepareCall("select cod_casa,nom_casa,dir_casa,tel_cont,CAST(DAY(fecha_reg) as varchar) + '-' + CAST(MONTH(fecha_reg) as varchar) + '-' + CAST(YEAR(fecha_reg) as varchar) as fecha_reg,estado_casa ,u.usuario from CasaRefugio cr inner join Usuario u on u.cod_usu = cr.cod_usu");
+            cst = Conexion.getConexion().prepareCall("select cod_casa,nom_casa,dir_casa,tel_cont,CAST(DAY(fecha_reg) as varchar) + '/' + CAST(MONTH(fecha_reg) as varchar) + '/' + CAST(YEAR(fecha_reg) as varchar) as fecha_reg,estado_casa ,u.usuario from CasaRefugio cr inner join Usuario u on u.cod_usu = cr.cod_usu");
             res = cst.executeQuery();
             //int cod_casa, String nom_casa, String dir_casa, String tel_cont, String fecha_reg, int cod_usu
             while(res.next()){

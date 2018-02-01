@@ -38,30 +38,25 @@ public class SERCASAREFUGIO extends HttpServlet {
             DTOCASAREFUGIO dtocasarefugio = new DTOCASAREFUGIO(0,nombre, direccion, telefono, descripcion, telefono, codigoUsuario);
             int filasafectadas = DAOCASAREFUGIO.agregarCasaRefugio(dtocasarefugio);
             
-                String f1 = request.getParameter("URL_1");
-                String f2 = request.getParameter("URL_2");
-                String f3 = request.getParameter("URL_3");                
-                String f4 = request.getParameter("URL_4");   
+                String f1 = request.getParameter("URL_1C");
+                String f2 = request.getParameter("URL_2C");
+                String f3 = request.getParameter("URL_3C");                   
 
-                if(f1.equalsIgnoreCase("") && f2.equalsIgnoreCase("") && f3.equalsIgnoreCase("") && f4.equalsIgnoreCase("")){
-                f1 = "assets/images/animal-2029726_960_720.png";
-                filasafectadas+= DAOCASAREFUGIO.casaRefugioFotoAdd(f1);
+                if(f1.equalsIgnoreCase("") && f2.equalsIgnoreCase("") && f3.equalsIgnoreCase("")){
+                f1 = "assets/images/cr6.jpg";
+                filasafectadas = DAOCASAREFUGIO.casaRefugioFotoAdd(f1);
                 }else{
                 if(!f1.equals("")){
-                     String ff1 = request.getParameter("URL_1");
-                     filasafectadas+= DAOCASAREFUGIO.casaRefugioFotoAdd(ff1);
+                     String ff1 = request.getParameter("URL_1C");
+                     filasafectadas = DAOCASAREFUGIO.casaRefugioFotoAdd(ff1);
                 }
                 
                 if(!f2.equals("")){
-                     filasafectadas+= DAOCASAREFUGIO.casaRefugioFotoAdd(f2);
+                     filasafectadas = DAOCASAREFUGIO.casaRefugioFotoAdd(f2);
                 }
                 
                 if(!f3.equals("")){
-                     filasafectadas+= DAOCASAREFUGIO.casaRefugioFotoAdd(f3);
-                }
-                
-                if(!f4.equals("")){
-                     filasafectadas+= DAOCASAREFUGIO.casaRefugioFotoAdd(f4);
+                     filasafectadas = DAOCASAREFUGIO.casaRefugioFotoAdd(f3);
                 }
                 }
             

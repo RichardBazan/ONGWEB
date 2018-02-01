@@ -203,7 +203,7 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                      <thead>
                                          <tr class="odd gradeX">
-                                            <th>Codigo adopción</th>
+                                            <th>Codigo</th>
                                             <th>Fecha Solicitud</th>
                                             <th>Estado Adopción</th>
                                             <th>Usuario</th>
@@ -216,7 +216,7 @@
                                          <% DAO.DAOADOPCION  obj=new DAO.DAOADOPCION();
                                             for(DTO.DTOADOPCION x:obj.readAllPerrosAdoptados()){%>
                                             
-                                         <tr class="odd gradeX" onclick="popup('AdminAdoptadosActu.jsp?cod=<%=x.getCod_adop()%>&estado=<%=x.getEstado_adop()%>&codmascota=<%=x.getCod_mas()%>',760,550)" target="popup">
+                                         <tr class="odd gradeX" onclick="popup('AdminAdoptadosActu.jsp?cod=<%=x.getCod_adop()%>&estado=<%=x.getEstado_adop()%>&codmascota=<%=x.getCod_mascot()%>',760,550)" target="popup">
                                              <td><%=x.getCod_adop()%></td>
                                              <td><%=x.getFecha_solicitud()%></td>
                                              <td><%=x.getEstado_adop()%></td>

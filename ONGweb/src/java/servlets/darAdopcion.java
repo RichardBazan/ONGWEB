@@ -39,7 +39,6 @@ public class darAdopcion extends HttpServlet {
          DTO.DTODARADOPCION DTOADOP1=new DTO.DTODARADOPCION(); 
          DTO.DTODARADOPCION DTOADOP2=new DTO.DTODARADOPCION(); 
          DTO.DTODARADOPCION DTOADOP3=new DTO.DTODARADOPCION(); 
-         DTO.DTODARADOPCION DTOADOP4=new DTO.DTODARADOPCION(); 
        
           String pag ="registrarDarAdopcion.jsp";
        
@@ -77,7 +76,6 @@ public class darAdopcion extends HttpServlet {
                 String f1 = request.getParameter("URL1");
                 String f2 = request.getParameter("URL2");
                 String f3 = request.getParameter("URL3");                
-                String f4 = request.getParameter("URL4");   
 
                 
                 if(!f1.equals("")){ 
@@ -90,12 +88,7 @@ public class darAdopcion extends HttpServlet {
                 
                 if(!f3.equals("")){
                      DTOADOP3.setFoto(f3);
-                     res = DAOADOP.darAdopcionFotoAdd(DTOADOP3);}
-                
-                if(!f4.equals("")){
-                    
-                     DTOADOP4.setFoto(f4);
-                     res = DAOADOP.darAdopcionFotoAdd(DTOADOP4);}         
+                     res = DAOADOP.darAdopcionFotoAdd(DTOADOP3);}         
 
                 if(res==0){
                     ses.setAttribute("men",("No se registro con exito...Intentelo de nuevo!").toUpperCase());

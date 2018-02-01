@@ -54,11 +54,10 @@ public class denuncia extends HttpServlet {
                 
                 String f1 = request.getParameter("URL_1");
                 String f2 = request.getParameter("URL_2");
-                String f3 = request.getParameter("URL_3");                
-                String f4 = request.getParameter("URL_4");   
+                String f3 = request.getParameter("URL_3");                 
 
 
-                if(f1.equalsIgnoreCase("") && f2.equalsIgnoreCase("") && f3.equalsIgnoreCase("") && f4.equalsIgnoreCase("")){
+                if(f1.equalsIgnoreCase("") && f2.equalsIgnoreCase("") && f3.equalsIgnoreCase("")){
                 f1 = "assets/images/animal-2029726_960_720.png";
                 res = DAODEN.denunciaFotoAdd(f1);
                 }else{
@@ -72,9 +71,7 @@ public class denuncia extends HttpServlet {
                 
                 if(!f3.equals("")){
                      res = DAODEN.denunciaFotoAdd(f3);}
-                
-                if(!f4.equals("")){
-                     res = DAODEN.denunciaFotoAdd(f4);}}
+                }
                 
                 if(res == 0){
                    ses.setAttribute("men", ("No se registro con exito...Intenlo nuevamente").toUpperCase());

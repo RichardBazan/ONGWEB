@@ -204,11 +204,10 @@
                                          <tr class="odd gradeX">
                                             <th>Codigo</th>
                                             <th>Titulo</th>
-                                            <th>Dirección</th>
                                             <th>Teléfono</th>
                                             <th>Fecha registro</th>
-                                            <th>Estado</th>
                                             <th>Raza</th>
+                                            <th>Estado</th>
                                             <th>Usuario</th>
                                         </tr>
                                      </thead>
@@ -219,12 +218,11 @@
                                                 
                                             <tr class="odd gradeX" onclick="popup('AdminDenunciaActu.jsp?cod=<%=x.getCod_den()%>&estado_den=<%=x.getEstado_den()%>',760,550)" target="popup">
                                              <td><%=x.getCod_den()%></td>
-                                             <td><%=x.getTitulo_den()%></td>
-                                             <td><%=x.getDir_den()%></td>
+                                             <td><%=x.getTitulo_den().replace(" ","&nbsp;")%></td>
                                              <td><%=x.getTel_cont()%></td>
-                                             <td><%=x.getFecha_reg()%></td>
-                                             <td><%=x.getEstado_den()%></td>
-                                             <td><%=x.getNom_raza()%></td>
+                                             <td><%=x.getFecha_reg()%></td> 
+                                             <td><%=x.getNom_raza().replace(" ","&nbsp;")%></td>
+                                             <td><%=x.getEstado_den().replace(" ","&nbsp;")%></td>
                                              <td><%=x.getUsuario()%></td>
                                          </tr>
                                          <%}%> 

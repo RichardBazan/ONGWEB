@@ -266,28 +266,12 @@
                                             &nbsp;
                                             <button type="reset" class="btn btn-primary">Cancelar</button>
                                         </div>
-                                        
                                         <div class="form-group">      
-                                            <input type="hidden" id="URL_1" name="URL_1" size="100"  value ="">
-                                            <input type="hidden" id="URL_2" name="URL_2" size="100"  value ="">
-                                            <input type="hidden" id="URL_3" name="URL_3" size="100"  value ="">
-                                            <input type="hidden" id="URL_4" name="URL_4" size="100"  value ="">
-                                            <input type="hidden" id="delete" name="delete" size="100"  value ="imgdelete">
+                                <input type="hidden" id="URL_1"  name="URL_1C" size="100"  value ="">
+                                <input type="hidden" id="URL_2"  name="URL_2C" size="100"  value ="">
+                                <input type="hidden" id="URL_3"  name="URL_3C" size="100"  value ="">
+                                <input type="hidden" id="delete" name="delete" size="100"  value ="imgdelete">
                                         </div>
-                                        
-                                        <div class="form-group">      
-                                            <input type="hidden" id="URL_1" name="URL_1" size="100"  value ="">
-                                            <input type="hidden" id="URL_2" name="URL_2" size="100"  value ="">
-                                            <input type="hidden" id="URL_3" name="URL_3" size="100"  value ="">
-                                            <input type="hidden" id="URL_4" name="URL_4" size="100"  value ="">
-                                            <input type="hidden" id="delete" name="delete" size="100"  value ="imgdelete">
-                                        </div>
-                                        <div class="form-group">      
-                                <input type="hidden" id="URL_1" name="URL_1" size="100"  value ="">
-                                <input type="hidden" id="URL_2" name="URL_2" size="100"  value ="">
-                                <input type="hidden" id="URL_3" name="URL_3" size="100"  value ="">
-                                <input type="hidden" id="URL_4" name="URL_4" size="100"  value ="">
-                            </div>
                                     </form>
                                 </div>
                                 <div class="row text-center">
@@ -518,7 +502,7 @@
             }
         }
         
-         function eliminaFotos(id){       
+     function eliminaFotos(id){       
 	imagen = document.getElementById(id);
         document.getElementById(id).setAttribute('name',null);
 		padre = imagen.parentNode;

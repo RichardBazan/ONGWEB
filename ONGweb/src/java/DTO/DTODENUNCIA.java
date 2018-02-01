@@ -12,13 +12,11 @@ public class DTODENUNCIA extends DTORAZA{
         this.cod_den = cod_den;
     }
 
-    //int cod_den, String titulo_den, 
     //String dir_den, String tel_cont, String fecha_reg, String estado_den, int codigo, int cod_raza
 
-    public DTODENUNCIA(int cod_den, String titulo_den, String dir_den, String tel_cont, String fecha_reg, String estado_den, String nom_raza, String usuario) {
+    public DTODENUNCIA(int cod_den, String titulo_den, String tel_cont, String fecha_reg, String nom_raza,String estado_den,  String usuario) {
         super(nom_raza, usuario);
         this.titulo_den = titulo_den;
-        this.dir_den = dir_den;
         this.tel_cont = tel_cont;
         this.fecha_reg = fecha_reg;
         this.estado_den = estado_den;

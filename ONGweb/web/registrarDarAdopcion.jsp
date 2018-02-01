@@ -296,7 +296,6 @@
                                           <input type="hidden" id="URL1"   name="URL1"   size="100"  value ="">
                                           <input type="hidden" id="URL2"   name="URL2"   size="100"  value ="">
                                           <input type="hidden" id="URL3"   name="URL3"   size="100"  value ="">
-                                          <input type="hidden" id="URL4"   name="URL4"   size="100"  value ="">
                                           <input type="hidden" id="delete" name="delete" size="100"  value ="imgdelete">
                                       </div>
                      </form>
@@ -464,7 +463,9 @@
            swal("Falta descripción de la mascota","", "warning");
        }
            
-        if(edad1 > 20){
+        if(edad1 == ""){
+            swal("Falta edad de la mascota","", "warning"); 
+            if(edad1 > 20)
                swal("El año esta incorrecto","INGRESE EL AÑO CORRECTAMENTE.", "error"); 
         }else{
             prueba();
@@ -494,7 +495,7 @@
          swal("El año esta incorrecto","INGRESE EL AÑO CORRECTAMENTE.", "error"); 
         }
    } else {
-        swal("La mes esta incorrecto","INGRESE LA MES CORRECTAMENTE.", "error"); 
+       swal("El mes esta incorrecto","SI LA MASCOTA NO TIENE MESES INGRESAR EL NÚMERO 0.", "error"); 
     }
 }  
    

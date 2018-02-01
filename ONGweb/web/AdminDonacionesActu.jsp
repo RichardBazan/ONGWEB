@@ -63,7 +63,7 @@
                                              <td>
                                                  <select class="form-control" name="cboEstadoDonacion" id="cboEstadoDonacion">
                                                         <option value="#" disabled selected>:: Seleccionar ::</option>
-                                                        <option value="En Espera">En Espera</option>
+                                                        <option value="En espera">En espera</option>
                                                         <option value="Aceptada">Aceptada</option>
                                                         <option value="Rechazada">Rechazada</option>
                                                      </select>

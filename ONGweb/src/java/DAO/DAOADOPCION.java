@@ -212,11 +212,12 @@ public List<DTODARADOPCION> readAllAdoptados() throws SQLException {
          ResultSet res;
         
          try {
-            cst = Conexion.getConexion().prepareCall("select cod_adop,CAST(DAY(fecha_solic) as varchar) + '-' + CAST(MONTH(fecha_solic) as varchar) + '-' + CAST(YEAR(fecha_solic) as varchar) as fecha_solic, estado_adop,u.usuario,m.nom_mas from Adopcion a inner join Usuario u on u.cod_usu = a.cod_usu inner join Mascota m on m.cod_mas = a.cod_mas");
+            cst = Conexion.getConexion().prepareCall("select cod_adop,CAST(DAY(fecha_solic) as varchar) + '/' + CAST(MONTH(fecha_solic) as varchar) + '/' + CAST(YEAR(fecha_solic) as varchar) as fecha_solic, estado_adop,u.usuario,m.nom_mas,m.cod_mas from Adopcion a inner join Usuario u on u.cod_usu = a.cod_usu inner join Mascota m on m.cod_mas = a.cod_mas");
             res = cst.executeQuery();
             
             while(res.next()){
-               adoptados.add(new DTOADOPCION(res.getInt(1),res.getString(2), res.getString(3),res.getString(4),res.getString(5)));
+               adoptados.add(new DTOADOPCION(res.getInt(1),res.getString(2), res.getString(3),res.getString(4),res.getString(5),res.getInt(6)));
+               
             }
          } catch (SQLException ex) {
             Logger.getLogger(DAOADOPCION.class.getName()).log(Level.SEVERE, null, ex);

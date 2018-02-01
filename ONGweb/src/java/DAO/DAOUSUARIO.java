@@ -84,7 +84,7 @@ public class DAOUSUARIO {
          ResultSet res;
         
          try {
-            cst = Conexion.getConexion().prepareCall("select nom_usu, ape_pat, ape_mat, CAST(DAY(fecha_nac) as varchar) + '-' + CAST(MONTH(fecha_nac) as varchar) + '-' + CAST(YEAR(fecha_nac) as varchar) as fecha_nac,dir_usu,tel_usu,usuario,pertenencia,foto_usu from Usuario");
+            cst = Conexion.getConexion().prepareCall("select nom_usu, ape_pat, ape_mat, CAST(DAY(fecha_nac) as varchar) + '/' + CAST(MONTH(fecha_nac) as varchar) + '/' + CAST(YEAR(fecha_nac) as varchar) as fecha_nac,dir_usu,tel_usu,usuario,pertenencia,foto_usu from Usuario");
             res = cst.executeQuery();
             
             while(res.next()){

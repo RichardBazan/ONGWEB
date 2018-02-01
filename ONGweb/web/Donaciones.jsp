@@ -13,6 +13,9 @@
     <link href="assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
       <link href="assets/css/main-style.css" rel="stylesheet" />
+      <style>
+          .XD {width: 25%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #fff;background-image: none;border: 1px solid #ccc;-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;}.XD:focus {border-color: #66afe9;outline: 0;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);}.XD::-moz-placeholder {color: #999;opacity: 1;}.XD:-ms-input-placeholder {color: #999;}.XD::-webkit-input-placeholder {color: #999;}
+      </style>
 </head>
 
 <%!
@@ -232,7 +235,8 @@
                                         </div>
                                         <div class="form-group col-lg-12 text-center">
                                             PRODUCTO A DONAR: 
-                                            <select name="cbproductos" id="cbproductos">
+                                            <select name="cbproductos" id="cbproductos" class="XD">
+                                                <option selected disabled>Seleccionar</option>
                                                 <%
                                                 ResultSet rsProductos = DAOCASAREFUGIO.listarProductos();
                                                 while (rsProductos.next()){
@@ -243,7 +247,7 @@
                                                 %>
                                             </select>
                                             &nbsp;&nbsp;
-                                            CANTIDAD: <input type="number" min="1" name="txtcantidad" id="txtcantidad" value="1">
+                                            CANTIDAD: <input type="number" min="1" name="txtcantidad" id="txtcantidad" value="1" class="XD" onkeypress="return justNumbers(event)">
                                             &nbsp;&nbsp;
                                             <a style="cursor: pointer;"><img src="assets/images/botonAgregar.png" height="40" width="50" onclick="agregarFilaTablaTemporal()"></a>
                                         </div>
@@ -461,6 +465,14 @@
     function alertanot(msje){
         swal("¡ERROR!",msje,"error");
     }
+    
+    function justNumbers(e){
+        var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
+        return true;
+         
+        return /\d/.test(String.fromCharCode(keynum));
+        }
     </script>
 
 </body>

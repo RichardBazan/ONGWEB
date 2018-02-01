@@ -14,4 +14,19 @@ public class DAOVALIDA {
           }
         return new String(caracteres).replace(" ", "&nbsp");
     }
+      
+      
+       public String funcion_mes(int mes){
+        String mensaje;
+           if(mes > 1 ){
+           mensaje = "y " + String.valueOf(mes) + " meses";
+           }else{
+           mensaje = "y " + String.valueOf(mes) + " mes";
+           }
+           
+           if(mes == 0){
+               mensaje = "";
+           }
+        return mensaje;
+    }
 }

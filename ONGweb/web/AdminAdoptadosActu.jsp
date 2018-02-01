@@ -62,7 +62,7 @@
                                              <td>
                                                  <select class="form-control" name="cboEstadoAdoptado" id="cboEstadoAdoptado">
                                                         <option value="#" disabled selected>:: Seleccionar ::</option>
-                                                        <option value="En Espera">En Espera</option>
+                                                        <option value="En espera">En espera</option>
                                                         <option value="Confirmada">Confirmada</option>
                                                         <option value="Rechazada">Rechazada</option>
                                                         <option value="Cancelada">Cancelada</option>

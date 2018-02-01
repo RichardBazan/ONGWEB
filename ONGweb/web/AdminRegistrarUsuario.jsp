@@ -275,7 +275,7 @@ if (ses.getAttribute("datosUsuario")!=null){
                                             <div class="form-group">
                                                          <!-- PARA INPUT FILE -->             
                                             <input type="file" name="files[]" id="files" class="inputfile inputfile-4"/>
-                                            <label for="files"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge una foto&hellip;</span></label>
+                                            <label for="files"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Seleccionar imagen&hellip;</span></label>
                                             <!-- PARA INPUT FILE -->
                             </div>   
                                            
@@ -460,7 +460,7 @@ if (ses.getAttribute("datosUsuario")!=null){
     }
     
     function alertaok(msje){
-        swal("¡BIEN HECHO!",msje,"success");
+        swal("¡Usuario registrado correctamente!",msje,"success");
     }
     
     function alertanot(msje){
@@ -527,26 +527,69 @@ if (ses.getAttribute("datosUsuario")!=null){
         input.value = ''}
     
      function comprobarCampos(){
-        nombre = document.getElementById("txtnombres_usu");
-        apellidopat=document.getElementById("txtapellidopat_usu");
-        apellidomat=document.getElementById("txtapellidomat_usu");
-        fechanac=document.getElementById("datefechanacimiento_usu");
-        direccion=document.getElementById("txtdireccion_usu");
-        telefono=document.getElementById("teltelefono_usu");
-        usuario=document.getElementById("txtusuario_usu");
-        foto = document.getElementById("files");
+        var nombre = document.getElementById("txtnombres_usu").value;
+        var apellidopat=document.getElementById("txtapellidopat_usu").value;
+        var apellidomat=document.getElementById("txtapellidomat_usu").value;
+        var fechanac=document.getElementById("datefechanacimiento_usu").value;
+        var direccion=document.getElementById("txtdireccion_usu").value;
+        var telefono=document.getElementById("teltelefono_usu").value;
+        var usuario=document.getElementById("txtusuario_usu").value;
+        var pwd1 = document.getElementById("passwordcontraseña1_usu").value;
+        var pwd2 = document.getElementById("passwordcontraseña2_usu").value;
+        var foto = document.getElementById("files").value;
         
-        if(apellidopat.value.length===0 || apellidomat.value.length===0 || fechanac.value.length===0 || direccion.value.length===0 || telefono.value.length===0 || usuario.value.length===0 || foto.value.length===0){
-           alertanot("COMPLETE TODOS LOS CAMPOS. TODOS SON NECESARIOS.");
+        if(foto.length == 0 || apellidopat == "" || apellidomat == "" || fechanac.length == 0 || direccion == "" || telefono == "" || usuario == "" || pwd1 == "" || pwd2 == ""){
+         if(foto.length == 0){
+             swal("Falta seleccionar foto","SELECCIONE UNA IMAGEN.", "warning"); 
+         }
+         
+         if(pwd2 == ""){
+             swal("Falta ingresar contraseña de confirmación","", "warning"); 
+         }
+            
+         if(pwd1 == ""){
+             swal("Falta ingresar contraseña","", "warning"); 
+         }
+            
+            if(usuario == ""){
+           swal("Falta ingresar su nombre de usuario","", "warning");
+         }
+            
+            if(telefono == ""){
+           swal("Falta ingresar teléfono","", "warning");
+         }else{
+            if(telefono.length<9 || telefono.length>9){
+            swal("El número de contacto debe tener 9 digitos","INGRESE CORRECTAMENTE EL NÚMERO DE CONTACTO." ,"error");
+            telefono.focus();
+            return (false);
+         }}
+       
+         if(direccion==""){
+           swal("Falta ingresar dirección","", "warning");
+       
+         }
+       
+         if(fechanac.length == 0){
+           swal("Falta fecha de nacimiento","", "warning");
+         }
+       
+         if(apellidomat==""){
+          swal("Falta ingresar apellido materno","", "warning");
+         }
+       
+         if(apellidopat == ""){
+          swal("Falta ingresar apellido paterno","", "warning");
+          }
+       
+         if(nombre == ""){
+           swal("Falta ingresar sus nombres","", "warning");
            nombre.focus();
            return (false);
-        }
-        if(telefono.value.length<9 || telefono.value.length>9){
-           alertanot("EL NÚMERO DE CONTACTO DEBE TENER 9 DIGITOS COMO EN EL EJM.");
-           telefono.focus();
-           return (false);
-        }
-        comprobarClave();
+           
+         }
+     }else{
+         comprobarClave();  
+     }
     }
      
     function comprobarClave(){ 
@@ -555,11 +598,11 @@ if (ses.getAttribute("datosUsuario")!=null){
         botonregistrar = document.getElementById("btnRegistrar");
         formularioregistrarse = document.getElementById("formRegistrarseUsu");
         if (clave1.value.length<6){
-        alertanot("LA CONTRASEÑA DEBE CONTENER AL MENOS 6 DÍGITOS.");
+        swal("La contraseña debe contener al menos 6 dígitos","INGRESE CONTRASEÑA CORRECTAMENTE.","error");
         return (false);
         }
    	if (clave1.value !== clave2.value){ 
-      	alertanot("LAS CONTRASEÑAS NO COINCIDEN.");
+      	swal("Las contraseñas no coinciden","INGRESE CONTRASEÑAS CORRECTAMENTE","error");
         clave1.focus();
         return (false);
         }

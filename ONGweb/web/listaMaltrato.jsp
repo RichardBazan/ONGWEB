@@ -225,7 +225,7 @@
                                                 
                                         <tr class="odd gradeX">
                                             
-                                            <td><h2><b><center><%=x.getTitulo_den()%></center></b></h2><center><img src="<%=y.getFoto_den()%>" width="180" height="154"></center></td>
+                                            <td><h4><b><center><%=x.getTitulo_den()%></center></b></h4><center><img src="<%=y.getFoto_den()%>" width="180" height="154"></center></td>
                                
                                              <td width="500" onClick="CrearEnlace('detalleMaltrato.jsp?cod_den=<%=x.getCod_den()%>')" title="Ver más&hellip;"><br><br><br><%=descrip_den%></td>
                                             

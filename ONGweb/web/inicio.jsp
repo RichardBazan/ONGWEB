@@ -24,7 +24,9 @@
 		<!-- remove this if you use Modernizr -->
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
     <!-- /PARA INPUT FILE -->     
-    <style>.thumb {width: 380px; border: 1px solid #000;margin: 10px 5px 0 0;}</style>
+    <style>.thumb {width: 380px; border: 1px solid #000;margin: 10px 5px 0 0;}
+    .XD {width: 25%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #fff;background-image: none;border: 1px solid #ccc;-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;}.XD:focus {border-color: #66afe9;outline: 0;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);}.XD::-moz-placeholder {color: #999;opacity: 1;}.XD:-ms-input-placeholder {color: #999;}.XD::-webkit-input-placeholder {color: #999;}    
+    </style>
    </head>
    
    <%!
@@ -309,7 +311,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="alert alert-success text-center">
+                    <div class="alert alert-success text-center" style="height: 96px;">
                         <i class="fa fa-3x"><img src="assets/images/pataperro.png" width="50" height="40"></i>&nbsp;<b><%=cantidadAdoptadosTotal%> </b>
                         <%
                         if (cantidadAdoptadosTotal==1){
@@ -344,7 +346,7 @@
                 </div>
                         
                 <div class="col-lg-3">
-                    <div class="alert alert-warning text-center">
+                    <div class="alert alert-warning text-center" style="height: 96px;">
                         <i class="fa fa-3x"><img src="assets/images/denuncia.png" width="50" height="40"></i>&nbsp;<b><%=cantidadDenunciasTotal%> </b>
                         
                         <%
@@ -385,7 +387,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="alert alert-success text-center">
+                    <div class="alert alert-success text-center" style="height: 96px;">
                         <i class="fa fa-3x"><img src="assets/images/pataperro.png" width="50" height="40"></i>&nbsp;<b><%=cantidadAdoptados%> </b>
                         <%
                         if (cantidadAdoptados==1){
@@ -420,7 +422,7 @@
                 </div>
                         
                 <div class="col-lg-3">
-                    <div class="alert alert-warning text-center">
+                    <div class="alert alert-warning text-center" style="height: 96px;">
                         <i class="fa fa-3x"><img src="assets/images/denuncia.png" width="50" height="40"></i>&nbsp;<b><%=cantidadDenuncias%> </b>
                         
                         <%
@@ -460,8 +462,8 @@
                                                     <td style="width: 187px">
                                                             <!-- PARA INPUT FILE -->
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                            <input type="file" name="files[]" id="files" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple onclick="activar2();"/>
-                                                            <label for="files"> <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><span>Escoge un archivo&hellip;</span></label>
+                                                            <input type="file" name="files[]" id="files" class="inputfile inputfile-4" data-multiple-caption="{count} Fotos seleccionadas" multiple onclick="activar2();"/>
+                                                            <label for="files"><figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure><strong>Seleccionar imagen</strong><label>&hellip;</label>
                                                             <!-- PARA INPUT FILE -->
                                                     </td>
                                                     <td>
@@ -474,75 +476,69 @@
                                                         &nbsp;
                                                     </div>
                                                     
-                                                    <div class="col-lg-12">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <b>Nombre(s):  </b> 
-                                        <input type="text" id="txtNombres" name="txtNombres" disabled value="<%=nombreUsuario%>">
+                                        <div class="col-lg-12">
+                                        <div class="form-group">
+                                        <label>Nombre(s) :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                                        <input type="text" class="XD" id="txtNombres" name="txtNombres" disabled value="<%=nombreUsuario%>">
                                         &nbsp;
                                         <a onclick="activar('txtNombres')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
-                                        <br>
-                                        <br>
+                                        </div>
                                         </div>
                                         
                                         <div class="col-lg-12">
-                                        &nbsp;
-                                        <b>Apellido Paterno:  </b> 
-                                        <input type="text" id="txtApellidoPat" name="txtApellidoPat" disabled value="<%=apellidoPat%>">
+                                        <div class="form-group">
+                                        <label>Apellido Paterno :</label>&nbsp;&nbsp;
+                                        <input type="text" class="XD" id="txtApellidoPat" name="txtApellidoPat" disabled value="<%=apellidoPat%>">
                                         &nbsp;
                                         <a onclick="activar('txtApellidoPat')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
-                                        <br>
-                                        <br>
+                                        </div>
                                         </div>
                                         
                                         <div class="col-lg-12">
-                                            &nbsp;
-                                        <b>Apellido Materno:  </b> 
-                                        <input type="text" id="txtApellidoMat" name="txtApellidoMat" disabled value="<%=apellidoMat%>">
+                                        <div class="form-group">
+                                        <label>Apellido Materno :</label>&nbsp; 
+                                        <input type="text" class="XD" id="txtApellidoMat" name="txtApellidoMat" disabled value="<%=apellidoMat%>">
                                         &nbsp;
                                         <a onclick="activar('txtApellidoMat')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
-                                        <br>
-                                        <br>
+                                        </div>
                                         </div>
                                         
                                         <div class="col-lg-12">
-                                        <b>Fecha Nacimiento: </b>
-                                        <input type="text" name="dateFechaNacimiento" id="dateFechaNacimiento" disabled value="<%=fechaNacimiento%>">
+                                        <div class="form-group">
+                                        <label>Fecha Nacimiento :</label>
+                                        <input type="text" class="XD" name="dateFechaNacimiento" id="dateFechaNacimiento" disabled value="<%=fechaNacimiento%>">
                                         &nbsp;&nbsp;
                                         <a onclick="activar('dateFechaNacimiento')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
-                                        <br>
-                                        <br>
+                                        </div>
                                         </div>
                                         
                                         <div class="col-lg-12">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <b>Dirección:  </b>
-                                            <input type="text" id="txtDireccion" name="txtDireccion" disabled value="<%=direccion%>">
+                                        <div class="form-group">
+                                            <label>Dirección :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <input type="text" class="XD" id="txtDireccion" name="txtDireccion" disabled value="<%=direccion%>">
                                             &nbsp;&nbsp;
                                         <a onclick="activar('txtDireccion')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
-                                        <br>
-                                        <br>
+                                        </div>
                                         </div>
                                         
                                         <div class="col-lg-12">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <b>Teléfono:  </b>
-                                        <input type="text" id="txtTelefono" name="txtTelefono" disabled value="<%=telefono%>">
+                                        <div class="form-group">
+                                        <label>Teléfono :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="text" class="XD" id="txtTelefono" name="txtTelefono" disabled value="<%=telefono%>">
                                         &nbsp;&nbsp;
                                         <a onclick="activar('txtTelefono')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
-                                        <br>
-                                        <br>
+                                        </div>
                                         </div>
                                         <div class="col-lg-12">
-                                            <input type="button" class="btn-primary" name="btnGuardarCambios" value="GUARDAR CAMBIOS" id="btnGuardarCambios" disabled title="No se han realizado cambios. BOTÓN DESACTIVADO." style="cursor: text" onclick="guardarCambios()">
+                                            <input type="button" class="btn btn-primary" name="btnGuardarCambios" value="Guardar cambios" id="btnGuardarCambios" disabled title="No se han realizado cambios. BOTÓN DESACTIVADO." style="cursor: text" onclick="guardarCambios()">
                                             &nbsp;
-                                            <button type="button" class="btn-primary" name="btnCancelar" id="btnCancelar" disabled title="No se han realizado cambios. BOTÓN DESACTIVADO." style="cursor: text">CANCELAR</button>                                            
+                                            <button type="button" class="btn btn-primary" name="btnCancelar" id="btnCancelar" disabled title="No se han realizado cambios. BOTÓN DESACTIVADO." style="cursor: text">Cancelar</button>                                            
                                         </div>
                                         
                                          <div class="col-lg-12">      
                                             <input type="hidden" id="URL_1" name="URL_1" size="100"  value ="">
                                             <input type="hidden" id="URL_2" name="URL_2" size="100"  value ="">
                                             <input type="hidden" id="URL_3" name="URL_3" size="100"  value ="">
-                                            <input type="hidden" id="URL_4" name="URL_4" size="100"  value ="">
                                         </div>    
                                     </div>
                                     </div>
