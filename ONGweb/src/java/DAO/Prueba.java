@@ -7,8 +7,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class Prueba {
     public static void main(String[] args) {
   
-//        Conexion.getConexion();
-;
+    Conexion.getConexion();
+/*
         
         try {
              ResultSet rs = DAOADOPCION.cantidadPerrosDadosenAdopcionPor(2);
@@ -18,7 +18,7 @@ public class Prueba {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-        
+  */      
         
         //DAOCASAREFUGIO.agregarDetalleDonacion(4,1,100);
         

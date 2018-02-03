@@ -226,6 +226,14 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
+                                    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                        <input type="hidden" name="cmd" value="_s-xclick">
+                                        <input type="hidden" name="hosted_button_id" value="SULTFAYF4CY5J">
+                                        <input type="image" src="https://www.sandbox.paypal.com/es_ES/ES/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal, la forma rápida y segura de pagar en Internet.">
+                                        <img alt="" border="0" src="https://www.sandbox.paypal.com/es_ES/i/scr/pixel.gif" width="1" height="1">
+                                    </form>
+
+
                                     <form method="post" action="SERDONACION" name="formDonacion" id="formDonacion">
                                         <input name="txtcantfilas" id="txtcantfilas" type="hidden">
                                         <input name="txtcodusuario" id="txtcodusuario" type="hidden" value="<%=codigoUsuario%>">
@@ -233,6 +241,8 @@
                                         <div class="form-group col-lg-12 text-center">
                                             <h2><%=nombreCasa%></h2>    
                                         </div>
+                                        
+
                                         <div class="form-group col-lg-12 text-center">
                                             PRODUCTO A DONAR: 
                                             <select name="cbproductos" id="cbproductos" class="XD">
