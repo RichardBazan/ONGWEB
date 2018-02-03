@@ -289,4 +289,27 @@ public List<DTODARADOPCION> readAllAdoptados() throws SQLException {
         }
         return rs;
     }
+    
+     public List<DTOREPORTEMASCOTA> list_meses_x_año(int año) throws SQLException{
+           List<DTOREPORTEMASCOTA> list=new ArrayList();   
+           PreparedStatement pst; 
+       
+         try{
+             pst = Conexion.getConexion().prepareStatement("{call buscar_x_año(?)}");
+    
+             pst.setInt(1, año);
+            
+            ResultSet  res=pst.executeQuery();
+             while(res.next()){
+               DTOREPORTEMASCOTA obj=new DTOREPORTEMASCOTA(res.getString(1));
+          list.add(obj);        
+      }
+         }catch(SQLException ex){
+             Logger.getLogger(DAOADOPCION.class.getName()).log(Level.SEVERE, null, ex);
+         }finally{
+             Conexion.getConexion().close();
+         }
+         
+         return list;
+     } 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="no-js">
 
 <head>
     <meta charset="utf-8">
@@ -11,13 +11,27 @@
     <link href="assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/main-style.css" rel="stylesheet" />
-
-    <!-- Page-Level CSS -->
-    <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <!-- PARA INPUT FILE -->
+    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/component.css" />
+    <link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
+	
+		<!-- remove this if you use Modernizr -->
+		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
+    <!-- /PARA INPUT FILE -->     
+                <style>.contenedor {position: relative;height: 125px;width: 220px;margin: 50px 20px;float: left;margin: 10px 5px 0 0;}
+                       .contenedor img {position: absolute;left: 0;transition: opacity 0.5s ease-in-out;}
+                       .contenedor img.top:hover {opacity: 0.50;}
+                       .XD {width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #fff;background-image: none;border: 1px solid #ccc;-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;}.XD:focus {border-color: #66afe9;outline: 0;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);}.XD::-moz-placeholder {color: #999;opacity: 1;}.XD:-ms-input-placeholder {color: #999;}.XD::-webkit-input-placeholder {color: #999;}
+                </style>   
 </head>
 
 <%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",fotoUsuario="";
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",pertenenciaUsuario="",fotoUsuario="";
    %>
 
 <%
@@ -28,11 +42,31 @@
          primeraLetraApellidoPat = datosUsuario[1];
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
+         pertenenciaUsuario=datosUsuario[9];
          fotoUsuario=datosUsuario[10];
      }
+    
+      if(ses.getAttribute("men")!=null){
+          String msje = ses.getAttribute("men").toString();
+          
+          if (msje.substring(0,1).equalsIgnoreCase("N")){
+          %>
+            <body onload="alertanot('<%=msje%>')">
+                <%
+        }else{
+            %>
+            <body onload="alertaok('<%=msje%>')">
+                <%
+        }
+    }else{
+        %>
+        <body>
+            <%
+      }
+            ses.setAttribute("men",null);
 %>
-
-<body>
+        <body>
+    
     <!--  wrapper -->
     <div id="wrapper" style="background: #115C9B">
         <!-- navbar top -->
@@ -45,13 +79,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <div class="ex1"></div>
                 &nbsp;&nbsp;<a href="inicio.jsp"><img src="assets/images/logooficial2.png" width="180" height="60" alt=""></a>
             </div>
             <!-- end navbar-header -->
             <!-- navbar-top-links -->
             <ul class="nav navbar-top-links navbar-right">
                 <!-- main dropdown -->
-                
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-3x"></i>
@@ -76,7 +110,7 @@
         <!-- navbar side -->
         <nav class="navbar-default navbar-static-side" role="navigation">
             <!-- sidebar-collapse -->
-            <div class="sidebar-collapse">
+            <div class="sidebar-collapse" >
                 <!-- side-menu -->
                 <ul class="nav" id="side-menu" style="background: #1F76BD">
                     <li>
@@ -98,10 +132,10 @@
                     <li>
                        
                     </li>
-                        <li>
+                    <li>
                         <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>&nbsp;PRINCIPAL</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="#"><i class="fa fa-edit fa-fw"></i>ADOPCIÓN<span class="fa arrow"></span></a> 
                         <ul class="nav nav-second-level">
                             <li>
@@ -143,9 +177,9 @@
                         </ul>
                             </li>     
                             <%
-                            if (Integer.parseInt(codigoUsuario)<4){
+                            if (pertenenciaUsuario.equalsIgnoreCase("ONG")){
                                 %>
-                                <li class="active">
+                                <li>
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i>ADMINISTRADOR<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                         <li>
@@ -160,7 +194,7 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
-                                        <li class="selected">
+                                        <li>
                                             <a href="listaAdminDonacion.jsp">Donaciones</a>
                                         </li>
                                         <li>
@@ -168,10 +202,10 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
+                               <li>
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i>REPORTES<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
-                                        <li>
+                                        <li class="selected">
                                             <a href="reporteMascota.jsp">Mascotas</a>
                                         </li>
                                         <li>
@@ -204,79 +238,59 @@
         <!--  page-wrapper -->
         <div id="page-wrapper">
 
-            
             <div class="row">
-                 <!--  page header -->
+                <!-- Page Header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Lista de Adopciones</h1>
+                    <h1 class="page-header">Reporte Mascotas</h1>
                 </div>
-                 <!-- end  page header -->
+                <!--End Page Header -->
             </div>
-            <div class="row">
+
+              <div class="row">
                 <div class="col-lg-12">
-                    <!-- Advanced Tables -->
+                    <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Registros de Adopciones
+                            Reporte de Mascotas
                         </div>
                         <div class="panel-body">
-                            <div class="table-responsive">
-                                <form name="frmlistaAdminAdoptado" method="POST">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                     <thead>
-                                         <tr class="odd gradeX">
-                                            <th>Codigo</th>
-                                            <th>Usuario</th>
-                                            <th>Casa Refugio</th>
-                                            <th>Estado</th>
-                                        </tr>
-                                     </thead>
-                                     
-                                     <tbody>
-                                         
-                                         <% DAO.DAODONACIONES  obj=new DAO.DAODONACIONES();
-                                            for(DTO.DTODONACIONES x:obj.readAllDonaciones()){%>
-                                            
-                                         <tr class="odd gradeX" onclick="popup('AdminDonacionesActu.jsp?codigo_donacion=<%=x.getCod_donacion()%>&estado=<%=x.getEstado_donacion()%>',760,550)" target="popup">
-                                             <td><%=x.getCod_donacion()%></td>
-                                             <td><%=x.getUsuario()%></td>
-                                             <td><%=x.getNombre()%></td>
-                                             <td><%=x.getEstado_donacion()%></td>
-                                             <%}%> 
-                                         </tr>
-                                     </tbody>
-                                </table>
-                             </form>
-                            </div> 
+                            <div class="row">
+                                <div class="col-lg-6" >
+                                  
+                                    <form role="form" name="frmReporteMascota" id="frmReporteMascota" method="POST" action="">
+                                        <input type="hidden" name="cod_usu" value="<%=codigoUsuario%>"/>
+                                        <iframe  src="reporteMascotaPHP.jsp" style="height: 700px; width:1000px"></iframe>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
+                        
                     </div>
-                    <!--End Advanced Tables -->
+                     <!-- End Form Elements -->
                 </div>
             </div>
         </div>
+        <!-- end page-wrapper -->
     </div>
+    <!-- end wrapper -->
     <!-- Core Scripts - Include with every page -->
+    <!-- PARA INPUT FILE -->
+    <script src="assets/js/custom-file-input.js"></script>
+    <!-- /PARA INPUT FILE -->
     <script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
-    <!-- Page-Level Plugin Scripts-->
-    <script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#dataTables-example').dataTable();
-        });     
-        
-          function popup(url,ancho,alto){ 
-                var posicion_x; 
-                var posicion_y; 
-                    posicion_x=(screen.width/2)-(ancho/2);     
-                    posicion_y=(screen.height/2.2)-(alto/2); 
-                    window.open(url, "AdminAdoptadosActu.jsp", "width="+ancho+",height="+alto+",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left="+posicion_x+",top="+posicion_y+"");
-}
-    </script>
-
+  
+</script>
 </body>
 </html>
+
+
+
+
+        
+

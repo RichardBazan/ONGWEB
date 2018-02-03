@@ -7,17 +7,17 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class Prueba {
     public static void main(String[] args) {
   
-//        Conexion.getConexion();
-;
-        
-        try {
-             ResultSet rs = DAOADOPCION.cantidadPerrosDadosenAdopcionPor(2);
-            if (rs.next()){
-                System.out.println(rs.getString(1));
-            }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
+        Conexion.getConexion();
+//;
+//        
+//        try {
+//             ResultSet rs = DAOADOPCION.cantidadPerrosDadosenAdopcionPor(2);
+//            if (rs.next()){
+//                System.out.println(rs.getString(1));
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e.toString());
+//        }
         
         
         //DAOCASAREFUGIO.agregarDetalleDonacion(4,1,100);

@@ -195,6 +195,29 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i>REPORTES<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="reporteMascota.jsp">Mascotas</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteAdopcion.jsp">Adopciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteCasaRefugio.jsp">Casas refugio</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteDenuncia.jsp">Denuncias de casos de maltrato</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteDonaciones.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteUsuarios.jsp">Usuarios</a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <%
                             }
                                 %>
@@ -236,7 +259,7 @@
                                         <div class="form-group col-lg-12 text-center">
                                             PRODUCTO A DONAR: 
                                             <select name="cbproductos" id="cbproductos" class="XD">
-                                                <option selected disabled>Seleccionar</option>
+                                                <option value="#" selected disabled>Seleccionar</option>
                                                 <%
                                                 ResultSet rsProductos = DAOCASAREFUGIO.listarProductos();
                                                 while (rsProductos.next()){
@@ -249,7 +272,7 @@
                                             &nbsp;&nbsp;
                                             CANTIDAD: <input type="number" min="1" name="txtcantidad" id="txtcantidad" value="1" class="XD" onkeypress="return justNumbers(event)">
                                             &nbsp;&nbsp;
-                                            <a style="cursor: pointer;"><img src="assets/images/botonAgregar.png" height="40" width="50" onclick="agregarFilaTablaTemporal()"></a>
+                                            <a style="cursor: pointer;" onclick="valid()"><img src="assets/images/botonAgregar.png" height="40" width="50"></a>
                                         </div>
                                             <div class="col-lg-3">
                                                 
@@ -322,6 +345,15 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
     <script type="text/javascript">
+        function valid(){
+            var combo = document.getElementById("cbproductos").value;
+            if(combo =="#"){
+                swal("Falta seleccionar un producto","SELECCIONE UN PRODUCTO POR FAVOR.","warning");
+            }else{
+                agregarFilaTablaTemporal();
+            }
+        }
+        
         function analizarFilaNueva(){
             
         var tablaDonacionTemp = document.getElementById("tablaTemporal");
@@ -382,6 +414,7 @@
               var btneliminar = document.createElement("INPUT");
               btneliminar.setAttribute("type","button");
               btneliminar.setAttribute("value","ELIMINAR"); 
+              btneliminar.setAttribute("class","btn btn-primary"); 
               btneliminar.setAttribute("name","btneliminar"+aux.toString());
               btneliminar.setAttribute("id","btneliminar"+aux.toString());
               btneliminar.setAttribute("onclick","eliminarFilaTablaProductos(" + aux.toString() + ")");

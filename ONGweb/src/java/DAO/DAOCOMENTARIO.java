@@ -1,6 +1,7 @@
 package DAO;
 
 import DTO.DTOCOMENTARIO;
+import DTO.DTODETALLECOMENTARIO;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,5 +51,28 @@ public class DAOCOMENTARIO {
          }finally{
           Conexion.getConexion().close();
          }
+     }
+     
+     public List<DTODETALLECOMENTARIO> contarComentario(int cod_den) throws SQLException {
+         CallableStatement cst;
+         List<DTODETALLECOMENTARIO> comentario = new ArrayList<>();
+         ResultSet res;
+        
+         try {
+            cst = Conexion.getConexion().prepareCall("{call sp_cont_coment(?)}");
+            
+            cst.setInt(1, cod_den);
+            res = cst.executeQuery();
+            
+            while(res.next()){
+                  comentario.add(new DTODETALLECOMENTARIO(res.getInt(1)));
+            }
+
+         } catch (SQLException ex) {
+            Logger.getLogger(DAOCOMENTARIO.class.getName()).log(Level.SEVERE, null, ex);
+         }finally{
+             Conexion.getConexion().close();
+         }
+         return comentario;
      }
 }

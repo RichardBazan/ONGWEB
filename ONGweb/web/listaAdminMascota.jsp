@@ -169,6 +169,29 @@
                                         </li>
                                     </ul>
                                 </li>
+                                 <li class="active">
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i>REPORTES<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="reporteMascota.jsp">Mascotas</a>
+                                        </li>
+                                        <li>
+                                            <a href="listaAdminAdoptados.jsp">Adopciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="listaAdminCasaRefugio.jsp">Casas refugio</a>
+                                        </li>
+                                        <li>
+                                            <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
+                                        </li>
+                                        <li>
+                                            <a href="listaAdminDonacion.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="AdminRegistrarUsuario.jsp">Registro de Colaboradores</a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <%
                             }
                                 %>
@@ -199,7 +222,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <form name="frmlistaMascota" method="POST">
+                                <form name="frmlistaMascota" method="POST" iframe src="http://localhost:85/Project1/lista.php">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                      <thead>
                                          <tr class="odd gradeX">

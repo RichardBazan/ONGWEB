@@ -195,6 +195,29 @@ if(ses.getAttribute("men")!=null){
                                         </li>
                                     </ul>
                                 </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i>REPORTES<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="reporteMascota.jsp">Mascotas</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteAdopcion.jsp">Adopciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteCasaRefugio.jsp">Casas refugio</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteDenuncia.jsp">Denuncias de casos de maltrato</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteDonaciones.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteUsuarios.jsp">Usuarios</a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <%
                             }
                                 %>
@@ -281,7 +304,6 @@ if(ses.getAttribute("men")!=null){
                                 <input type="hidden" id="URL_1" name="URL_1"   size="100"  value ="">
                                 <input type="hidden" id="URL_2" name="URL_2"   size="100"  value ="">
                                 <input type="hidden" id="URL_3" name="URL_3"   size="100"  value ="">
-                                <input type="hidden" id="URL_4" name="URL_4"   size="100"  value ="">
                                 <input type="hidden" id="delete" name="delete" size="100"  value ="imgdelete">
                             </div>
                                             

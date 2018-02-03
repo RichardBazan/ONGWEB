@@ -14,7 +14,15 @@
 
     <!-- Page-Level CSS -->
     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
-
+<script>
+function tablas(){
+    /*  var nFilas = $("#mi-tabla tr").length;
+      var nColumnas = $("#mi-tabla tr:last td").length;
+      var msg = "Filas: "+nFilas+" - Columnas: "+nColumnas;
+      alert(msg);
+*/
+}
+</script>
 </head>
 
 <%!
@@ -34,7 +42,7 @@
      }
 %>
 
-<body>
+<body onload="tablas();">
     <!--  wrapper -->
     <div id="wrapper" style="background: #115C9B">
         <!-- navbar top -->
@@ -169,6 +177,29 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i>REPORTES<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="reporteMascota.jsp">Mascotas</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteAdopcion.jsp">Adopciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteCasaRefugio.jsp">Casas refugio</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteDenuncia.jsp">Denuncias de casos de maltrato</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteDonaciones.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteUsuarios.jsp">Usuarios</a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <%
                             }
                                 %>
@@ -202,31 +233,42 @@
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <%int codDen  = Integer.parseInt(request.getParameter("cod_den"));
-                                  DAO.DAOCOMENTARIO obj=new DAO.DAOCOMENTARIO();%>
-                                  
-                                <form name="frmlistaDenuncia" method="POST" action="comentario">
+                                  DAO.DAOCOMENTARIO obj=new DAO.DAOCOMENTARIO();
+                                  for(DTO.DTODETALLECOMENTARIO y:obj.contarComentario(codDen)){%>
+                                  <form name="frmlistaDenuncia" id="frmlistaDenuncia" method="POST" action="comentario">
                                 <table class="table table-striped table-bordered table-hover">
                                    
                                     <td><center>
-                                    <textarea class="form-control" name="comentario" placeholder="Escribir comentario" rows="5" cols="25" maxlength="330" style="width: 500px"></textarea><br>
-                                    <button type="submit" class="btn btn-primary">Comentar</button>
+                                    <textarea class="form-control" name="comentario" placeholder="Escribir comentario" rows="5" cols="25" maxlength="330" id="comentarioReg"  style="width: 500px"></textarea><br>
+                                    <button type="button" class="btn btn-primary" onclick="valid()" >Comentar</button>
                                     <input type="hidden" name="codigo" value="<%=codDen%>">
                                     <input type="hidden" name="cod_user" value="<%=codigoUsuario%>">
                                     </center></td>
+                                    
                                 </table>
+                                    <%String msj;
+                                    if(y.getCant_coment() == 1){
+                                        msj=" comentario";
+                                    }else{
+                                        msj=" comentarios";
+                                    }
+                                    %>
+                                    <label><%=y.getCant_coment()+msj%></label>
+                                  <%}%>
                                 </form>
                                  
-                                <form name="frmlistaDenuncia" method="POST">   
-                                <table class="table table-striped table-bordered table-hover">
+                                <form name="frmlistaDenuncia2" method="POST">   
+                                <table class="table table-striped table-bordered table-hover" id="mi-tabla">
                                     <tbody>
                                         <tr class="odd gradeX">
-                                        <%for(DTO.DTOCOMENTARIO x:obj.buscaComentario(codDen)){%>
+                                        <%for(DTO.DTOCOMENTARIO x:obj.buscaComentario(codDen)){%>    
+                                                                        
                                           <input type="hidden" name="cod_denun" value="<%=codDen%>">
                                           <td width="200"><h3><b><%=x.getUsuario()%></b></h3></td>
                                           </tr>  
                                           <tr class="odd gradeX">
                                           <td><%=x.getComentario()%></td>
-                                          </tr><%}%> 
+                                          </tr><%}%>  
                                      </tbody>
                                 </table>
                              </form>
@@ -238,6 +280,18 @@
             </div>
         </div>
     </div>
+    <script>    
+    function valid(){
+                  coment = document.getElementById("comentarioReg").value;
+                  if(coment == ""){
+                      swal("Ingrese comentario","NO HA INGRESADO NINGUN COMENTARIO.","warning");
+                  }else{
+                     document.frmlistaDenuncia.submit();
+                  }
+               }                          
+    
+    </script>                                     
+                                     
     <!-- Core Scripts - Include with every page -->
     <script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
@@ -247,6 +301,7 @@
     <!-- Page-Level Plugin Scripts-->
     <script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#dataTables-example').dataTable();
