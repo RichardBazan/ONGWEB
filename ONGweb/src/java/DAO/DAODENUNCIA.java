@@ -172,7 +172,7 @@ public class DAODENUNCIA {
          ResultSet res;
         
          try {
-            cst = Conexion.getConexion().prepareCall("select cod_den,titulo_den,tel_cont,CAST(DAY(fecha_reg) as varchar) + '/' + CAST(MONTH(fecha_reg) as varchar) + '/' + CAST(YEAR(fecha_reg) as varchar) as fecha_reg ,r.nom_raza ,estado_den,u.usuario from Denuncia d inner join Usuario u on u.cod_usu = d.cod_usu inner join Raza r on r.cod_raza = d.cod_raza");
+            cst = Conexion.getConexion().prepareCall("select cod_den,titulo_den,tel_cont,CAST(DAY(d.fecha_reg) as varchar) + '/' + CAST(MONTH(d.fecha_reg) as varchar) + '/' + CAST(YEAR(d.fecha_reg) as varchar) as fecha_reg ,r.nom_raza ,estado_den,u.usuario from Denuncia d inner join Usuario u on u.cod_usu = d.cod_usu inner join Raza r on r.cod_raza = d.cod_raza");
             res = cst.executeQuery();
             
             while(res.next()){

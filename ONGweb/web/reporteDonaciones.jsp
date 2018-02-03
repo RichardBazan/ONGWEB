@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="no-js">
 
 <head>
     <meta charset="utf-8">
@@ -11,25 +11,53 @@
     <link href="assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/main-style.css" rel="stylesheet" />
-
-    <!-- Page-Level CSS -->
-    <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <!-- PARA INPUT FILE -->
+    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/component.css" />
+	
+		<!-- remove this if you use Modernizr -->
+		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
+    <!-- /PARA INPUT FILE -->     
+                <style>.contenedor {position: relative;height: 125px;width: 220px;margin: 50px 20px;float: left;margin: 10px 5px 0 0;}
+                       .contenedor img {position: absolute;left: 0;transition: opacity 0.5s ease-in-out;}
+                       .contenedor img.top:hover {opacity: 0.50;}</style>     
 </head>
 
 <%!
-     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",fotoUsuario="";
+     String nombreUsuario="", primeraLetraApellidoPat="",usernameUsuario="",codigoUsuario="",pertenenciaUsuario="",fotoUsuario="";
    %>
 
 <%
-    HttpSession ses = request.getSession();
-    if (ses.getAttribute("datosUsuario")!=null){
+HttpSession ses = request.getSession();
+if (ses.getAttribute("datosUsuario")!=null){
          String[] datosUsuario = (String[])ses.getAttribute("datosUsuario");
          nombreUsuario = datosUsuario[0];
          primeraLetraApellidoPat = datosUsuario[1];
          usernameUsuario = datosUsuario[2];
          codigoUsuario = datosUsuario[3];
+         pertenenciaUsuario=datosUsuario[9];
          fotoUsuario=datosUsuario[10];
      }
+
+
+if(ses.getAttribute("men")!=null){
+          String msje = ses.getAttribute("men").toString();
+          
+          if (msje.substring(0,1).equalsIgnoreCase("N")){
+          %>
+          <body onload="alertanot('<%=msje%>')">
+                <%
+        }else{
+            %>
+            <body onload="alertaok('<%=msje%>')">
+                <%
+        }
+    }else{
+        %>
+        <body>
+            <%
+      }
+            ses.setAttribute("men",null);
 %>
 
 <body>
@@ -51,7 +79,6 @@
             <!-- navbar-top-links -->
             <ul class="nav navbar-top-links navbar-right">
                 <!-- main dropdown -->
-                
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-3x"></i>
@@ -98,7 +125,7 @@
                     <li>
                        
                     </li>
-                        <li>
+                    <li>
                         <a href="inicio.jsp"><i class="fa fa-dashboard fa-fw"></i>&nbsp;PRINCIPAL</a>
                     </li>
                     <li>
@@ -128,10 +155,10 @@
                         </ul>
                     </li>
                     
-                    <li>
+                    <li class="active">
                         <a href="#"><i class="fa fa-edit fa-fw"></i>CASOS DE MALTRATO<span class="fa arrow"></span></a> 
                         <ul class="nav nav-third-level">
-                         <li>
+                            <li>
                                 <a href="registrarMaltrato.jsp">Denunciar caso nuevo</a>
                             </li>
                             <li>
@@ -143,9 +170,9 @@
                         </ul>
                             </li>     
                             <%
-                            if (Integer.parseInt(codigoUsuario)<4){
+                            if (pertenenciaUsuario.equalsIgnoreCase("ONG")){
                                 %>
-                                <li class="active">
+                                <li>
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i>ADMINISTRADOR<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                         <li>
@@ -160,7 +187,7 @@
                                         <li>
                                             <a href="listaAdminDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
-                                        <li class="selected">
+                                        <li>
                                             <a href="listaAdminDonacion.jsp">Donaciones</a>
                                         </li>
                                         <li>
@@ -168,7 +195,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
+                               <li>
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i>REPORTES<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                         <li>
@@ -183,7 +210,7 @@
                                         <li>
                                             <a href="reporteDenuncia.jsp">Denuncias de casos de maltrato</a>
                                         </li>
-                                        <li>
+                                        <li class="selected">
                                             <a href="reporteDonaciones.jsp">Donaciones</a>
                                         </li>
                                         <li>
@@ -204,79 +231,55 @@
         <!--  page-wrapper -->
         <div id="page-wrapper">
 
-            
             <div class="row">
-                 <!--  page header -->
+                <!-- Page Header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Lista de Adopciones</h1>
+                    <h1 class="page-header">Reporte de Donaciones</h1>
                 </div>
-                 <!-- end  page header -->
+                <!--End Page Header -->
             </div>
-            <div class="row">
+
+              <div class="row">
                 <div class="col-lg-12">
-                    <!-- Advanced Tables -->
+                    <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Registros de Adopciones
+                           Reporte Donaciones 
                         </div>
                         <div class="panel-body">
-                            <div class="table-responsive">
-                                <form name="frmlistaAdminAdoptado" method="POST">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                     <thead>
-                                         <tr class="odd gradeX">
-                                            <th>Codigo</th>
-                                            <th>Usuario</th>
-                                            <th>Casa Refugio</th>
-                                            <th>Estado</th>
-                                        </tr>
-                                     </thead>
-                                     
-                                     <tbody>
-                                         
-                                         <% DAO.DAODONACIONES  obj=new DAO.DAODONACIONES();
-                                            for(DTO.DTODONACIONES x:obj.readAllDonaciones()){%>
-                                            
-                                         <tr class="odd gradeX" onclick="popup('AdminDonacionesActu.jsp?codigo_donacion=<%=x.getCod_donacion()%>&estado=<%=x.getEstado_donacion()%>',760,550)" target="popup">
-                                             <td><%=x.getCod_donacion()%></td>
-                                             <td><%=x.getUsuario()%></td>
-                                             <td><%=x.getNombre()%></td>
-                                             <td><%=x.getEstado_donacion()%></td>
-                                             <%}%> 
-                                         </tr>
-                                     </tbody>
-                                </table>
-                             </form>
-                            </div> 
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form name="frmReporteDonaciones" id="frmReporteDonaciones" method="POST" action="">
+                                        <input type="hidden" name="cod_usu" value="<%=codigoUsuario%>">
+                           <iframe  src="reporteDonacionesPHP.jsp" style="height: 700px; width:1000px"></iframe>      
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!--End Advanced Tables -->
+                     <!-- End Form Elements -->
                 </div>
             </div>
         </div>
+        <!-- end page-wrapper -->
+
     </div>
+    <!-- end wrapper -->
+
     <!-- Core Scripts - Include with every page -->
+    <!-- PARA INPUT FILE -->
+    <script src="assets/js/custom-file-input.js"></script>
+    <!-- /PARA INPUT FILE -->
     <script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="assets/plugins/pace/pace.js"></script>
     <script src="assets/scripts/siminta.js"></script>
-    <!-- Page-Level Plugin Scripts-->
-    <script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#dataTables-example').dataTable();
-        });     
-        
-          function popup(url,ancho,alto){ 
-                var posicion_x; 
-                var posicion_y; 
-                    posicion_x=(screen.width/2)-(ancho/2);     
-                    posicion_y=(screen.height/2.2)-(alto/2); 
-                    window.open(url, "AdminAdoptadosActu.jsp", "width="+ancho+",height="+alto+",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left="+posicion_x+",top="+posicion_y+"");
-}
-    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </body>
 </html>
+
+
+
+

@@ -172,6 +172,29 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i>REPORTES<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="reporteMascota.jsp">Mascotas</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteAdopcion.jsp">Adopciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteCasaRefugio.jsp">Casas refugio</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteDenuncia.jsp">Denuncias de casos de maltrato</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteDonaciones.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteUsuarios.jsp">Usuarios</a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <%
                             }
                                 %>
@@ -214,14 +237,14 @@
                                      
                                      <tbody>
                                          <% String descrip_den;
-                                            DAO.DAODENUNCIA  obj=new DAO.DAODENUNCIA();
+                                            DAO.DAODENUNCIA  obj=new DAO.DAODENUNCIA(); DAO.DAOCOMENTARIO obj2=new DAO.DAOCOMENTARIO();
                                             for(DTO.DTODENUNCIA x:obj.readAll()){
                                             for(DTO.DTODENUNCIA y:obj.readImgAll(x.getCod_den())){
                                             if(x.getDescrip_den().length() <= 147){ 
                                                 descrip_den = x.getDescrip_den();}
                                             else{
                                                 descrip_den = x.getDescrip_den().substring(0,150)+"...";}
-                                            %>     
+                                            for(DTO.DTODETALLECOMENTARIO j:obj2.contarComentario(x.getCod_den())){%>     
                                                 
                                         <tr class="odd gradeX">
                                             
@@ -230,8 +253,17 @@
                                              <td width="500" onClick="CrearEnlace('detalleMaltrato.jsp?cod_den=<%=x.getCod_den()%>')" title="Ver más&hellip;"><br><br><br><%=descrip_den%></td>
                                             
                                              <td title="Ver comentarios&hellip;" onClick="CrearEnlace('comentariosDenuncia.jsp?cod_den=<%=x.getCod_den()%>')"><center><br><br><a href="#">
-                                              <img src="assets/images/commenting_icon-icons.com_70233.png" width="150" alt=""/></a></center></td>
-                                        </tr><%}}%> 
+                                              <img src="assets/images/commenting_icon-icons.com_70233.png" width="150" alt=""/></a></center>
+                                            <%String msj;
+                                                if(j.getCant_coment() == 1){
+                                                        msj=" comentario";
+                                                }else{
+                                                        msj=" comentarios";
+                                                }
+                                            %>
+                                    <label><%=j.getCant_coment()+msj%></label>
+                                                </td>
+                                        </tr><%}}}%> 
                                      </tbody>
                                 </table>
                              </form>

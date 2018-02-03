@@ -171,6 +171,29 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i>REPORTES<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="reporteMascota.jsp">Mascotas</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteAdopcion.jsp">Adopciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteCasaRefugio.jsp">Casas refugio</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteDenuncia.jsp">Denuncias de casos de maltrato</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteDonaciones.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteUsuarios.jsp">Usuarios</a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <%
                             }
                                 %>
@@ -204,21 +227,31 @@
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <%int codDen  = Integer.parseInt(request.getParameter("cod_den"));
-                                  DAO.DAOCOMENTARIO obj=new DAO.DAOCOMENTARIO();%>
+                                  DAO.DAOCOMENTARIO obj=new DAO.DAOCOMENTARIO();
+                                  for(DTO.DTODETALLECOMENTARIO y:obj.contarComentario(codDen)){%>
                                   
-                                <form name="frmlistaDenuncia" method="POST" action="comentario">
+                                  <form name="frmlistaDenuncia" id="frmlistaDenuncia" method="POST" action="comentario">
                                 <table class="table table-striped table-bordered table-hover">
                                    
                                     <td><center>
-                                    <textarea class="form-control" name="comentario" placeholder="Escribir comentario" rows="5" cols="25" maxlength="330" style="width: 500px"></textarea><br>
+                                    <textarea class="form-control" name="comentario" id="comentarioSol" placeholder="Escribir comentario" rows="5" cols="25" maxlength="330" style="width: 500px"></textarea><br>
                                     <button type="submit" class="btn btn-primary">Comentar</button>
                                     <input type="hidden" name="codigo" value="<%=codDen%>">
                                     <input type="hidden" name="cod_user" value="<%=codigoUsuario%>">
                                     </center></td>
                                 </table>
+                                <%String msj;
+                                    if(y.getCant_coment() ==1){
+                                        msj=" comentario";
+                                    }else{
+                                        msj=" comentarios";
+                                    }
+                                    %>
+                                    <label><%=y.getCant_coment()+msj%></label>
+                                  <%}%>
                                 </form>
                                  
-                                <form name="frmlistaDenuncia" method="POST">   
+                                <form name="frmlistaDenuncia2" method="POST">   
                                 <table class="table table-striped table-bordered table-hover">
                                     <tbody>
                                         <tr class="odd gradeX">
@@ -240,6 +273,17 @@
             </div>
         </div>
     </div>
+<script>    
+    function valid(){
+                  coment = document.getElementById("comentarioSol").value;
+                  if(coment == ""){
+                      swal("Ingrese comentario","NO HA INGRESADO NINGUN COMENTARIO.","warning");
+                  }else{
+                     document.frmlistaDenuncia.submit();
+                  }
+               }                          
+    
+    </script>   
     <!-- Core Scripts - Include with every page -->
     <script src="assets/plugins/jquery-1.10.2.js"></script>
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>

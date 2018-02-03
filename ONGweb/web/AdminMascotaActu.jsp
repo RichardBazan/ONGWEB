@@ -65,7 +65,6 @@
                                                         <option value="#" selected disabled>::Seleccionar::</option>
                                                         <option value="En espera">En espera</option>
                                                         <option value="En adopcion">En adopcion</option>
-                                                        <option value="Adoptado">Adoptado</option>
                                                         <option value="Retirado">Retirado</option>
                                                         <option value="Enfermo">Enfermo</option>
                                                         <option value="Muerto">Muerto</option>

@@ -192,6 +192,29 @@ if (ses.getAttribute("datosUsuario")!=null){
                                         </li>
                                     </ul>
                                 </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i>REPORTES<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="reporteMascota.jsp">Mascotas</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteAdopcion.jsp">Adopciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteCasaRefugio.jsp">Casas refugio</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteDenuncia.jsp">Denuncias de casos de maltrato</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteDonaciones.jsp">Donaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="reporteUsuarios.jsp">Usuarios</a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <%
                             }
                                 %>

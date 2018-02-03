@@ -7,6 +7,8 @@ private String comentario;
 
     public DTOCOMENTARIO() {
     }
+    
+    
 
     public DTOCOMENTARIO(int cod_com) {
         this.cod_com = cod_com;
