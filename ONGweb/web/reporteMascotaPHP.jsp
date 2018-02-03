@@ -7,7 +7,7 @@
     </head>
     <body>
         <% 
-        response.sendRedirect("http://localhost:85/ONG/ReporteMascota.php");
+        response.sendRedirect("http://192.168.1.36:85/ONG/ReporteMascota.php");
         %>
     </body>
 </html>
