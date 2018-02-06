@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootsrtap Free Admin Template - SIMINTA | Admin Dashboad Template</title>
+    <title>DOGLOVERS</title>
     <!-- Core CSS - Include with every page -->
     <link href="assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
@@ -24,7 +24,7 @@
 		<!-- remove this if you use Modernizr -->
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script> 
     <!-- /PARA INPUT FILE -->     
-    <style>.thumb {width: 380px; border: 1px solid #000;margin: 10px 5px 0 0;}
+    <style>.thumb {width: 200px; height: 50px; border: 2px solid #000;margin: 10px 5px 0 0;}
     .XD {width: 25%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #fff;background-image: none;border: 1px solid #ccc;-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;}.XD:focus {border-color: #66afe9;outline: 0;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);}.XD::-moz-placeholder {color: #999;opacity: 1;}.XD:-ms-input-placeholder {color: #999;}.XD::-webkit-input-placeholder {color: #999;}    
     </style>
    </head>
@@ -146,10 +146,10 @@
                     </a>
                     <!-- dropdown user-->
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="inicio.jsp"><i class="fa fa-user fa-fw"></i>User Profile</a>
+                        <li><a href="inicio.jsp"><i class="fa fa-user fa-fw"></i>Perfil (Principal)</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="SERLOGOUT"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                        <li><a href="SERLOGOUT"><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión</a>
                         </li>
                     </ul>
                     <!-- end dropdown-user -->
@@ -477,7 +477,7 @@
                                         
                                         <div class="col-lg-12">
                                             <table>
-                                                <tr><td><img src="<%=fotoUsuario%>" width="300" height="300">
+                                                <tr><td><img src="<%=fotoUsuario%>" width="200" height="230" style="border: 2px solid #115C9B">
                                                         <input type="hidden" value="<%=fotoUsuario%>" name="txtFotoUsuario" id="txtFotoUsuario">
                                                         <input type="hidden" value="<%=codigoUsuario%>" name="txtCodigo" id="txtCodigo">
                                                         <input type="hidden" value="<%=pertenenciaUsuario%>" name="txtPertenencia" id="txtPertenencia">
@@ -501,7 +501,7 @@
                                                     
                                         <div class="col-lg-12">
                                         <div class="form-group">
-                                        <label>Nombre(s) :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                                        <label>Nombre(s) :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <input type="text" class="XD" id="txtNombres" name="txtNombres" disabled value="<%=nombreUsuario%>">
                                         &nbsp;
                                         <a onclick="activar('txtNombres')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
@@ -537,7 +537,7 @@
                                         
                                         <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>Dirección :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <label>Dirección :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <input type="text" class="XD" id="txtDireccion" name="txtDireccion" disabled value="<%=direccion%>">
                                             &nbsp;&nbsp;
                                         <a onclick="activar('txtDireccion')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>
@@ -546,7 +546,7 @@
                                         
                                         <div class="col-lg-12">
                                         <div class="form-group">
-                                        <label>Teléfono :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label>Teléfono :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <input type="text" class="XD" id="txtTelefono" name="txtTelefono" disabled value="<%=telefono%>">
                                         &nbsp;&nbsp;
                                         <a onclick="activar('txtTelefono')" style="cursor: pointer"><small><i><u>Editar</u></i></small></a>

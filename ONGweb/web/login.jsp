@@ -4,7 +4,7 @@
 <html class="no-js">
     <head>
         <meta charset="utf-8">
-        <title>Contact | Charity / Non-profit responsive Bootstrap HTML5 template</title>
+        <title>DOGLOVERS</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -137,6 +137,7 @@
 
                     <li><a href="index.html">INICIO</a></li>
                     <li><a href="about.html">NOSOTROS</a></li>
+                    <li><a href="DonacionesPrincipal.jsp">DONACIONES</a></li>
                      <!--
                     <li class="has-child"><a href="#">CAUSAS</a>
                       <ul class="submenu">

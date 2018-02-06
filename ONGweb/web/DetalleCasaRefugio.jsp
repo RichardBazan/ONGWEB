@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootsrtap Free Admin Template - SIMINTA | Admin Dashboad Template</title>
+    <title>DOGLOVERS</title>
     <!-- Core CSS - Include with every page -->
     <link href="assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
@@ -83,11 +83,11 @@
                         <i class="fa fa-user fa-3x"></i>
                     </a>
                     <!-- dropdown user-->
-                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="inicio.jsp"><i class="fa fa-user fa-fw"></i>User Profile</a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="inicio.jsp"><i class="fa fa-user fa-fw"></i>Perfil (Principal)</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="SERLOGOUT"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                        <li><a href="SERLOGOUT"><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión</a>
                         </li>
                     </ul>
                     <!-- end dropdown-user -->
@@ -338,15 +338,21 @@
                                              <p>Registrado : <%=fechaRegistroCasa%></p>
                                         </div>
                                         <div class="form-group col-lg-6">
-                                            
                                             &nbsp;
-                                            <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                            <%
+                    if (!pertenenciaUsuario.equalsIgnoreCase("ONG")){
+                        %>
+                        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                                 <a href="Donaciones.jsp?codigoCR=<%=codigoCRseleccionada%>"><button type="button" class="btn btn-primary">DONAR PRODUCTO(S)</button></a>
                                                 <input type="hidden" name="cmd" value="_s-xclick">
                                                 <input type="hidden" name="hosted_button_id" value="ZVTEN4E6GUYF4">
                                                 <input type="image" src="https://www.sandbox.paypal.com/es_ES/ES/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal, la forma rápida y segura de pagar en Internet.">
                                                 <img alt="" border="0" src="https://www.sandbox.paypal.com/es_ES/i/scr/pixel.gif" width="1" height="1">
                                             </form>
+                        <%
+                    }
+                    %>
+
                                         </div>    
                                         </div>
                                        </div>
